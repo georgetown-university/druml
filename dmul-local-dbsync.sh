@@ -5,7 +5,7 @@ if [[ $# -lt 3 || $1 == "--help" ]]
 then
   echo "This command synchronises a database from remote to local for a specific subsite."
   echo ""
-  echo "Syntax: $0 <config> <subsite> <environment>"
+  echo "Syntax: dmul local-dbsync [--config=dmul.yml] [--list=list | --site=subsite] <environment>"
   exit 1
 fi
 
@@ -16,8 +16,8 @@ SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 source $SCRIPT_DIR/dmul-inc-init.sh
 
 # Read parameters.
-SUBSITE=$2
-ENV=$(get_environment $3)
+SUBSITE=$PARAM_SITE
+ENV=$(get_environment ${ARG[1]})
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 DB_ARGS=$(get_db_args)

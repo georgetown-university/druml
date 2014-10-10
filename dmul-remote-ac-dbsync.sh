@@ -4,7 +4,8 @@ if [ $# -lt 4 ]
 then
   echo "This command syncs a subsite (db and fies) from one environment to another."
   echo ""
-  echo "Syntax: $0 <config> <subsite> <environment from> <environment to>"
+  echo "Syntax: dmul remote-ac-dbsync [--config=dmul.yml] [--list=list | --site=subsite] <environment from> <environment to>"
+
   exit 1
 fi
 
@@ -15,9 +16,10 @@ SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 source $SCRIPT_DIR/dmul-inc-init.sh
 
 # Read parameters.
-SUBSITE=$2
-ENV_FROM=$(get_environment $3)
-ENV_TO=$(get_environment $4)
+SUBSITE=$PARAM_SITE
+ENV_FROM=$(get_environment ${ARG[1]})
+ENV_TO=$(get_environment ${ARG[2]})
+
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
 
