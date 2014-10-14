@@ -31,6 +31,9 @@ do
   shift
 done
 
+# Display help
+# TODO: add some help
+
 # Set config parameter.
 if [[ -z $PARAM_CONFIG ]]
 then

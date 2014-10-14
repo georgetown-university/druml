@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # Check parameters.
-if [[ $# -lt 2 || $1 == "--help" ]]
+if [[ $# -lt 1 || $# -eq 1 && $1 == "--help" ]]
 then
   echo "This command executes an arbitrary dmul command"
   echo ""
   echo "Syntax: $0 <command> [--config=dmul.yml] [--list=list | --site=site] [--delay=delay] <argument 1> ... <argument 2>"
-  exit 10
+  exit 1
 fi
 
 # Save script dir.
@@ -20,7 +20,6 @@ COMMAND=${ARG[1]}
 LIST=$PARAM_LIST
 SITE=$PARAM_SITE
 DELAY=$PARAM_DELAY
-
 
 # Handle local-list command differently.
 if [[ $COMMAND == "local-list" ]]

@@ -26,7 +26,6 @@ DB_ARGS=$(get_db_args)
 DUMPFILE_SQL="$CONF_MISC_TEMPORARY/gudrupal-${ENV}-${SUBSITE}-$(date +%F-%H-%M-%S).sql"
 DUMPFILE_GZ="$DUMPFILE_SQL.gz"
 
-
 # Say hello.
 echo "=== Sync '$SUBSITE' DB from the '$ENV' environment to the localhost"
 
