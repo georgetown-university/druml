@@ -33,7 +33,7 @@ for CMD in ${ARG[@]}
 do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
-    COMMANDS="$COMMANDS ${ARG[$I]};U"
+    COMMANDS="$COMMANDS ${ARG[$I]};"
   fi
   I=$((I+1))
 done
