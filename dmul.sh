@@ -1,22 +1,40 @@
 #!/bin/sh
 
-# Check parameters.
-if [[ $# -lt 1 || $# -eq 1 && $1 == "--help" ]]
-then
-  echo "This command executes an arbitrary dmul command"
-  echo ""
-  echo "Syntax: $0 <command> [--config=dmul.yml] [--list=list | --site=site] [--delay=delay] <argument 1> ... <argument 2>"
-  exit 1
-fi
-
 # Save script dir.
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
 source $SCRIPT_DIR/dmul-inc-init.sh
 
-# Read parameters.
+# Read command
 COMMAND=${ARG[1]}
+
+# Display help.
+if [[ -n $COMMAND && -n $PARAM_HELP ]]
+then
+  echo "$(run_script $COMMAND)"
+  exit 1
+elif [[ ${#ARG[@]} = 0 || -n $PARAM_HELP ]]
+then
+  echo "usage: dmul [--help] [--config=<path>] <command> <arguments>"
+  echo ""
+  echo "Available commands are:"
+  echo "  local-list          Updates a list file that contains subsites"
+  echo "  local-dbsync        Synchronises a subsite DB from a remote env to a local one"
+  echo "  local-sitesync      Synchronises a subsite from a remote env to a local one"
+  echo "  remote-ac-dbsync    Synchronises a subsite DB from one env to another"
+  echo "  remote-ac-sitesync  Syncs a subsite (DB and fies) from one env to another"
+  echo "  remote-bash         Performs arbitrary bash commands for a specific env"
+  echo "  remote-drush        Performs arbitrary drush commands for a specific subsite"
+  echo ""
+  echo "See 'dmul <command> --help' to read about a specific command."
+  exit 1
+fi
+
+# Load config.
+source $SCRIPT_DIR/dmul-inc-config.sh
+
+# Read parameters.
 LIST=$PARAM_LIST
 SITE=$PARAM_SITE
 DELAY=$PARAM_DELAY

@@ -32,7 +32,6 @@ get_parameter_name() {
   fi
 }
 
-
 # Get a parameter value.
 # For string "--parameter=value" returns "value".
 get_parameter_value() {
@@ -58,14 +57,15 @@ set_config_path() {
   CONFIG_PATH=$1
 }
 
+# Get config dir.
 get_config_dir() {
   dirname $CONFIG_PATH
 }
 
+# Get docroot.
 get_docroot() {
   echo $(get_config_dir)/$CONF_LOCAL_DOCROOT
 }
-
 
 # Get and process ENV variable.
 get_environment() {

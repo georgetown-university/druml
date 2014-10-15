@@ -1,18 +1,20 @@
 #!/bin/sh
 
-if [ $# -lt 2 ]
-then
-  echo "This command generates file that lists all subsites."
-  echo ""
-  echo "Syntax: dmul local-list [--config=dmul.yml] --list=list"
-  exit 1
-fi
-
 # Save script dir.
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
 source $SCRIPT_DIR/dmul-inc-init.sh
+
+# Display help.
+if [[ -z $PARAM_LIST || -n $PARAM_HELP ]]
+then
+  echo "usage: dmul local-list [--config=<path>] --list=<list>"
+  exit 1
+fi
+
+# Load config.
+source $SCRIPT_DIR/dmul-inc-config.sh
 
 # Read parameters.
 LISTFILE=$(get_list_file $PARAM_LIST)

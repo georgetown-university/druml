@@ -1,18 +1,22 @@
 #!/bin/sh
 
-if [ $# -lt 4 ]
-then
-  echo "This command syncs a subsite (db and fies) from one environment to another."
-  echo ""
-  echo "Syntax: dmul remote-ac-sitesync [--config=dmul.yml] [--list=list | --site=subsite] <environment from> <environment to>"
-  exit 1
-fi
-
 # Save script dir.
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
 source $SCRIPT_DIR/dmul-inc-init.sh
+
+# Display help.
+if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
+then
+  echo "usage: dmul remote-ac-sitesync [--config=<path>] [--delay=<seconds>]"
+  echo "                               [--site=<subsite> | --list=<list>]"
+  echo "                               <environment from> <environment to>"
+  exit 1
+fi
+
+# Load config.
+source $SCRIPT_DIR/dmul-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE
