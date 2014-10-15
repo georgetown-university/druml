@@ -1,21 +1,24 @@
 #!/bin/sh
 
-if [ $# -lt 3 ]
+# Save script dir.
+SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
+
+# Load includes.
+source $SCRIPT_DIR/dmul-inc-init.sh
+
+# Display help.
+if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
-  echo "This command performs arbitrary bash commands for a specific environment."
+  echo "usage: dmul remote-bash [--config=<path>] <environment> <commands>"
   echo ""
-  echo "Syntax: dmul remote-bash [--config=dmul.yml] [--list=list | --site=subsite] <environment> <command 1> ... <command n>"
   echo "You can use following variables in a command:"
   echo " @DOCROOT - subsite docroot"
   echo " @LOG     - logs dir"
   exit 1
 fi
 
-# Save script dir.
-SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
-
-# Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+# Load config.
+source $SCRIPT_DIR/dmul-inc-config.sh
 
 # Read parameters.
 ENV=$(get_environment ${ARG[1]})
