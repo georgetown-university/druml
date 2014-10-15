@@ -2,7 +2,7 @@
 
 if [ $# -lt 3 ]
 then
-  echo "This command performs arbitrary drush commands for a specific subsite."
+  echo "This command performs arbitrary bash commands for a specific environment."
   echo ""
   echo "Syntax: dmul remote-bash [--config=dmul.yml] [--list=list | --site=subsite] <environment> <command 1> ... <command n>"
   echo "You can use following variables in a command:"
@@ -33,7 +33,7 @@ for CMD in ${ARG[@]}
 do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
-    COMMANDS="$COMMANDS ${ARG[$I]};"
+    COMMANDS="$COMMANDS ${ARG[$I]};U"
   fi
   I=$((I+1))
 done
