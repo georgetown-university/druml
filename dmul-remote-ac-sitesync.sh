@@ -40,7 +40,7 @@ echo "=== Deploy files"
 # Copy files.
 mkdir $FILES_DIR
 scp -rp $SSH_ARGS_FROM:$DOCROOT_FROM/sites/$SUBSITE/files/ $FILES_DIR
-ssh -tn $SSH_ARGS_TO "mkdir ${DRUSH_ALIAS_TO}/sites/$SUBSITE/"
+ssh -tn $SSH_ARGS_TO "mkdir ${DOCROOT_TO}/sites/$SUBSITE/"
 scp -rp $FILES_DIR/files $SSH_ARGS_TO:$DOCROOT_TO/sites/$SUBSITE
 rm -rf $FILES_DIR
 echo "Files are deployed."
