@@ -16,26 +16,31 @@ then
 fi
 
 # Load config.
-echo $(load_config)
+source $SCRIPT_DIR/dmul-inc-config.sh
 
 # Read parameters.
-SUBSITE=$2
-ENV=$(get_environment $3)
+SUBSITE=$PARAM_SITE
+ENV=$(get_environment ${ARG[1]})
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 shift && shift && shift
 
-# Read variables and form commands to execute.
+# Read commands to execute.
 echo "=== Execute drush commands for '$SUBSITE' subsite on the '$ENV' environment"
 echo "Commands to be executed:"
 
 COMMANDS=""
-while test ${#} -gt 0
+I=1
+for CMD in ${ARG[@]}
 do
-  echo $1
-  COMMANDS="$COMMANDS drush $DRUSH_ALIAS -l $SUBSITE $1;"
-  shift
+  if [[ $I -gt 1 && -n ${ARG[$I]} ]]
+  then
+    COMMANDS="$COMMANDS drush $DRUSH_ALIAS -l $SUBSITE ${ARG[$I]};"
+    echo ${ARG[$I]}
+  fi
+  I=$((I+1))
 done
+
 echo ""
 
 # Execute drush commands
