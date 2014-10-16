@@ -1,0 +1,58 @@
+local:
+  url: http://@SITE/example/docroot
+  docroot: ../docroot
+  db:
+    user: root
+    pass: pass
+    # you can bypass auth, see http://dragly.org/2012/03/19/passwordless-access-to-mysql-by-using-sudo/
+  sync:
+    enable: devel, search_krumo
+    disable: securepages
+
+misc:
+  temporary: /tmp
+  hosts: /etc/hosts
+
+environment:
+  alias:
+    stg: test
+
+drush:
+  alias:
+    prod: @example.prod
+    test: @example.test
+    dev: @example.dev
+
+list:
+  subsites: subsites.txt
+
+server:
+  count:
+    prod: 2
+    stage: 1
+    dev: 1
+
+  data:
+    prod_0:
+      user: example
+      host: prod-0.example.com
+      docroot: /var/www/html/example.prod/docroot
+      log: /var/log/sites/example/logs/prod-0
+
+    prod_1:
+      user: example
+      host: prod-1.example.com
+      docroot: /var/www/html/example.prod/docroot
+      log: /var/log/sites/example/logs/prod-1
+
+    test_0:
+      user: example
+      host: staging-0.example.com
+      docroot: /var/www/html/example.test/docroot
+      log: /var/log/sites/example.test/logs/staging-0
+
+    dev_0:
+      user: example
+      host: staging-0.example.com
+      docroot: /var/www/html/example.dev/docroot
+      log: /var/log/sites/example.dev/logs/staging-0
