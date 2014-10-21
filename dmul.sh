@@ -26,6 +26,7 @@ then
   echo "  remote-ac-sitesync  Syncs a subsite (DB and fies) from one env to another"
   echo "  remote-bash         Performs arbitrary bash commands for a specific env"
   echo "  remote-drush        Performs arbitrary drush commands for a specific subsite"
+  echo "  remote-php          Performs php code for a specific subsite"
   echo ""
   echo "See 'dmul <command> --help' to read about a specific command."
   exit 1
