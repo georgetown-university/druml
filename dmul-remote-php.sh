@@ -4,12 +4,12 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+source $SCRIPT_DIR/druml-inc-init.sh
 
 # Display help.
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -z $PARAM_SOURCE || -n $PARAM_HELP ]]
 then
-  echo "usage: dmul remote-php [--config=<path>] [--delay=<seconds>]"
+  echo "usage: druml remote-php [--config=<path>] [--delay=<seconds>]"
   echo "                       [--site=<subsite> | --list=<list>]"
   echo "                       --source=<path> [--output=<path>]"
   echo "                       <environment>"
@@ -17,7 +17,7 @@ then
 fi
 
 # Load config.
-source $SCRIPT_DIR/dmul-inc-config.sh
+source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE

@@ -4,7 +4,7 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+source $SCRIPT_DIR/druml-inc-init.sh
 
 # Read command
 COMMAND=${ARG[1]}
@@ -16,7 +16,7 @@ then
   exit 1
 elif [[ ${#ARG[@]} = 0 || -n $PARAM_HELP ]]
 then
-  echo "usage: dmul [--help] [--config=<path>] <command> <arguments>"
+  echo "usage: druml [--help] [--config=<path>] <command> <arguments>"
   echo ""
   echo "Available commands are:"
   echo "  local-list          Updates a list file that contains subsites"
@@ -28,12 +28,12 @@ then
   echo "  remote-drush        Performs arbitrary drush commands for a specific subsite"
   echo "  remote-php          Performs php code for a specific subsite"
   echo ""
-  echo "See 'dmul <command> --help' to read about a specific command."
+  echo "See 'druml <command> --help' to read about a specific command."
   exit 1
 fi
 
 # Load config.
-source $SCRIPT_DIR/dmul-inc-config.sh
+source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 LIST=$PARAM_LIST

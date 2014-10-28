@@ -4,12 +4,12 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+source $SCRIPT_DIR/druml-inc-init.sh
 
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
-  echo "usage: dmul remote-bash [--config=<path>] <environment> <commands>"
+  echo "usage: druml remote-bash [--config=<path>] <environment> <commands>"
   echo ""
   echo "You can use following variables in a command:"
   echo " @DOCROOT - subsite docroot"
@@ -18,7 +18,7 @@ then
 fi
 
 # Load config.
-source $SCRIPT_DIR/dmul-inc-config.sh
+source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 ENV=$(get_environment ${ARG[1]})

@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-yaml.sh
-source $SCRIPT_DIR/dmul-inc-utils.sh
+source $SCRIPT_DIR/druml-inc-yaml.sh
+source $SCRIPT_DIR/druml-inc-utils.sh
 
 # Parse script parameters and arguments.
 I=1
@@ -24,7 +24,7 @@ do
     eval $_PARAM_NAME=$_P_VALUE
   else
     ARG[$I]=$1;
-    if [[ $I>1 || `basename $0` != "dmul.sh" ]]
+    if [[ $I>1 || `basename $0` != "druml.sh" ]]
     then
       PROXY_ARGS="$PROXY_ARGS \"$1\""
     fi

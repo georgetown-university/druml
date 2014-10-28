@@ -4,17 +4,17 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+source $SCRIPT_DIR/druml-inc-init.sh
 
 # Display help.
 if [[ -z $PARAM_LIST || -n $PARAM_HELP ]]
 then
-  echo "usage: dmul local-list [--config=<path>] --list=<list>"
+  echo "usage: druml local-list [--config=<path>] --list=<list>"
   exit 1
 fi
 
 # Load config.
-source $SCRIPT_DIR/dmul-inc-config.sh
+source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 LISTFILE=$(get_list_file $PARAM_LIST)

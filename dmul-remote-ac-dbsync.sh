@@ -4,19 +4,19 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+source $SCRIPT_DIR/druml-inc-init.sh
 
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: dmul local-sitesync [--config=<path>] [--delay=<seconds>]"
+  echo "usage: druml local-sitesync [--config=<path>] [--delay=<seconds>]"
   echo "                           [--site=<subsite> | --list=<list>]"
   echo "                           <environment from> <environment to>"
   exit 1
 fi
 
 # Load config.
-source $SCRIPT_DIR/dmul-inc-config.sh
+source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE
