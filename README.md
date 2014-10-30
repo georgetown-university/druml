@@ -13,23 +13,25 @@ FEATURES
   With *Druml* you will be able to perform following commands:
 
 * `local-sitesync` - synchronise a DB and files from a remote env to a local one. Forget about editing hosts file, creating settings files and files directories, resaving theme settings, or even logging in to a website. With this command you can also sync multiple sites at once.
-```
-druml local-sitesync --site=mysite prod
-```
+  ```
+  druml local-sitesync --site=mysite prod
+  ```
 
 * `remote-sitesync` - synchronise a DB and files from one environment to another for a specific site or list of sites.
-```
-druml remote-sitesync --list=newsites stg prod
-```
+  ```
+  druml remote-sitesync --list=newsites stg prod
+  ```
 
 * `remote-drush` - run arbitrary drush commands for a specific subsite or list of sites running on a specific environment.
-```
-druml remote-drush --list=default prod "rr" "updb -y" "fra -y" "cc all"
-```
+  ```
+  druml remote-drush --list=default prod "rr" "updb -y" "fra -y" "cc all"
+  ```
+
 * `remote-php` - run php script for a specific subsite without need to escape code.
-```
-druml remote-php --list=default --source=php/node-count.php --output=res/node-count.csv prod
-```
+  ```
+  druml remote-php --list=default --source=php/node-count.php --output=res/node-count.csv prod
+  ```
+
 * `remote-bash` - perform arbitrary bash commands on multiple servers.
 
 And much more is coming soon!
