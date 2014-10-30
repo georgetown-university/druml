@@ -41,6 +41,8 @@ With *Druml* you will be able to perform following commands:
   druml remote-php --list=default --source=php/node-count.php --output=res/node-count.csv prod
   ```
 
+* `remote-bash` - perform arbitrary bash commands on multiple servers.
+
 Check `druml --help` or `druml <command> --help` for more info.
 
 
