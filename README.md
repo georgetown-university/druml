@@ -9,58 +9,46 @@ Interesting things about *Druml* is that it does not require you to have *Drush*
 
 INSTALLATION
 =====
-To install *Druml* perform following commands in the terminal.
-```
-echo 'alias druml="~/druml/druml.sh"' >> ~/.bash_profile
-source ~/.bash_profile
-```
+1. Download recent Druml release.
+2. Extract to `~/druml` directory.
+3. Perform following commands in the terminal.
+  ```
+  echo 'alias druml="~/druml/druml.sh"' >> ~/.bash_profile
+  source ~/.bash_profile
+  ```
 
-FEATURES
+USAGE
 =====
-
 With *Druml* you will be able to perform following commands:
 
-<<<<<<< HEAD
-* `local-sitesync` - synchronise a DB and files from a remote env to a local one. Forget about editing hosts file, creating settings files and files directories, resaving theme settings, or even logging in to a website. With this command you can also sync multiple sites at once.
+* `local-sitesync` - synchronise a DB and files from a remote env to a local one. Forget about editing hosts file, creating settings files and directories, resaving theme settings, or even logging in to a website, because everething is automated. With this command you can also sync multiple sites at once.
   ```
   druml local-sitesync --site=mysite prod
   ```
-=======
-* `local-sitesync` - synchronise a DB and files from a remote env to a local one. Forget about editing hosts file, creating settings files and directories, resaving theme settings, or even logging in to a website, because everething is automated. With this command you can also sync multiple sites at once.
-```
-druml local-sitesync --site=mysite prod
-```
->>>>>>> Update readme file
-
-* `remote-sitesync` - synchronise a DB and files from one environment to another for a specific site or list of sites.
+* `remote-ac-sitesync` - synchronise a DB and files from one environment to another for a specific site or list of sites.
   ```
-  druml remote-sitesync --list=newsites stg prod
+  druml remote-ac-sitesync --list=newsites stg prod
   ```
-
-<<<<<<< HEAD
-* `remote-drush` - run arbitrary drush commands for a specific subsite or list of sites running on a specific environment.
+* `remote-drush` -  run arbitrary drush commands for a specific site or list of sites running on a specific environment.
   ```
   druml remote-drush --list=default prod "rr" "updb -y" "fra -y" "cc all"
   ```
 
-* `remote-php` - run php script for a specific subsite without need to escape code.
+* `remote-php` - run php script for a specific subsite without need to escape PHP code.
   ```
   druml remote-php --list=default --source=php/node-count.php --output=res/node-count.csv prod
   ```
 
-=======
-* `remote-drush` - run arbitrary drush commands for a specific site or list of sites running on a specific environment.
-```
-druml remote-drush --list=default prod "rr" "updb -y" "fra -y" "cc all"
-```
-* `remote-php` - run php script for a specific subsite without need to escape PHP code.
-```
-druml remote-php --list=default --source=php/node-count.php --output=res/node-count.csv prod
-```
->>>>>>> Update readme file
-* `remote-bash` - perform arbitrary bash commands on multiple servers.
+Check `druml --help` or `druml <command> --help` for more info.
 
-And much more is coming soon!
+
+CONFIGURATION
+=====
+By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. You can also specify pass to the configuration file manually.
+```
+druml --config=~/supersite.yml
+```
+Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml).
 
 
 COMPARISON TO OTHER TOOLS
