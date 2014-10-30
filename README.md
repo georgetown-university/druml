@@ -83,3 +83,7 @@ By default *Druml* loads configuration which is sotred in the `druml.yml` localt
 ```
 druml --config=~/supersite.yml <command> <arguments>
 ```
+
+DEVELOPMENT
+=====
+This project is in active development, if you have any ideas or want to submit a bug, plese, check [issues](https://github.com/georgetown-university/druml/issues).
