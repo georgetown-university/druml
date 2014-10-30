@@ -9,7 +9,7 @@ Interesting thing about *Druml* is that it does not require you to have *Drush* 
 
 
 ALTERNATIVES
-=====
+-----
 
 There are several alternatives to *Druml*. In this section I will describe what can stop you from using them.
 
