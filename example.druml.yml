@@ -43,7 +43,7 @@ drush:
 
 # Lists of sites. Each site name should go in the new line in the lists file.
 list:
-  default: default-sites.txt
+  all: default-sites.txt
   new: new-sites.txt
 
 
