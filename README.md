@@ -25,10 +25,12 @@ With *Druml* you will be able to perform following commands:
   ```
   druml local-sitesync --site=mysite prod
   ```
+
 * `remote-ac-sitesync` - synchronise a DB and files from one environment to another for a specific site or list of sites.
   ```
   druml remote-ac-sitesync --list=newsites stg prod
   ```
+
 * `remote-drush` -  run arbitrary drush commands for a specific site or list of sites running on a specific environment.
   ```
   druml remote-drush --list=default prod "rr" "updb -y" "fra -y" "cc all"
