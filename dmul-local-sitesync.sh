@@ -68,7 +68,7 @@ echo ""
 # TODO: sync files
 
 # Sync db.
-echo "$(run_script "local-dbsync" $SUBSITE $ENV)"
+echo "$(run_script "local-dbsync" --site=$SUBSITE $ENV)"
 
 echo "=== Prepare website for local development"
 # Enable dev modules.
