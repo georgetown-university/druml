@@ -1,37 +1,62 @@
+# Local settings.
 local:
-  url: http://@SITE/example/docroot
+  # Docroot path relative to the configuration file.
   docroot: ../docroot
+
+  # MySQL credentials. If you do not want to store credentials here, see
+  # http://dragly.org/2012/03/19/passwordless-access-to-mysql-by-using-sudo/
   db:
     user: root
     pass: pass
-    # you can bypass auth, see http://dragly.org/2012/03/19/passwordless-access-to-mysql-by-using-sudo/
+
+  # Enable and disable modules when syncing a site to the local machine.
   sync:
     enable: devel, search_krumo
-    disable: securepages
+    disable: site_prod_settings
 
+
+# Misclanious settings.
 misc:
+  # Temporary dir.
   temporary: /tmp
+
+  # Hosts file.
   hosts: /etc/hosts
 
+
+# Environmental settings.
 environment:
+  # Specify aliases for environments.
   alias:
+    # Stg is an alias to test.
     stg: test
 
+
+# Drush settings.
 drush:
+  # Specify drush aliase for each environment.
   alias:
     prod: @example.prod
     test: @example.test
     dev: @example.dev
 
-list:
-  subsites: subsites.txt
 
+# Lists of sites. Each site name should go in the new line in the lists file.
+list:
+  all: default-sites.txt
+  new: new-sites.txt
+
+
+# Server settings.
 server:
+
+  # Specify number of settings for each envrionment.
   count:
     prod: 2
     stage: 1
     dev: 1
 
+  # Server settings for each server.
   data:
     prod_0:
       user: example

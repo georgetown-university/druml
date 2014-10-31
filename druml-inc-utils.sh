@@ -13,7 +13,7 @@ run_script(){
   done;
 
   # Run.
-  eval "$SCRIPT_DIR/dmul-${_SCRIPT}.sh --config=$(get_config_path) ${_ARGS[@]}"
+  eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) ${_ARGS[@]}"
 }
 
 # Get a parameter name.

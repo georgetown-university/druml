@@ -4,19 +4,19 @@
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
 
 # Load includes.
-source $SCRIPT_DIR/dmul-inc-init.sh
+source $SCRIPT_DIR/druml-inc-init.sh
 
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: dmul remote-ac-sitesync [--config=<path>] [--delay=<seconds>]"
+  echo "usage: druml remote-ac-sitesync [--config=<path>] [--delay=<seconds>]"
   echo "                               [--site=<subsite> | --list=<list>]"
   echo "                               <environment from> <environment to>"
   exit 1
 fi
 
 # Load config.
-source $SCRIPT_DIR/dmul-inc-config.sh
+source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE
@@ -28,7 +28,7 @@ DOCROOT_FROM=$(get_remote_docroot $ENV_FROM)
 DOCROOT_TO=$(get_remote_docroot $ENV_TO)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
-FILES_DIR="$CONF_MISC_TEMPORARY/dmul-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H-%M-%S)"
+FILES_DIR="$CONF_MISC_TEMPORARY/druml-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H-%M-%S)"
 
 # Say Hello.
 echo "=== Sync '$SUBSITE' subsite from the $ENV_FROM to $ENV_TO ==="

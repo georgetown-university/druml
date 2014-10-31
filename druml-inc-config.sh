@@ -3,7 +3,7 @@
 # Set config parameter.
 if [[ -z $PARAM_CONFIG ]]
 then
-  CONFIG="dmul.yml"
+  CONFIG="druml.yml"
 else
   CONFIG=$PARAM_CONFIG
 fi
