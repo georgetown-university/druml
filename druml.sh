@@ -9,6 +9,17 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Read command
 COMMAND=${ARG[1]}
 
+# Check if command exists
+if [[ -n $COMMAND ]]
+then
+  EXISTS=$(script_exists $COMMAND)
+  if [[ -z $EXISTS ]]
+  then
+    echo "Command '$COMMAND' does not exist!"
+    exit
+  fi
+fi
+
 # Display help.
 if [[ -n $COMMAND && -n $PARAM_HELP ]]
 then

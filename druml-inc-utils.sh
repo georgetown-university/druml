@@ -16,6 +16,18 @@ run_script(){
   eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) ${_ARGS[@]}"
 }
 
+# Check if script exists.
+script_exists() {
+  _SCRIPT=${1}
+
+  if [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
+  then
+    echo 1
+  else
+    echo ""
+  fi
+}
+
 # Get a parameter name.
 # For string "--parameter=value" returns "parameter".
 get_parameter_name() {
