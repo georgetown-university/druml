@@ -26,8 +26,8 @@ DRUSH_ALIAS=$(get_drush_alias $ENV)
 shift && shift && shift
 
 # Read commands to execute.
-echo "=== Execute drush commands for '$SUBSITE' subsite on the '$ENV' environment"
-echo "Commands to be executed:"
+echo "=== Execute drush commands for '$SUBSITE' subsite on the '$ENV' environment" >&3
+echo "Commands to be executed:" >&3
 
 COMMANDS=""
 I=1
@@ -36,16 +36,16 @@ do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
     COMMANDS="$COMMANDS drush $DRUSH_ALIAS -l $SUBSITE ${ARG[$I]};"
-    echo ${ARG[$I]}
+    echo ${ARG[$I]} >&3
   fi
   I=$((I+1))
 done
 
-echo ""
+echo "" >&3
 
 # Execute drush commands
 ssh -tn $SSH_ARGS "$COMMANDS"
 
-echo ""
-echo "Complete!"
-echo ""
+echo "" >&3
+echo "Complete!" >&3
+echo "" >&3

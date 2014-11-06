@@ -26,8 +26,8 @@ SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 
 # Read variables and form commands to execute.
-echo "=== Execute bash commands on the $ENV environment"
-echo "Commands to be executed:"
+echo "=== Execute bash commands on the $ENV environment" >&3
+echo "Commands to be executed:" >&3
 
 # Read commands.
 COMMANDS=""
@@ -46,12 +46,12 @@ COMMANDS=${COMMANDS/@DOCROOT/$(get_remote_docroot $ENV)}
 COMMANDS=${COMMANDS/@LOG/$(get_remote_log $ENV)}
 
 # Output commands.
-echo $COMMANDS
-echo ""
+echo $COMMANDS >&3
+echo "" >&3
 
 # Execute bash commands
-ssh -tn $SSH_ARGS "$COMMANDS"
+ssh -tn $SSH_ARGS "$COMMANDS" >&3
 
-echo ""
-echo "Complete!"
-echo ""
+echo "" >&3
+echo "Complete!" >&3
+echo "" >&3

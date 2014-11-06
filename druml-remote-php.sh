@@ -31,20 +31,20 @@ then
 fi
 
 # Read commands to execute.
-echo "=== Execute php commands for '$SUBSITE' subsite on the '$ENV' environment"
-echo "Commands to be executed:"
+echo "=== Execute php commands for '$SUBSITE' subsite on the '$ENV' environment" >&3
+echo "Commands to be executed:" >&3
 
 while read -r LINE
 do
   CODE+=$LINE
-  echo $LINE
+  echo $LINE >&3
 done < $SOURCE
-echo ""
+echo "" >&3
 
 # Execute php code.
-echo "Results:"
+echo "Result:" >&3
 RES=$(ssh $SSH_ARGS "drush $DRUSH_ALIAS -l $SUBSITE php-eval '$CODE'")
-echo $RES
+echo $RES >&3
 
 # Output results to the file.
 if [[ -n $OUTPUT ]]
@@ -52,6 +52,6 @@ then
   echo $RES >> $OUTPUT
 fi
 
-echo ""
-echo "Complete!"
-echo ""
+echo "" >&3
+echo "Complete!" >&3
+echo "" >&3

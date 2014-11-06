@@ -4,6 +4,9 @@
 source $SCRIPT_DIR/druml-inc-yaml.sh
 source $SCRIPT_DIR/druml-inc-utils.sh
 
+# Use descriptor 3 as an alias to tty
+exec 3> /dev/tty
+
 # Parse script parameters and arguments.
 I=1
 while test ${#} -gt 0
