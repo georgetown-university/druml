@@ -27,14 +27,14 @@ DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
 
 # Say Hello.
-echo "=== Sync '$SUBSITE' DB from the $ENV_FROM to $ENV_TO ==="
-echo ""
+echo "=== Sync '$SUBSITE' DB from the $ENV_FROM to $ENV_TO ===" >&3
+echo "" >&3
 
 # Deploy databases.
-echo "=== Deploy databases"
+echo "=== Sync databases" >&3
 drush $DRUSH_ALIAS_FROM -l $SUBSITE ac-database-copy $SUBSITE $ENV_TO
-echo "Database deplpyment is scheduled."
+echo "Database sync is scheduled." >&3
 echo ""
 
-echo "Complete!"
-echo ""
+echo "Complete!" >&3
+echo "" >&3

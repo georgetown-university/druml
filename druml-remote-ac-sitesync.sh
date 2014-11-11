@@ -31,11 +31,11 @@ DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
 FILES_DIR="$CONF_MISC_TEMPORARY/druml-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H-%M-%S)"
 
 # Say Hello.
-echo "=== Sync '$SUBSITE' subsite from the $ENV_FROM to $ENV_TO ==="
-echo ""
+echo "=== Sync '$SUBSITE' subsite from the $ENV_FROM to $ENV_TO ===" >&3
+echo "" >&3
 
 # Deploy files.
-echo "=== Deploy files"
+echo "=== Sync files" >&3
 
 # Copy files.
 mkdir $FILES_DIR
@@ -43,14 +43,14 @@ scp -rp $SSH_ARGS_FROM:$DOCROOT_FROM/sites/$SUBSITE/files/ $FILES_DIR
 ssh -tn $SSH_ARGS_TO "mkdir ${DOCROOT_TO}/sites/$SUBSITE/"
 scp -rp $FILES_DIR/files $SSH_ARGS_TO:$DOCROOT_TO/sites/$SUBSITE
 rm -rf $FILES_DIR
-echo "Files are deployed."
-echo ""
+echo "Files are synced." >&3
+echo "" >&3
 
 # Deploy databases.
-echo "=== Deploy databases"
+echo "=== Sync databases" >&3
 drush $DRUSH_ALIAS_FROM -l $SUBSITE ac-database-copy $SUBSITE $ENV_TO
-echo "Database deplpyment is scheduled."
-echo ""
+echo "Database sync is scheduled." >&3
+echo "" >&3
 
-echo "Complete!"
-echo ""
+echo "Complete!" >&3
+echo "" >&3
