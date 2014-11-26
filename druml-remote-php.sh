@@ -41,9 +41,12 @@ do
 done < $SOURCE
 echo "" >&3
 
+CODE=${CODE//\'/\'\\\'\'}
+
 # Execute php code.
 echo "Result:" >&3
-RES=$(ssh $SSH_ARGS "drush $DRUSH_ALIAS -l $SUBSITE php-eval '$CODE'")
+COMMAND="drush $DRUSH_ALIAS -l $SUBSITE php-eval '$CODE'"
+RES=$(ssh $SSH_ARGS "$COMMAND")
 echo $RES >&3
 
 # Output results to the file.
