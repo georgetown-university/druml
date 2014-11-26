@@ -36,11 +36,17 @@ echo "Commands to be executed:" >&3
 
 while read -r LINE
 do
-  CODE+=$LINE
   echo $LINE >&3
+
+  # Strip comments
+  LINE=$(echo "$LINE" | sed 's/\#.*//g')
+  LINE=$(echo "$LINE" | sed 's/\/\/.*//g')
+
+  CODE+=$LINE
 done < $SOURCE
 echo "" >&3
 
+# Escape qoutes
 CODE=${CODE//\'/\'\\\'\'}
 
 # Execute php code.
