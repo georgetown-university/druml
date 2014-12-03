@@ -42,6 +42,7 @@ do
   LINE=$(echo "$LINE" | sed 's/\#.*//g')
   LINE=$(echo "$LINE" | sed 's/\/\/.*//g')
 
+  CODE+=" "
   CODE+=$LINE
 done < $SOURCE
 echo "" >&3
