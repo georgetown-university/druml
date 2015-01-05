@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Set config parameter.
 if [[ -z $PARAM_CONFIG ]]
