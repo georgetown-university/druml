@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Load includes.
 source $SCRIPT_DIR/druml-inc-yaml.sh

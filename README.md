@@ -22,6 +22,7 @@ INSTALLATION
 1. Download [recent](https://github.com/georgetown-university/druml/archive/master.zip) *Druml* release.
 2. Extract to `~/druml` directory.
 3. Perform following commands in the terminal to create an alias.
+
   ```
   echo 'alias druml="~/druml/druml.sh"' >> ~/.bash_profile
   source ~/.bash_profile

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Save script dir.
 SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)

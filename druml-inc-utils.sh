@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Run script.
 run_script(){
