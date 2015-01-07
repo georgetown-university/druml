@@ -21,6 +21,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 # Read parameters.
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
+DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Set variables.
 SUBSITE_FILES="$(get_docroot)/sites/$SUBSITE/files"
@@ -74,20 +75,20 @@ echo "=== Prepare website for local development"
 # Enable dev modules.
 if [ -n $CONF_LOCAL_SYNC_ENABLE ]
 then
-  drush -r $(get_docroot) -l $SUBSITE en $CONF_LOCAL_SYNC_ENABLE -y
+  drush -r $(get_docroot) $DRUSH_SUBSITE_ARGS en $CONF_LOCAL_SYNC_ENABLE -y
 fi
 
 # Disable prod modules.
 if [ -n $CONF_LOCAL_SYNC_DISABLE ]
 then
-  drush -r $(get_docroot) -l $SUBSITE dis $CONF_LOCAL_SYNC_DISABLE -y
+  drush -r $(get_docroot) $DRUSH_SUBSITE_ARGS dis $CONF_LOCAL_SYNC_DISABLE -y
 fi
 
 # Clear cache.
-drush -r $(get_docroot) -l $SUBSITE cc all
+drush -r $(get_docroot) $DRUSH_SUBSITE_ARGS cc all
 
 # Resave theme settings.
-drush -r $(get_docroot) -l $SUBSITE php-eval "#
+drush -r $(get_docroot) $DRUSH_SUBSITE_ARGS php-eval "#
     module_load_include('inc', 'system', 'system.admin');
     foreach (array('at_georgetown') as \$theme_name) {
       \$form_state = form_state_defaults();
@@ -98,7 +99,7 @@ drush -r $(get_docroot) -l $SUBSITE php-eval "#
 "
 
 # Get login URL.
-drush -r $(get_docroot) -l $SUBSITE uli
+drush -r $(get_docroot) $DRUSH_SUBSITE_ARGS uli
 sudo chmod -R a+rwx $SUBSITE_FILES
 echo "Complete!"
 echo ""

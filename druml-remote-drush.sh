@@ -23,6 +23,7 @@ SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
+DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 shift && shift && shift
 
 # Read commands to execute.
@@ -35,7 +36,7 @@ for CMD in ${ARG[@]}
 do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
-    COMMANDS="$COMMANDS drush $DRUSH_ALIAS -l $SUBSITE ${ARG[$I]};"
+    COMMANDS="$COMMANDS drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]};"
     echo ${ARG[$I]} >&3
   fi
   I=$((I+1))

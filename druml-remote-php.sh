@@ -29,6 +29,7 @@ if [[ -n $PARAM_OUTPUT ]]
 then
   OUTPUT=$(get_config_dir)/$PARAM_OUTPUT
 fi
+DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Read commands to execute.
 echo "=== Execute php commands for '$SUBSITE' subsite on the '$ENV' environment" >&3
@@ -52,7 +53,7 @@ CODE=${CODE//\'/\'\\\'\'}
 
 # Execute php code.
 echo "Result:" >&3
-COMMAND="drush $DRUSH_ALIAS -l $SUBSITE php-eval '$CODE'"
+COMMAND="drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS php-eval '$CODE'"
 RES=$(ssh $SSH_ARGS "$COMMAND")
 echo $RES >&3
 

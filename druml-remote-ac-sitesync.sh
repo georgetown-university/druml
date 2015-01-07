@@ -28,6 +28,7 @@ DOCROOT_FROM=$(get_remote_docroot $ENV_FROM)
 DOCROOT_TO=$(get_remote_docroot $ENV_TO)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
+DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 FILES_DIR="$CONF_MISC_TEMPORARY/druml-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H-%M-%S)"
 SSH_ARGS=$(get_ssh_args $ENV_FROM)
 
@@ -49,7 +50,7 @@ echo "" >&3
 
 # Deploy databases.
 echo "=== Sync databases" >&3
-ssh -tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM -l $SUBSITE ac-database-copy $SUBSITE $ENV_TO"
+ssh -tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO"
 
 echo "Database sync is scheduled." >&3
 echo "" >&3

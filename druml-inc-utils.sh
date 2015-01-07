@@ -152,13 +152,33 @@ get_db_args() {
   echo $ARGS
 }
 
-# Get drush alias
+# Get drush alias.
 get_drush_alias() {
   _V_DRUSH_ALIAS="CONF_DRUSH_ALIAS_${1}"
   echo "${!_V_DRUSH_ALIAS}"
 }
 
-# Strip first line in the file if it starts with 'tput'
+# Get drush subsite.
+get_drush_subsite_args() {
+  if [ "$1" == "default" ]
+  then
+    echo ""
+  else
+    echo "-l $1"
+  fi
+}
+
+# Get drush subsite.
+get_local_db_name() {
+  if [ "$1" == "default" ]
+  then
+    echo "${CONF_LOCAL_DB_PREFIX}${CONF_LOCAL_DB_DEFAULT}"
+  else
+    echo "${CONF_LOCAL_DB_PREFIX}$1"
+  fi
+}
+
+# Strip first line in the file if it starts with 'tput'.
 fix_file_tput() {
   FIRSTLINE=$(head -c 4 $1)
   if [ "$FIRSTLINE" == "tput" ]
