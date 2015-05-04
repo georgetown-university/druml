@@ -31,29 +31,6 @@ echo "=== Sync '$SUBSITE' subsite from the '$ENV' environment to the localhost"
 echo "You may be pormted to enter a sudo password."
 echo ""
 
-# Add records to hosts file.
-echo "=== Check subsite entry in the hosts file"
-if ! grep -Fxq "127.0.0.1 $SUBSITE" $CONF_MISC_HOSTS
-then
-  while true; do
-      echo "'127.0.0.1 $SUBSITE' entry is not present in $CONF_MISC_HOSTS"
-      read -p "Do you want to add it (Y/N)?" answer
-      case $answer in
-          [Yy]* )
-            sudo sh -c "echo '127.0.0.1 $SUBSITE' >> $CONF_MISC_HOSTS"
-            echo "Done!"
-
-            break;;
-          [Nn]* )
-            break;;
-          * ) echo "Please answer yes or no.";;
-      esac
-  done
-else
-  echo "Entry exits."
-fi
-echo ""
-
 # Prepare files dir.
 echo "=== Prepare files directory"
 if [ -d $SUBSITE_FILES ];
