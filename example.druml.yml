@@ -17,6 +17,13 @@ local:
     enable: devel, search_krumo
     disable: site_prod_settings
 
+# SAML settings.
+saml:
+  crt: saml/saml.crt
+  pem: saml/saml.pem
+  unsigned: ../simplesamlphp/metadata/metadata-unsigned.xml
+  signed: ../simplesamlphp/www/metadata.xml
+  xmlsectool: ~/xmlsectool/xmlsectool.sh
 
 # Misclanious settings.
 misc:

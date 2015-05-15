@@ -9,7 +9,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-saml [--config=<path>]"
+  echo "usage: druml local-samlsign [--config=<path>]"
   exit 1
 fi
 
@@ -20,4 +20,3 @@ source $SCRIPT_DIR/druml-inc-config.sh
 DOCROOT=$(get_docroot)
 
 eval "$CONF_SAML_XMLSECTOOL --sign --inFile $CONF_SAML_UNSIGNED --outFile $CONF_SAML_SIGNED --certificate $CONF_SAML_CRT --key $CONF_SAML_PEM"
-
