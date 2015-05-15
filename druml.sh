@@ -32,6 +32,7 @@ then
   echo "Available commands are:"
   echo "  local-list          Updates a list file that contains subsites"
   echo "  local-dbsync        Syncs a subsite DB from a remote env to a local one"
+  echo "  local-samlsign      Signes SAML metadata file"
   echo "  local-sitesync      Syncs a subsite (DB and files) from a remote env to a"
   echo "                      local one"
   echo "  remote-ac-dbsync    Syncs a subsite DB from one env to another"
