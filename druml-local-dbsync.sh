@@ -34,13 +34,12 @@ DUMPFILE_GZ="$DUMPFILE_SQL.gz"
 # Say hello.
 echo "=== Sync '$SUBSITE' DB from the '$ENV' environment to the localhost"
 
-echo "drop database if exists ${CONF_LOCAL_DB_PREFIX}${SUBSITE}"
-
 # Get db backup.
 ssh $SSH_ARGS "drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS sql-dump --skip-tables-key=common --gzip" > $DUMPFILE_GZ
 
 # Extract db dump and impot into db.
 gzip -dc < $DUMPFILE_GZ > $DUMPFILE_SQL
+
 mysql $DB_ARGS -e "drop database if exists $LOCAL_DB_NAME"
 mysql $DB_ARGS -e "create database $LOCAL_DB_NAME"
 

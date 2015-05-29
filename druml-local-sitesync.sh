@@ -43,8 +43,6 @@ chmod -R a+rwx  $SUBSITE_FILES
 echo "Done!"
 echo ""
 
-# TODO: sync files
-
 # Sync db.
 echo "$(run_script "local-dbsync" --site=$SUBSITE $ENV)"
 
