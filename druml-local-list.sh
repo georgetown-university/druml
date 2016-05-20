@@ -35,7 +35,8 @@ for i in $(ls -d */);
 do
   SUBSITE=${i%%/}
 
-  if [[ "$SUBSITE" != "all" ]]
+  # Prevent from all sites directory and acquia dev desktop directories being otuputed.
+  if [[ "$SUBSITE" != "all" &&  "$SUBSITE" != *".dd"* ]]
   then
     echo $SUBSITE >> $LISTFILE
   fi
