@@ -53,6 +53,9 @@ LIST=$PARAM_LIST
 SITE=$PARAM_SITE
 DELAY=$PARAM_DELAY
 
+echo "=== Druml script started at $(date)"
+echo ""
+
 # Handle local-list command differently.
 if [[ $COMMAND == "local-list" ]]
 then
@@ -77,13 +80,20 @@ then
         sleep $DELAY
       fi
 
+      echo "=== Script iteration ended at $(date)"
+      echo ""
+
       echo ""
     done < $LISTFILE
   else
     echo "$LISTFILE file not found";
   fi
+
   exit
 fi
 
 # Run command for a single subsite or other commands.
 echo "$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS)"
+
+echo "=== Druml script ended at $(date)"
+echo ""
