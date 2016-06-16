@@ -28,15 +28,15 @@ SSH_ARGS=$(get_ssh_args $ENV_FROM)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Say Hello.
-echo "=== Sync '$SUBSITE' DB from the $ENV_FROM to $ENV_TO ===" >&3
-echo "" >&3
+echo "=== Sync '$SUBSITE' DB from the $ENV_FROM to $ENV_TO ==="
+echo ""
 
 # Deploy databases.
-echo "=== Sync databases" >&3
-ssh -tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO"
+echo "=== Sync databases"
+ssh -Tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO" 2>&1
 
-echo "Database sync is scheduled." >&3
-echo "" >&3
+echo "Database sync is scheduled."
+echo ""
 
-echo "Complete!" >&3
-echo "" >&3
+echo "Complete!"
+echo ""

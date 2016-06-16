@@ -33,27 +33,27 @@ FILES_DIR="$CONF_MISC_TEMPORARY/druml-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H
 SSH_ARGS=$(get_ssh_args $ENV_FROM)
 
 # Say Hello.
-echo "=== Sync '$SUBSITE' subsite from the $ENV_FROM to $ENV_TO ===" >&3
-echo "" >&3
+echo "=== Sync '$SUBSITE' subsite from the $ENV_FROM to $ENV_TO ==="
+echo ""
 
 # Deploy files.
-echo "=== Sync files" >&3
+echo "=== Sync files"
 
 # Copy files.
 mkdir $FILES_DIR
 scp -rp $SSH_ARGS_FROM:$DOCROOT_FROM/sites/$SUBSITE/files/ $FILES_DIR
-ssh -tn $SSH_ARGS_TO "mkdir ${DOCROOT_TO}/sites/$SUBSITE/"
+ssh -Tn $SSH_ARGS_TO "mkdir ${DOCROOT_TO}/sites/$SUBSITE/"
 scp -rp $FILES_DIR/files $SSH_ARGS_TO:$DOCROOT_TO/sites/$SUBSITE
 rm -rf $FILES_DIR
-echo "Files are synced." >&3
-echo "" >&3
+echo "Files are synced."
+echo ""
 
 # Deploy databases.
-echo "=== Sync databases" >&3
-ssh -tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO"
+echo "=== Sync databases"
+ssh -Tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO" 2>&1
 
-echo "Database sync is scheduled." >&3
-echo "" >&3
+echo "Database sync is scheduled."
+echo ""
 
-echo "Complete!" >&3
-echo "" >&3
+echo "Complete!"
+echo ""

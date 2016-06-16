@@ -26,8 +26,8 @@ SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 
 # Read variables and form commands to execute.
-echo "=== Execute bash commands on the $ENV environment" >&3
-echo "Commands to be executed:" >&3
+echo "=== Execute bash commands on the $ENV environment"
+echo "Commands to be executed:"
 
 # Read commands.
 COMMANDS=""
@@ -36,22 +36,33 @@ for CMD in ${ARG[@]}
 do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
-    COMMANDS="$COMMANDS ${ARG[$I]};"
+    if [[ -z $COMMANDS ]]; then
+      COMMANDS="${ARG[$I]}"
+    else
+      COMMANDS="$COMMANDS && ${ARG[$I]}"
+    fi
+    echo "${ARG[$I]}";
   fi
   I=$((I+1))
 done
+COMMANDS="$COMMANDS;"
 
 # Replace variables.
 COMMANDS=${COMMANDS/@DOCROOT/$(get_remote_docroot $ENV)}
 COMMANDS=${COMMANDS/@LOG/$(get_remote_log $ENV)}
 
 # Output commands.
-echo $COMMANDS >&3
-echo "" >&3
+echo ""
 
-# Execute bash commands
-ssh -tn $SSH_ARGS "$COMMANDS" >&3
+# Execute bash commands.
+# TODO: allow to choose witch server to execute commands.
+OUTPUT=$(ssh -Tn $SSH_ARGS "$COMMANDS" 2>&1)
+RESULT="$?"
 
-echo "" >&3
-echo "Complete!" >&3
-echo "" >&3
+echo "Result:"
+echo "$OUTPUT"
+
+# Eixt upon an error.
+if [[ $RESULT > 0 ]]; then
+  exit 1
+fi

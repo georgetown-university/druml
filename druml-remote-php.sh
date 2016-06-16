@@ -27,42 +27,56 @@ DRUSH_ALIAS=$(get_drush_alias $ENV)
 SOURCE=$(get_config_dir)/$PARAM_SOURCE
 if [[ -n $PARAM_OUTPUT ]]
 then
-  OUTPUT=$(get_config_dir)/$PARAM_OUTPUT
+  OUTPUT_FILE=$(get_config_dir)/$PARAM_OUTPUT
 fi
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Read commands to execute.
-echo "=== Execute php commands for '$SUBSITE' subsite on the '$ENV' environment" >&3
-echo "Commands to be executed:" >&3
+echo "=== Execute php commands for '$SUBSITE' subsite on the '$ENV' environment"
+echo "Commands to be executed:"
 
+# Check if file exists.
+if [ ! -f $SOURCE ];
+then
+   echo "File $SOURCE does not exist."
+   exit 1
+fi
+
+# Read and proccess comamnds.
 while read -r LINE
 do
-  echo $LINE >&3
+  echo "$LINE"
 
   # Strip comments
-  LINE=$(echo "$LINE" | sed 's/\#.*//g')
-  LINE=$(echo "$LINE" | sed 's/\/\/.*//g')
+  # LINE=$(echo "$LINE" | sed 's/\#.*//g')
+  # LINE=$(echo "$LINE" | sed 's/\/\/.*//g')
 
   CODE+=" "
   CODE+=$LINE
 done < $SOURCE
-echo "" >&3
+echo ""
 
 # Escape qoutes
 CODE=${CODE//\'/\'\\\'\'}
 
 # Execute php code.
-echo "Result:" >&3
 COMMAND="drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS php-eval '$CODE'"
-RES=$(ssh $SSH_ARGS "$COMMAND")
-echo $RES >&3
+OUTPUT=$(ssh -Tn $SSH_ARGS "$COMMAND" 2>&1)
+RESULT="$?"
 
-# Output results to the file.
-if [[ -n $OUTPUT ]]
-then
-  echo $RES >> $OUTPUT
+echo "Result:"
+echo "$OUTPUT"
+
+# Eixt upon an error.
+# TODO: manually check uppon errors, because drush php-eval does not return 1
+# exit code in case if there are PHP errors.
+# See https://github.com/drush-ops/drush/issues/2223.
+if [[ $RESULT > 0 ]]; then
+  exit 1
 fi
 
-echo "" >&3
-echo "Complete!" >&3
-echo "" >&3
+# Output result to the file.
+if [[ -n $OUTPUT_FILE ]]
+then
+  echo "$OUTPUT" >> $OUTPUT_FILE
+fi

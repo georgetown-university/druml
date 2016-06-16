@@ -71,7 +71,20 @@ then
   then
     for SUBSITE in `cat $LISTFILE`
     do
-      echo "$(run_script $COMMAND $PROXY_PARAMS --site=\"$SUBSITE\" $PROXY_ARGS)"
+      OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\"$SUBSITE\" $PROXY_ARGS)"
+      RESULT="$?"
+
+      echo "$OUTPUT"
+      echo ""
+
+      if [[ $RESULT > 0 ]]; then
+        FAILED=1
+        if [[ -z $FAILED_SITES ]]; then
+          FAILED_SITES="$SUBSITE"
+        else
+          FAILED_SITES="$FAILED_SITES, $SUBSITE"
+        fi
+      fi
 
       # Delay.
       if [[ $DELAY > 0 ]]
@@ -87,13 +100,35 @@ then
     done < $LISTFILE
   else
     echo "$LISTFILE file not found";
+    exit 1
   fi
 
+
+  if [[ $FAILED = 1 ]]; then
+    echo "=== Druml script failed at $(date)"
+    echo "Failed sites: $FAILED_SITES."
+
+    echo ""
+    exit 1
+  fi
+
+  echo "=== Druml script ended successfully at $(date)"
+  echo ""
   exit
 fi
 
 # Run command for a single subsite or other commands.
-echo "$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS)"
+OUTPUT="$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS)"
+RESULT="$?"
 
-echo "=== Druml script ended at $(date)"
+echo "$OUTPUT"
+echo ""
+
+if [[ $RESULT > 0 ]]; then
+  echo "=== Druml script failed at $(date)"
+  echo ""
+  exit 1
+fi
+
+echo "=== Druml script ended successfully at $(date)"
 echo ""

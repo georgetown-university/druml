@@ -27,8 +27,8 @@ DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 shift && shift && shift
 
 # Read commands to execute.
-echo "=== Execute drush commands for '$SUBSITE' subsite on the '$ENV' environment" >&3
-echo "Commands to be executed:" >&3
+echo "=== Execute drush commands for '$SUBSITE' subsite on the '$ENV' environment"
+echo "Commands to be executed:"
 
 COMMANDS=""
 I=1
@@ -36,17 +36,29 @@ for CMD in ${ARG[@]}
 do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
-    COMMANDS="$COMMANDS drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]};"
-    echo ${ARG[$I]} >&3
+    if [[ -z $COMMANDS ]]; then
+      COMMANDS="drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
+    else
+      COMMANDS="$COMMANDS && drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
+    fi
+    echo "${ARG[$I]}"
   fi
   I=$((I+1))
 done
+COMMANDS="$COMMANDS;"
 
-echo "" >&3
+echo "$COMMANDS"
 
-# Execute drush commands
-ssh -tn $SSH_ARGS "$COMMANDS"
+echo ""
 
-echo "" >&3
-echo "Complete!" >&3
-echo "" >&3
+# Execute drush commands.
+OUTPUT=$(ssh -Tn $SSH_ARGS "$COMMANDS" 2>&1)
+RESULT="$?"
+
+echo "Result:"
+echo "$OUTPUT"
+
+# Eixt upon an error.
+if [[ $RESULT > 0 ]]; then
+  exit 1
+fi
