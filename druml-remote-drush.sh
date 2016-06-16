@@ -48,7 +48,6 @@ done
 COMMANDS="$COMMANDS;"
 
 echo "$COMMANDS"
-
 echo ""
 
 # Execute drush commands.

@@ -37,6 +37,7 @@ then
   echo "                      local one"
   echo "  remote-ac-dbsync    Syncs a subsite DB from one env to another"
   echo "  remote-ac-sitesync  Syncs a subsite (DB and fies) from one env to another"
+  echo "  remote-ac-filesync  Syncs subsite fies from one env to another"
   echo "  remote-bash         Performs arbitrary bash commands for a specific env"
   echo "  remote-drush        Performs arbitrary drush commands for a specific subsite"
   echo "  remote-php          Performs a php code for a specific subsite"
