@@ -40,6 +40,7 @@ if [[ $RESULT > 0 ]]; then
   echo "Error syncing DB."
   exit 1
 fi
+echo "$OUTPUT"
 echo "Database sync is scheduled."
 
 # Check task status every 20 seconds during 10 minutes.

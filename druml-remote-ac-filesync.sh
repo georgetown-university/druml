@@ -9,7 +9,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml remote-ac-sitesync [--config=<path>] [--delay=<seconds>]"
+  echo "usage: druml remote-ac-filesync [--config=<path>] [--delay=<seconds>]"
   echo "                               [--site=<subsite> | --list=<list>]"
   echo "                               <environment from> <environment to>"
   exit 1

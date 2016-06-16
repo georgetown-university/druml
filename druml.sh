@@ -72,7 +72,7 @@ then
   then
     for SUBSITE in `cat $LISTFILE`
     do
-      OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\"$SUBSITE\" $PROXY_ARGS)"
+      OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\"$SUBSITE\" $PROXY_ARGS 2>&1)"
       RESULT="$?"
 
       echo "$OUTPUT"
@@ -119,7 +119,7 @@ then
 fi
 
 # Run command for a single subsite or other commands.
-OUTPUT="$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS)"
+OUTPUT="$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS 2>&1)"
 RESULT="$?"
 
 echo "$OUTPUT"
