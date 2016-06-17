@@ -23,6 +23,7 @@ DRUSH_ALIAS=$(get_drush_alias $ENV)
 
 # Read variables and form commands to execute.
 echo "=== Flush memcache on the $ENV environment"
+echo ""
 
 DOCROOT=$(get_remote_docroot $ENV)
 

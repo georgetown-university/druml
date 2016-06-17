@@ -18,14 +18,25 @@ fi
 # Load config.
 source $SCRIPT_DIR/druml-inc-config.sh
 
+ENV_TO=$(get_environment ${ARG[2]})
+
 OUTPUT=$(run_script remote-filesync $PROXY_PARAMS $PROXY_ARGS 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
   exit 1
 fi
+echo ""
 
 OUTPUT=$(run_script remote-ac-dbsync $PROXY_PARAMS $PROXY_ARGS 2>&1)
+RESULT="$?"
+echo "$OUTPUT"
+if [[ $RESULT > 0 ]]; then
+  exit 1
+fi
+echo ""
+
+OUTPUT=$(run_script remote-flush-memcache $ENV_TO 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
