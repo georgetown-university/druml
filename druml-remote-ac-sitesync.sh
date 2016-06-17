@@ -18,7 +18,7 @@ fi
 # Load config.
 source $SCRIPT_DIR/druml-inc-config.sh
 
-OUTPUT=$(run_script remote-ac-filesync $PROXY_PARAMS $PROXY_ARGS 2>&1)
+OUTPUT=$(run_script remote-filesync $PROXY_PARAMS $PROXY_ARGS 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
