@@ -46,8 +46,6 @@ do
   I=$((I+1))
 done
 COMMANDS="$COMMANDS;"
-
-echo "$COMMANDS"
 echo ""
 
 # Execute drush commands.
