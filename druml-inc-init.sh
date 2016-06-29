@@ -4,6 +4,10 @@
 source $SCRIPT_DIR/druml-inc-yaml.sh
 source $SCRIPT_DIR/druml-inc-utils.sh
 
+# Make sure results are outputted immideately.
+exec 1> /dev/tty
+exec 2> /dev/tty
+
 # Parse script parameters and arguments.
 I=1
 while test ${#} -gt 0
