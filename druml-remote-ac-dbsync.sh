@@ -9,9 +9,9 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-sitesync [--config=<path>] [--delay=<seconds>]"
-  echo "                           [--site=<subsite> | --list=<list>]"
-  echo "                           <environment from> <environment to>"
+  echo "usage: druml remote-ac-dbsync [--config=<path>] [--delay=<seconds>]"
+  echo "                              [--site=<subsite> | --list=<list>]"
+  echo "                              <environment from> <environment to>"
   exit 1
 fi
 
@@ -41,33 +41,15 @@ if [[ $RESULT > 0 ]]; then
   exit 1
 fi
 echo "$OUTPUT"
-echo "Database sync is scheduled."
+echo "Database sync scheduled."
 
-# Check task status every 20 seconds during 10 minutes.
-I=0;
-while [ $I -lt 120 ]; do
-  OUTPUT=$(ssh -Tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM ac-task-info $TASK" 2>&1)
-  RESULT="$?"
+# Check task status.
+OUTPUT=$(run_script remote-ac-status $ENV_FROM $TASK 2>&1)
+RESULT="$?"
+echo "$OUTPUT"
+if [[ $RESULT > 0 ]]; then
+  echo "Database sync failed!"
+  exit 1
+fi
 
-  while read -r LINE; do
-    KEY=$(echo $LINE | awk '{print $1}')
-    VAL=$( echo $LINE | awk '{print $3}')
-
-    if [[ "$KEY" = "state" ]]; then
-        STATE=$VAL
-        if [[ "$STATE" = "done" ]]; then
-          echo "Database sync is complete!"
-          exit 0
-        fi
-        if [ "$STATE" != "waiting" -a "$STATE" != "started" -a "$STATE" != "received" ]; then
-          echo "Database sync is failed, state: $STATE."
-          exit 1
-        fi
-    fi
-  done <<< "$OUTPUT"
-  let I=$I+20;
-  sleep 20;
-done
-
-echo "Database sync is failed beause of timeout, last state: $STATE."
-exit 1
+echo "Database sync completed!"
