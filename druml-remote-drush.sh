@@ -37,9 +37,9 @@ do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
     if [[ -z $COMMANDS ]]; then
-      COMMANDS="drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
+      COMMANDS="nice drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
     else
-      COMMANDS="$COMMANDS && drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
+      COMMANDS="$COMMANDS && nice drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
     fi
     echo "${ARG[$I]}"
   fi
