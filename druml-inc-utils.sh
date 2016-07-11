@@ -12,15 +12,31 @@ run_script(){
     shift
   done;
 
-  # Run.
-  eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) ${_ARGS[@]}"
+  # Get script dir
+  CONFIG_DIR=$(get_config_dir)
+
+  # Check for custom command.
+  if [ -f "$CONFIG_DIR/druml-${_SCRIPT}.sh" ];
+  then
+    eval "$CONFIG_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) ${_ARGS[@]}"
+  # Check for default command.
+  elif [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
+  then
+    eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) ${_ARGS[@]}"
+  fi
 }
 
 # Check if script exists.
 script_exists() {
   _SCRIPT=${1}
+  CONFIG_DIR=$(get_config_dir)
 
-  if [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
+  # Check for custom command.
+  if [ -f "$CONFIG_DIR/druml-${_SCRIPT}.sh" ];
+  then
+    echo 1
+  # Check for default command.
+  elif [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
   then
     echo 1
   else
