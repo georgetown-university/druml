@@ -22,6 +22,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 SUBSITE=$PARAM_SITE
 ENV_FROM=$(get_environment ${ARG[1]})
 ENV_TO=$(get_environment ${ARG[2]})
+DRUSH=$(get_drush_command)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
 SSH_ARGS=$(get_ssh_args $ENV_FROM)
@@ -31,7 +32,7 @@ DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 echo "=== Sync '$SUBSITE' DB from the $ENV_FROM to $ENV_TO"
 echo ""
 
-OUTPUT=$(ssh -Tn $SSH_ARGS "drush $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO" 2>&1)
+OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS_FROM $DRUSH_SUBSITE_ARGS ac-database-copy $SUBSITE $ENV_TO" 2>&1)
 RESULT="$?"
 TASK=$(echo $OUTPUT | awk '{print $2}')
 

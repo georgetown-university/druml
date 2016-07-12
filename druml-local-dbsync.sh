@@ -22,6 +22,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 SSH_ARGS=$(get_ssh_args $ENV)
+DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 DB_ARGS=$(get_db_args)
@@ -35,7 +36,7 @@ DUMPFILE_GZ="$DUMPFILE_SQL.gz"
 echo "=== Sync '$SUBSITE' DB from the '$ENV' environment to the localhost"
 
 # Get db backup.
-ssh $SSH_ARGS "drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS sql-dump --skip-tables-key=common --gzip" > $DUMPFILE_GZ
+ssh $SSH_ARGS "$DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS sql-dump --skip-tables-key=common --gzip" > $DUMPFILE_GZ
 
 # Extract db dump and impot into db.
 gzip -dc < $DUMPFILE_GZ > $DUMPFILE_SQL

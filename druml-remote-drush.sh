@@ -22,6 +22,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 SSH_ARGS=$(get_ssh_args $ENV)
+DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 shift && shift && shift
@@ -37,9 +38,9 @@ do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
     if [[ -z $COMMANDS ]]; then
-      COMMANDS="nice drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
+      COMMANDS="nice $DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
     else
-      COMMANDS="$COMMANDS && nice drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
+      COMMANDS="$COMMANDS && nice $DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
     fi
     echo "${ARG[$I]}"
   fi

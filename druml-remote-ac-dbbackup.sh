@@ -21,6 +21,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 # Read parameters.
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
+DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
@@ -29,7 +30,7 @@ DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 echo "=== Backup '$SUBSITE' DB at the $ENV"
 echo ""
 
-OUTPUT=$(ssh -Tn $SSH_ARGS "drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ac-database-instance-backup $SUBSITE" 2>&1)
+OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ac-database-instance-backup $SUBSITE" 2>&1)
 RESULT="$?"
 TASK=$(echo $OUTPUT | awk '{print $2}')
 

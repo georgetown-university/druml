@@ -23,6 +23,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 SSH_ARGS=$(get_ssh_args $ENV)
+DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SOURCE=$(get_config_dir)/$PARAM_SOURCE
 if [[ -n $PARAM_OUTPUT ]]
@@ -60,7 +61,7 @@ echo ""
 CODE=${CODE//\'/\'\\\'\'}
 
 # Execute php code.
-COMMAND="drush $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS php-eval '$CODE'"
+COMMAND="$DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS php-eval '$CODE'"
 OUTPUT=$(ssh -Tn $SSH_ARGS "$COMMAND" 2>&1)
 RESULT="$?"
 

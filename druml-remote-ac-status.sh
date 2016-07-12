@@ -22,6 +22,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 TASK=$(get_environment ${ARG[2]})
+DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
@@ -29,7 +30,7 @@ DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 # Check task status every 20 seconds during 10 minutes.
 I=0;
 while [ $I -lt 120 ]; do
-  OUTPUT=$(ssh -Tn $SSH_ARGS "drush $DRUSH_ALIAS ac-task-info $TASK" 2>&1)
+  OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-task-info $TASK" 2>&1)
   RESULT="$?"
 
   while read -r LINE; do

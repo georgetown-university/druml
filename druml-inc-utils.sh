@@ -184,6 +184,17 @@ get_drush_subsite_args() {
   fi
 }
 
+# Get drush command.
+get_drush_command() {
+  if [[ -n ${CONF_DRUSH_COMMAND} ]]
+  then
+    echo ${CONF_DRUSH_COMMAND}
+  else
+    echo "drush"
+  fi
+
+}
+
 # Get drush subsite.
 get_local_db_name() {
   if [ "$1" == "default" ]

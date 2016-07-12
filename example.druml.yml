@@ -49,6 +49,8 @@ drush:
     prod: @example.prod
     test: @example.test
     dev: @example.dev
+  # Specify drush command
+  # command: drush6
 
 
 # Lists of sites. Each site name should go in the new line in the lists file.
