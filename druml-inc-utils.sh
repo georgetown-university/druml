@@ -106,7 +106,7 @@ get_real_path_from_docroot_relative_path() {
   then
     echo $1
   else
-    echo $DOCROOT/$1
+    echo $(get_docroot)/$1
   fi
 }
 
