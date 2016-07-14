@@ -100,8 +100,8 @@ get_docroot() {
   fi
 }
 
-# Get path relative to docroot
-get_path_relative_to_docroot() {
+# Get real path of the dir relative to docroot
+get_real_path_from_docroot_relative_path() {
   if [[ $1 == \/* ]] || [[ $1 == \~* ]];
   then
     echo $1

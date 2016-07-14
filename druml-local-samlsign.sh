@@ -13,13 +13,11 @@ then
   exit 1
 fi
 
-# Get docroot.
-DOCROOT=$(get_docroot)
-
-CONF_SAML_XMLSECTOOL=$(get_path_relative_to_docroot $CONF_SAML_XMLSECTOOL)
-CONF_SAML_UNSIGNED=$(get_path_relative_to_docroot $CONF_SAML_UNSIGNED)
-CONF_SAML_SIGNED=$(get_path_relative_to_docroot $CONF_SAML_SIGNED)
-CONF_SAML_CRT=$(get_path_relative_to_docroot $CONF_SAML_CRT)
-CONF_SAML_PEM=$(get_path_relative_to_docroot $CONF_SAML_PEM)
+# Get realpath
+CONF_SAML_XMLSECTOOL=$(get_real_path_from_docroot_relative_path $CONF_SAML_XMLSECTOOL)
+CONF_SAML_UNSIGNED=$(get_real_path_from_docroot_relative_path $CONF_SAML_UNSIGNED)
+CONF_SAML_SIGNED=$(get_real_path_from_docroot_relative_path $CONF_SAML_SIGNED)
+CONF_SAML_CRT=$(get_real_path_from_docroot_relative_path $CONF_SAML_CRT)
+CONF_SAML_PEM=$(get_real_path_from_docroot_relative_path $CONF_SAML_PEM)
 
 eval "$CONF_SAML_XMLSECTOOL --sign --inFile $CONF_SAML_UNSIGNED --outFile $CONF_SAML_SIGNED --certificate $CONF_SAML_CRT --key $CONF_SAML_PEM"
