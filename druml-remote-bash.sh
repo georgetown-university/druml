@@ -9,16 +9,14 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
-  echo "usage: druml remote-bash [--config=<path>] <environment> <commands>"
+  echo "usage: druml remote-bash [--config=<path>] [--docroot=<path>]"
+  echo "                         [--delay=<seconds>] <environment> <commands>"
   echo ""
   echo "You can use following variables in a command:"
   echo " @DOCROOT - subsite docroot"
   echo " @LOG     - logs dir"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 ENV=$(get_environment ${ARG[1]})

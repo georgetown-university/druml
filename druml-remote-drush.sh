@@ -9,14 +9,12 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml remote-drush [--config=<path>] [--delay=<seconds>]"
-  echo "                         [--site=<subsite> | --list=<list>]"
-  echo "                         <environment> <commands>"
+  echo "usage: druml remote-drush [--config=<path>] [--docroot=<path>]"
+  echo "                          [--delay=<seconds>]"
+  echo "                          [--site=<subsite> | --list=<list>]"
+  echo "                          <environment> <commands>"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE

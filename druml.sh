@@ -27,7 +27,7 @@ then
   exit 1
 elif [[ ${#ARG[@]} = 0 || -n $PARAM_HELP ]]
 then
-  echo "usage: druml [--help] [--config=<path>] <command> <arguments>"
+  echo "usage: druml [--help] [--config=<path>] [--docroot=<path>] <command> <arguments>"
   echo ""
   echo "Available commands are:"
   echo "  local-list            Updates a list file that contains subsites"

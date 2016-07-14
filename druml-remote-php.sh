@@ -9,15 +9,13 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -z $PARAM_SOURCE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml remote-php [--config=<path>] [--delay=<seconds>]"
-  echo "                       [--site=<subsite> | --list=<list>]"
-  echo "                       --source=<path> [--output=<path>]"
-  echo "                       <environment>"
+  echo "usage: druml remote-php [--config=<path>] [--docroot=<path>]"
+  echo "                        [--delay=<seconds>]"
+  echo "                        [--site=<subsite> | --list=<list>]"
+  echo "                        --source=<path> [--output=<path>]"
+  echo "                        <environment>"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE

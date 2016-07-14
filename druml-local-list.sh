@@ -9,12 +9,9 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ -z $PARAM_LIST || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-list [--config=<path>] --list=<list>"
+  echo "usage: druml local-list [--config=<path>] [--docroot=<path>] --list=<list>"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 LISTFILE=$(get_list_file $PARAM_LIST)

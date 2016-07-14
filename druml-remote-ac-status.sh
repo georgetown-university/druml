@@ -9,14 +9,12 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-remote-ac-status [--config=<path>] [--delay=<seconds>]"
+  echo "usage: druml local-remote-ac-status [--config=<path>] [--docroot=<path>]"
+  echo "                                    [--delay=<seconds>]"
   echo "                                    [--site=<subsite> | --list=<list>]"
   echo "                                    <environment> <task_id>"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE

@@ -9,14 +9,12 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-dbbackup [--config=<path>] [--delay=<seconds>]"
+  echo "usage: druml local-dbbackup [--config=<path>] [--docroot=<path>]"
+  echo "                            [--delay=<seconds>]"
   echo "                            [--site=<subsite> | --list=<list>]"
   echo "                            <environment>"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 SUBSITE=$PARAM_SITE

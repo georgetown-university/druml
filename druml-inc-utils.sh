@@ -92,7 +92,22 @@ get_config_dir() {
 
 # Get docroot.
 get_docroot() {
-  echo $(get_config_dir)/$CONF_LOCAL_DOCROOT
+  if [[ -z $PARAM_DOCROOT ]]
+  then
+    echo $(get_config_dir)/$CONF_LOCAL_DOCROOT
+  else
+    echo $PARAM_DOCROOT
+  fi
+}
+
+# Get path relative to docroot
+get_path_relative_to_docroot() {
+  if [[ $1 == \/* ]] || [[ $1 == \~* ]];
+  then
+    echo $1
+  else
+    echo $DOCROOT/$1
+  fi
 }
 
 # Get and process ENV variable.

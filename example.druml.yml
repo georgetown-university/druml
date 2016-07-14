@@ -17,7 +17,7 @@ local:
     enable: devel, search_krumo
     disable: site_prod_settings
 
-# SAML settings.
+# SAML settings. Paths should be absolute or relative to docroot.
 saml:
   crt: saml/saml.crt
   pem: saml/saml.pem

@@ -9,12 +9,10 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 1 || -n $PARAM_HELP ]]
 then
-  echo "usage: druml remote-flush-memcache [--config=<path>] <environment>"
+  echo "usage: druml remote-flush-memcache [--config=<path>] [--docroot=<path>]"
+  echo "                                   [--delay=<seconds>] <environment>"
   exit 1
 fi
-
-# Load config.
-source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 ENV=$(get_environment ${ARG[1]})
