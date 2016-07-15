@@ -46,7 +46,7 @@ fi
 echo ""
 
 # Flush Memcache.
-OUTPUT=$(run_script remote-flush-memcache $ENV_TO 2>&1)
+OUTPUT=$(run_script remote-memcacheflush $ENV_TO 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then

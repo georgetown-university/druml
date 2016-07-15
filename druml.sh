@@ -44,7 +44,7 @@ then
   echo "  remote-bash              Performs arbitrary bash commands for a specific env"
   echo "  remote-drush             Performs arbitrary drush commands for a specific subsite"
   echo "  remote-filesync          Syncs subsite fies from one env to another"
-  echo "  remote-flush-memcache    Syncs subsite fies from one env to another"
+  echo "  remote-memcacheflush     Syncs subsite fies from one env to another"
   echo "  remote-php               Performs a php code for a specific subsite"
   echo ""
   echo "See 'druml <command> --help' to read about a specific command."
