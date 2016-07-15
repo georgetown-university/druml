@@ -31,7 +31,7 @@ FILES_DIR="$CONF_MISC_TEMPORARY/druml-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H
 SSH_ARGS=$(get_ssh_args $ENV_FROM)
 
 # Say Hello.
-echo "=== Sync '$SUBSITE' files from the $ENV_FROM to $ENV_TO"
+echo "=== Sync '$SUBSITE' files from $ENV_FROM to $ENV_TO"
 echo ""
 
 # Sync files.
