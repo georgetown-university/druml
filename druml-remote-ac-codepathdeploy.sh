@@ -24,7 +24,7 @@ DRUSH_ALIAS=$(get_drush_alias $ENV)
 SSH_ARGS=$(get_ssh_args $ENV)
 
 # Say Hello.
-echo "=== Deploy '$TAG' tag/branch to $PROD"
+echo "=== Deploy '$TAG' tag/branch to $ENV"
 echo ""
 
 OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-code-path-deploy $TAG" 2>&1)

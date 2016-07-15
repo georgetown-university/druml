@@ -27,7 +27,7 @@ DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Check task status every 20 seconds during 10 minutes.
 I=0;
-while [ $I -lt 120 ]; do
+while [ $I -lt 600 ]; do
   OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-task-info $TASK" 2>&1)
   RESULT="$?"
 
