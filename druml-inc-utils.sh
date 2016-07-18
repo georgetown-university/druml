@@ -7,6 +7,7 @@ run_script(){
   shift
 
   # Collect args.
+  _ARGS=""
   while [ "$1" != "" ]; do
     _ARGS="$_ARGS \"${1}\""
     shift
