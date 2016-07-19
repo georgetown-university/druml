@@ -34,7 +34,7 @@ TASK=$(echo $OUTPUT | awk '{print $2}')
 
 # Eixt upon an error.
 if [[ $RESULT > 0 ]]; then
-  echo "Error syncing DB."
+  echo "Error backing up DB."
   exit 1
 fi
 echo "$OUTPUT"

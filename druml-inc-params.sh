@@ -8,7 +8,7 @@ do
 
   if [[ -n $_P_NAME ]]
   then
-    PROXY_PARAMS="$PROXY_PARAMS --$_P_NAME=\"$_P_VALUE\"";
+    PROXY_PARAMS="$PROXY_PARAMS --$_P_NAME='$_P_VALUE'";
 
     if [[ -z $_P_VALUE ]]
     then
@@ -20,7 +20,7 @@ do
     ARG[$I]=$1;
     if [[ $I>1 || `basename $0` != "druml.sh" ]]
     then
-      PROXY_ARGS="$PROXY_ARGS \"$1\""
+      PROXY_ARGS="$PROXY_ARGS '$1'"
     fi
     I=$I+1
   fi
