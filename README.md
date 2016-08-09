@@ -19,15 +19,14 @@ There are several alternatives to *Druml*. In this section I will describe what 
 
 INSTALLATION
 =====
-1. Download [recent](https://github.com/georgetown-university/druml/archive/master.zip) *Druml* release.
-2. Extract to `~/druml` directory.
-3. Perform following commands in the terminal to create an alias.
+
+Perform following code in the terminal:
 
   ```
-  echo 'alias druml="~/druml/druml.sh"' >> ~/.bash_profile
-  source ~/.bash_profile
+  cd ~
+  wget -qO- https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master druml
+  ln -s ~/druml/druml.sh /usr/local/bin/druml
   ```
-
 
 USAGE
 =====
