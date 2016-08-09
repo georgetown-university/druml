@@ -17,7 +17,7 @@ then
   if [[ -z $EXISTS ]]
   then
     echo "Command '$COMMAND' does not exist!"
-    exit
+    exit 1
   fi
 fi
 
