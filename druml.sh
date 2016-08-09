@@ -80,7 +80,7 @@ then
   then
     for SUBSITE in `cat $LISTFILE`
     do
-      OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site='$SUBSITE' $PROXY_ARGS 2>&1)"
+      OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\'$SUBSITE\' $PROXY_ARGS 2>&1)"
       RESULT="$?"
 
       echo "$OUTPUT"
