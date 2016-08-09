@@ -27,7 +27,7 @@ if [[ -n $COMMAND && -n $PARAM_HELP ]]
 then
   echo "$(run_script $COMMAND)"
   exit 1
-elif [[ ${#ARG[@]} = 0 || -n $PARAM_HELP ]]
+elif [[ -z $COMMAND || -n $PARAM_HELP ]]
 then
   echo "usage: druml [--help] [--config=<path>] [--docroot=<path>] <command> <arguments>"
   echo ""
