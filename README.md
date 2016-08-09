@@ -26,6 +26,8 @@ Perform following code in the terminal:
   cd ~
   wget -qO- https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master druml
   ln -s ~/druml/druml.sh /usr/local/bin/druml
+  echo 'alias druml="~/druml/druml.sh"' >> ~/.bash_profile
+  source ~/.bash_profile
   ```
 
 USAGE
