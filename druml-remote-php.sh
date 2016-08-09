@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Save script dir.
-SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
+# Get Druml dir.
+SCRIPT_DIR=$1
+shift
 
 # Load includes.
 source $SCRIPT_DIR/druml-inc-init.sh

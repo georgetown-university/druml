@@ -19,11 +19,11 @@ run_script(){
   # Check for custom command.
   if [ -f "$CONFIG_DIR/druml-${_SCRIPT}.sh" ];
   then
-    eval "$CONFIG_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) $_ARGS"
+    eval "$CONFIG_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) $_ARGS"
   # Check for default command.
   elif [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
   then
-    eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh --config=$(get_config_path) $_ARGS"
+    eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) $_ARGS"
   fi
 }
 

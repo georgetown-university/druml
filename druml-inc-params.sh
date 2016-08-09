@@ -1,7 +1,7 @@
 # Parse script parameters and arguments.
 I=1
 while test ${#} -gt 0
-do
+do  
   _P_NAME=$(get_parameter_name $1)
   _P_NAME_U=$(echo $_P_NAME | tr '[:lower:]' '[:upper:]')
   _P_VALUE=$(get_parameter_value $1)

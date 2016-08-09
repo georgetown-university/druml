@@ -1,13 +1,14 @@
 #!/bin/bash
 
-# Save script dir.
-SCRIPT_DIR=$(cd $(dirname "$0") && pwd -P)
+# Get Druml dir.
+SCRIPT_DIR=$(cd "$(dirname "$(test -L "$0" && readlink "$0" || echo "$0")")" && pwd)
+
+# Get command.
+COMMAND=$1
+shift
 
 # Load includes.
-source $SCRIPT_DIR/druml-inc-init.sh
-
-# Read command
-COMMAND=${ARG[1]}
+source "$SCRIPT_DIR/druml-inc-init.sh"
 
 # Check if command exists
 if [[ -n $COMMAND ]]
@@ -19,6 +20,7 @@ then
     exit
   fi
 fi
+
 
 # Display help.
 if [[ -n $COMMAND && -n $PARAM_HELP ]]
