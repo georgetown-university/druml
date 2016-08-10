@@ -30,7 +30,7 @@ if [[ $RESULT > 0 ]]; then
 fi
 
 # Copy files.
-OUTPUT=$(run_script remote-filesync $PROXY_PARAMS $PROXY_ARGS 2>&1)
+OUTPUT=$(run_script remote-filesync "${PROXY_PARAMS_ARGS[@]}" 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
@@ -39,7 +39,7 @@ fi
 echo ""
 
 # Copy DB.
-OUTPUT=$(run_script remote-ac-dbsync $PROXY_PARAMS $PROXY_ARGS 2>&1)
+OUTPUT=$(run_script remote-ac-dbsync "${PROXY_PARAMS_ARGS[@]}" 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
