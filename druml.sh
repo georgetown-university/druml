@@ -21,7 +21,6 @@ then
   fi
 fi
 
-
 # Display help.
 if [[ -n $COMMAND && -n $PARAM_HELP ]]
 then
@@ -61,6 +60,15 @@ source $SCRIPT_DIR/druml-inc-config.sh
 LIST=$PARAM_LIST
 SITE=$PARAM_SITE
 DELAY=$PARAM_DELAY
+if [[ -n $PARAM_JOBS ]]
+then
+  JOBS=$PARAM_JOBS
+else
+  JOBS=1
+fi
+
+# Set variables.
+DATETIME=$(date +%F-%H-%M-%S)
 
 echo "=== Druml script started at $(date)"
 echo ""
@@ -72,52 +80,58 @@ then
   exit
 fi
 
-# Run commands for multiple subsites.
+# Run commands for multiple subsites in multiple threads.
 if [[ -n $LIST ]]
 then
   LISTFILE=$(get_list_file $LIST)
   if [[ -f $LISTFILE ]]
   then
+
+    FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$DATETIME"
+    JOB=0
     for SUBSITE in `cat $LISTFILE`
     do
-      OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\'$SUBSITE\' $PROXY_ARGS 2>&1)"
-      RESULT="$?"
+      let JOB+=1;
+      {
+        OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\'$SUBSITE\' $PROXY_ARGS 2>&1)"
+        RESULT="$?"
 
-      echo "$OUTPUT"
-      echo ""
+        echo "$OUTPUT"
+        echo ""
 
-      if [[ $RESULT > 0 ]]; then
-        FAILED=1
-        if [[ -z $FAILED_SITES ]]; then
-          FAILED_SITES="$SUBSITE"
-        else
-          FAILED_SITES="$FAILED_SITES, $SUBSITE"
+        if [[ $RESULT > 0 ]]; then
+          echo $SUBSITE >> $FAIL_FILE
         fi
-      fi
 
-      # Delay.
-      if [[ $DELAY > 0 ]]
-      then
-        echo "Wait $DELAY seconds"
-        sleep $DELAY
-      fi
+        echo "=== Script iteration ended at $(date)"
+        echo ""
+      } &
 
-      echo "=== Script iteration ended at $(date)"
-      echo ""
+      if [[ $JOB -eq $JOBS ]]; then
+        wait;
+        JOB=0;
+
+        # Delay.
+        if [[ $DELAY > 0 ]]
+        then
+          echo "Wait $DELAY seconds"
+          sleep $DELAY
+        fi
+      fi;
 
       echo ""
     done < $LISTFILE
+    wait;
+
+    if [[ -f $FAIL_FILE ]]; then
+      echo "=== Druml script failed at $(date)"
+      echo "Failed sites: $(cat $FAIL_FILE | xargs | sed -e 's/ /, /g')."
+
+      echo ""
+      exit 1
+    fi
   else
     echo "$LISTFILE file not found";
-    exit 1
-  fi
-
-
-  if [[ $FAILED = 1 ]]; then
-    echo "=== Druml script failed at $(date)"
-    echo "Failed sites: $FAILED_SITES."
-
-    echo ""
     exit 1
   fi
 

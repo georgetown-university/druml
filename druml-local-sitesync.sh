@@ -11,8 +11,8 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
   echo "usage: druml local-sitesync [--config=<path>] [--docroot=<path>]"
-  echo "                            [--delay=<seconds>]"
-  echo "                            [--site=<subsite> | --list=<list>]"
+  echo "                            [--jobs=<number>] [--delay=<seconds>]"
+  echo "                            --site=<subsite> | --list=<list>"
   echo "                            <environment>"
   exit 1
 fi

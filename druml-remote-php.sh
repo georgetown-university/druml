@@ -11,8 +11,8 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -z $PARAM_SOURCE || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-php [--config=<path>] [--docroot=<path>]"
-  echo "                        [--delay=<seconds>]"
-  echo "                        [--site=<subsite> | --list=<list>]"
+  echo "                        [--jobs=<number>] [--delay=<seconds>]"
+  echo "                        --site=<subsite> | --list=<list>"
   echo "                        --source=<path> [--output=<path>]"
   echo "                        <environment>"
   exit 1

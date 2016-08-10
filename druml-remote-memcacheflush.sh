@@ -11,7 +11,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 1 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-memcacheflush [--config=<path>] [--docroot=<path>]"
-  echo "                                  [--delay=<seconds>] <environment>"
+  echo "                                  <environment>"
   exit 1
 fi
 

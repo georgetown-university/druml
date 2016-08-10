@@ -11,20 +11,17 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml local-remote-ac-status [--config=<path>] [--docroot=<path>]"
-  echo "                                    [--delay=<seconds>]"
-  echo "                                    [--site=<subsite> | --list=<list>]"
+  echo "                                    [--jobs=<number>] [--delay=<seconds>]"
   echo "                                    <environment> <task_id>"
   exit 1
 fi
 
 # Read parameters.
-SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 TASK=$(get_environment ${ARG[2]})
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SSH_ARGS=$(get_ssh_args $ENV)
-DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Check task status every 20 seconds during 10 minutes.
 I=0;

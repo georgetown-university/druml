@@ -11,7 +11,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-bash [--config=<path>] [--docroot=<path>]"
-  echo "                         [--delay=<seconds>] <environment> <commands>"
+  echo "                         <environment> <commands>"
   echo ""
   echo "You can use following variables in a command:"
   echo " @DOCROOT - subsite docroot"

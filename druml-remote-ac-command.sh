@@ -11,7 +11,6 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-ac-command [--config=<path>] [--docroot=<path>]"
-  echo "                               [--delay=<seconds>]"
   echo "                               <environment> <command>"
   exit 1
 fi
