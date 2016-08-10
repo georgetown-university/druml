@@ -59,7 +59,14 @@ source $SCRIPT_DIR/druml-inc-config.sh
 # Read parameters.
 LIST=$PARAM_LIST
 SITE=$PARAM_SITE
-DELAY=$PARAM_DELAY
+
+if [[ -n $PARAM_DELAY ]]
+then
+  DELAY=$PARAM_DELAY
+else
+  DELAY=0
+fi
+
 if [[ -n $PARAM_JOBS ]]
 then
   JOBS=$PARAM_JOBS
@@ -73,65 +80,16 @@ DATETIME=$(date +%F-%H-%M-%S)
 echo "=== Druml script started at $(date)"
 echo ""
 
-# Handle local-list command differently.
-if [[ $COMMAND == "local-list" ]]
-then
-  echo "$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS)"
-  exit
-fi
-
 # Run commands for multiple subsites in multiple threads.
-if [[ -n $LIST ]]
+if [[ -n $LIST && "$COMMAND" != "local-listupdate" ]]
 then
-  LISTFILE=$(get_list_file $LIST)
-  if [[ -f $LISTFILE ]]
+  iterate_script $LIST $JOBS $DELAY $DATETIME $COMMAND $PROXY_PARAMS $PROXY_ARGS 2>&1
+  RESULT="$?"
+
+  if [[ $RESULT > 0 ]]
   then
-
-    FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$DATETIME"
-    JOB=0
-    for SUBSITE in `cat $LISTFILE`
-    do
-      let JOB+=1;
-      {
-        OUTPUT="$(run_script $COMMAND $PROXY_PARAMS --site=\'$SUBSITE\' $PROXY_ARGS 2>&1)"
-        RESULT="$?"
-
-        echo "$OUTPUT"
-        echo ""
-
-        if [[ $RESULT > 0 ]]; then
-          echo $SUBSITE >> $FAIL_FILE
-        fi
-
-        echo "=== Script iteration ended at $(date)"
-        echo ""
-      } &
-
-      if [[ $JOB -eq $JOBS ]]; then
-        wait;
-        JOB=0;
-
-        # Delay.
-        if [[ $DELAY > 0 ]]
-        then
-          echo "Wait $DELAY seconds"
-          sleep $DELAY
-        fi
-      fi;
-
-      echo ""
-    done < $LISTFILE
-    wait;
-
-    if [[ -f $FAIL_FILE ]]; then
-      echo "=== Druml script failed at $(date)"
-      echo "Failed sites: $(cat $FAIL_FILE | xargs | sed -e 's/ /, /g')."
-
-      echo ""
-      exit 1
-    fi
-  else
-    echo "$LISTFILE file not found";
+    echo "=== Druml script failed at $(date)"
+    echo ""
     exit 1
   fi
 
@@ -141,13 +99,11 @@ then
 fi
 
 # Run command for a single subsite or other commands.
-OUTPUT="$(run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS 2>&1)"
+run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS 2>&1
 RESULT="$?"
 
-echo "$OUTPUT"
-echo ""
-
-if [[ $RESULT > 0 ]]; then
+if [[ $RESULT > 0 ]]
+then
   echo "=== Druml script failed at $(date)"
   echo ""
   exit 1

@@ -27,6 +27,77 @@ run_script(){
   fi
 }
 
+
+# Iterate script for multiple sites.
+iterate_script() {
+  # Get parameters.
+  _LIST=${1}
+  shift
+  _JOBS=${1}
+  shift
+  _DELAY=${1}
+  shift
+  _DATETIME=${1}
+  shift
+  _COMMAND=${1}
+  shift
+
+  # Collect args.
+  _ARGS=""
+  while [ "$1" != "" ]; do
+    _ARGS="$_ARGS '${1}'"
+    shift
+  done;
+
+  _LISTFILE=$(get_list_file $_LIST)
+  if [[ -f $_LISTFILE ]]
+  then
+    _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$_DATETIME"
+    _I=0
+    COUNT=$(cat $_LISTFILE | wc -l | xargs)
+    for _SUBSITE in `cat $_LISTFILE`
+    do
+      let _I+=1;
+      sleep 0.02 && {
+        _OUTPUT="$(run_script $COMMAND --site=\'$_SUBSITE\' $_ARGS 2>&1)"
+        _RESULT="$?"
+
+        echo "$_OUTPUT"
+        echo ""
+
+        if [[ $_RESULT > 0 ]]
+        then
+          echo $_SUBSITE >> $_FAIL_FILE
+        fi
+      } &
+
+      if ! (($_I % $_JOBS))
+      then
+        wait;
+
+        echo "=== $_I / $COUNT sites are done, iteration ended at $(date)"
+
+        # Delay.
+        if [[ $_DELAY > 0 ]]
+        then
+          echo "Wait $_DELAY seconds"
+          sleep $_DELAY
+        fi
+      fi;
+    done < $_LISTFILE
+    wait;
+
+    if [[ -f $_FAIL_FILE ]]
+    then
+      echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
+      return 1
+    fi
+  else
+    echo "$_LISTFILE file not found";
+    return 1
+  fi
+}
+
 # Check if script exists.
 script_exists() {
   _SCRIPT=${1}
