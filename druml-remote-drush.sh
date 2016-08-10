@@ -20,6 +20,8 @@ fi
 # Read parameters.
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
+
+# Set variables.
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)

@@ -19,6 +19,8 @@ fi
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 COMMAND=${ARG[2]}
+
+# Set variables.
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SSH_ARGS=$(get_ssh_args $ENV)

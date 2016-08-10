@@ -17,6 +17,7 @@ then
   exit 1
 fi
 
+# Read parameters.
 SUBSITE=$PARAM_SITE
 ENV_TO=$(get_environment ${ARG[2]})
 

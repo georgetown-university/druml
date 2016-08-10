@@ -21,6 +21,8 @@ fi
 SUBSITE=$PARAM_SITE
 ENV_FROM=$(get_environment ${ARG[1]})
 ENV_TO=$(get_environment ${ARG[2]})
+
+# Set variables.
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)

@@ -14,7 +14,7 @@ then
   exit 1
 fi
 
-# Get realpath
+# Read parameters.
 CONF_SAML_XMLSECTOOL=$(get_real_path_from_docroot_relative_path $CONF_SAML_XMLSECTOOL)
 CONF_SAML_UNSIGNED=$(get_real_path_from_docroot_relative_path $CONF_SAML_UNSIGNED)
 CONF_SAML_SIGNED=$(get_real_path_from_docroot_relative_path $CONF_SAML_SIGNED)

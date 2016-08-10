@@ -21,6 +21,8 @@ fi
 SUBSITE=$PARAM_SITE
 ENV_FROM=$(get_environment ${ARG[1]})
 ENV_TO=$(get_environment ${ARG[2]})
+
+# Set variables.
 SSH_ARGS_FROM=$(get_ssh_args $ENV_FROM)
 SSH_ARGS_TO=$(get_ssh_args $ENV_TO)
 DOCROOT_FROM=$(get_remote_docroot $ENV_FROM)

@@ -20,14 +20,14 @@ fi
 # Read parameters.
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
+
+# Set variables.
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 DB_ARGS=$(get_db_args)
 LOCAL_DB_NAME=$(get_local_db_name $SUBSITE)
-
-# Generate temporary filenames.
 DUMPFILE_SQL="$CONF_MISC_TEMPORARY/druml-${ENV}-${SUBSITE}-$(date +%F-%H-%M-%S).sql"
 DUMPFILE_GZ="$DUMPFILE_SQL.gz"
 

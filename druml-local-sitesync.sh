@@ -20,9 +20,9 @@ fi
 # Read parameters.
 SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
-DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 
 # Set variables.
+DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 SUBSITE_FILES="$(get_docroot)/sites/$SUBSITE/files"
 
 # Say hello.

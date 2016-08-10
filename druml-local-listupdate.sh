@@ -16,8 +16,11 @@ fi
 
 # Read parameters.
 LISTFILE=$(get_list_file $PARAM_LIST)
+
+# Set variables.
 DOCROOT=$(get_docroot)
 
+# Perform validation.
 if [[ -z $LISTFILE ]]
 then
   echo "List file is not set!"

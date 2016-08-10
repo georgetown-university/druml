@@ -21,6 +21,8 @@ fi
 
 # Read parameters.
 ENV=$(get_environment ${ARG[1]})
+
+# Set variables.
 SSH_ARGS=$(get_ssh_args $ENV)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 
