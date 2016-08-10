@@ -38,7 +38,8 @@ for CMD in ${ARG[@]}
 do
   if [[ $I -gt 1 && -n ${ARG[$I]} ]]
   then
-    if [[ -z $COMMANDS ]]; then
+    if [[ -z $COMMANDS ]]
+    then
       COMMANDS="nice $DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
     else
       COMMANDS="$COMMANDS && nice $DRUSH $DRUSH_ALIAS $DRUSH_SUBSITE_ARGS ${ARG[$I]}"
@@ -58,6 +59,7 @@ echo "Result:"
 echo "$OUTPUT"
 
 # Eixt upon an error.
-if [[ $RESULT > 0 ]]; then
+if [[ $RESULT > 0 ]]
+then
   exit 1
 fi

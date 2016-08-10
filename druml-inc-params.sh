@@ -1,7 +1,7 @@
 # Parse script parameters and arguments.
+PROXY_PARAMS_ARGS=("$@")
+
 I=1
-PROXY_PARAMS=""
-PROXY_ARGS=""
 while test ${#} -gt 0
 do
   _P_NAME=$(get_parameter_name $1)
@@ -10,8 +10,6 @@ do
 
   if [[ -n $_P_NAME ]]
   then
-    PROXY_PARAMS="$PROXY_PARAMS --$_P_NAME='$_P_VALUE'";
-
     if [[ -z $_P_VALUE ]]
     then
       _P_VALUE=_P_NAME_U
@@ -19,8 +17,7 @@ do
     _PARAM_NAME="PARAM_${_P_NAME_U}"
     eval $_PARAM_NAME=$_P_VALUE
   else
-    ARG[$I]=$1;
-    PROXY_ARGS="$PROXY_ARGS '$1'"
+    ARG[$I]=$1
     I=$I+1
   fi
 

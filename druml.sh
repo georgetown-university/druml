@@ -84,7 +84,7 @@ echo ""
 # Run commands for multiple subsites in multiple threads.
 if [[ -n $LIST && "$COMMAND" != "local-listupdate" ]]
 then
-  iterate_script $LIST $JOBS $DELAY $DATETIME $COMMAND $PROXY_PARAMS $PROXY_ARGS 2>&1
+  iterate_script $LIST $JOBS $DELAY $DATETIME $COMMAND "${PROXY_PARAMS_ARGS[@]}"
   RESULT="$?"
 
   if [[ $RESULT > 0 ]]
@@ -100,7 +100,7 @@ then
 fi
 
 # Run command for a single subsite or other commands.
-run_script $COMMAND $PROXY_PARAMS $PROXY_ARGS 2>&1
+run_script $COMMAND "${PROXY_PARAMS_ARGS[@]}"
 RESULT="$?"
 
 if [[ $RESULT > 0 ]]

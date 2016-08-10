@@ -6,24 +6,27 @@ run_script(){
   _SCRIPT=${1}
   shift
 
-  # Collect args.
-  _ARGS=""
-  while [ "$1" != "" ]; do
-    _ARGS="$_ARGS '${1}'"
-    shift
-  done;
-
   # Get script dir
   CONFIG_DIR=$(get_config_dir)
 
   # Check for custom command.
   if [ -f "$CONFIG_DIR/druml-${_SCRIPT}.sh" ];
   then
-    eval "$CONFIG_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) $_ARGS"
+    OUTPUT=$($CONFIG_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) "${@}")
+    RESULT="$?"
   # Check for default command.
   elif [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
   then
-    eval "$SCRIPT_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) $_ARGS"
+    OUTPUT=$($SCRIPT_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) "${@}")
+    RESULT="$?"
+  fi
+
+  # Echo script output.
+  echo "$OUTPUT"
+
+  # Eixt upon an error.
+  if [[ $RESULT > 0 ]]; then
+    return 1
   fi
 }
 
@@ -42,12 +45,6 @@ iterate_script() {
   _COMMAND=${1}
   shift
 
-  # Collect args.
-  _ARGS=""
-  while [ "$1" != "" ]; do
-    _ARGS="$_ARGS '${1}'"
-    shift
-  done;
 
   _LISTFILE=$(get_list_file $_LIST)
   if [[ -f $_LISTFILE ]]
@@ -59,7 +56,7 @@ iterate_script() {
     do
       let _I+=1;
       sleep 0.02 && {
-        _OUTPUT="$(run_script $_COMMAND --site=\'$_SUBSITE\' $_ARGS 2>&1)"
+        _OUTPUT="$(run_script $_COMMAND --site=$_SUBSITE "${@}")"
         _RESULT="$?"
 
         echo "$_OUTPUT"
