@@ -54,12 +54,12 @@ iterate_script() {
   then
     _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$_DATETIME"
     _I=0
-    COUNT=$(cat $_LISTFILE | wc -l | xargs)
+    _COUNT=$(cat $_LISTFILE | wc -l | xargs)
     for _SUBSITE in `cat $_LISTFILE`
     do
       let _I+=1;
       sleep 0.02 && {
-        _OUTPUT="$(run_script $COMMAND --site=\'$_SUBSITE\' $_ARGS 2>&1)"
+        _OUTPUT="$(run_script $_COMMAND --site=\'$_SUBSITE\' $_ARGS 2>&1)"
         _RESULT="$?"
 
         echo "$_OUTPUT"
@@ -75,7 +75,7 @@ iterate_script() {
       then
         wait;
 
-        echo "=== $_I / $COUNT sites are done, iteration ended at $(date)"
+        echo "=== $_I / $_COUNT sites are done, iteration ended at $(date)"
 
         # Delay.
         if [[ $_DELAY > 0 ]]
@@ -83,6 +83,7 @@ iterate_script() {
           echo "Wait $_DELAY seconds"
           sleep $_DELAY
         fi
+        echo ""
       fi;
     done < $_LISTFILE
     wait;
@@ -90,12 +91,15 @@ iterate_script() {
     if [[ -f $_FAIL_FILE ]]
     then
       echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
+      echo ""
       return 1
     fi
   else
     echo "$_LISTFILE file not found";
+    echo ""
     return 1
   fi
+  echo ""
 }
 
 # Check if script exists.
