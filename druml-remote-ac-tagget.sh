@@ -39,8 +39,12 @@ while read -r LINE; do
   VAL=$(echo $LINE | awk -F':' '{print $2}' | tr -d "\'")
   if [[ $KEY = vcs_path* ]]; then
     # Output tag or branch
-    echo $VAL | tr -d ' '
-    exit
+    TAG_BRANCH=$(echo $VAL | tr -d ' ')
+    # Check if tag/branch is not empty.
+    if [[ -n $TAG_BRANCH ]]; then
+      echo $TAG_BRANCH
+      exit
+    fi
   fi
 done <<< "$OUTPUT"
 
