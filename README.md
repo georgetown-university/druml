@@ -27,7 +27,7 @@ There are several alternatives to *Druml*, but they are not powerful as it is.
 * [Automatic Drush Aliases](http://dropbucket.org/node/749) - interesting approach but limited to Drush commands only, does not allow to run multiple commands in a chain or run them in parallel.
 
 INSTALLATION
-=====
+-----
 
 Perform following code in the terminal:
 
@@ -38,7 +38,7 @@ Perform following code in the terminal:
   ```
 
 EXAMPLES
-=====
+-----
 
 Here are some example of how you can use *Druml* in your deployment and development workflows.
 
@@ -133,12 +133,60 @@ CONFIGURATION
 -----
 Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
 
-
-By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. You can also specify path to the configuration file manually.
+By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. When running *Druml* you can also specify path to the configuration file using `--config` parameter.
 ```
 druml --config=~/supersite.yml <command> <arguments>
 ```
 
-DEVELOPMENT
-=====
+CUSTOM COMMANDS
+-----
+*Druml* allows you to define custom commands and utilize it's internal power. To define a custom command create command file in the same directory as configuration file. File should be in the following format `druml-custom-<commandname>.sh`. Make sure it is executable: `chmod a+x druml-custom-<commandname>.sh`
+
+Here is an example of custom command that we use in *Georgetown* to create a new site.
+```
+#!/bin/bash
+
+# Exit upon first error
+set -e
+
+# Make sure results are outputted immideately.
+exec 1> /dev/tty
+exec 2> /dev/tty
+
+# Get Druml dir.
+SCRIPT_DIR=$1
+shift
+
+# Load includes.
+source $SCRIPT_DIR/druml-inc-init.sh
+
+# Display help.
+if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -n $PARAM_HELP ]]
+then
+  echo "usage: druml custom-siteprovision [--config=<path>] --site=<subsite>"
+  echo "                                  [--domain=<domain>]"
+  echo "                                  <site name> <install profile>"
+  exit 1
+fi
+
+# Read parameters.
+SITE=$PARAM_SITE
+if [[ ! -z $PARAM_DOMAIN ]]; then
+  PRODDOMAIN=$PARAM_DOMAIN
+else
+  PRODDOMAIN="$SITE.georgetown.edu"
+fi
+ENV=$(get_environment ${ARG[1]})
+NAME=${ARG[1]}
+PROFILE=${ARG[2]}
+
+run_script custom-sitecreate --site=$SITE --domain=$PRODDOMAIN prod
+run_script custom-siteinstall --site=$SITE prod "$NAME" $PROFILE
+run_script remote-ac-sitesync --site=$SITE prod test
+run_script remote-ac-sitesync --site=$SITE prod dev
+run_script remote-drush --site=$CONF_CUSTOM_DEFAULTSITE prod "ac-domain-purge gudrupal.prod.acquia-sites.com"
+```
+
+CONTRIBUTE!
+-----
 This project is in active development, if you have any ideas or want to submit a bug, plese, check [issues](https://github.com/georgetown-university/druml/issues).
