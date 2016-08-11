@@ -3,19 +3,28 @@ DESCRIPTION
 
 *Druml* is a Drupal multisite tool that helps to maintain multiple Drupal sites. It has been developed in Georgetown University, which maintains over 250 Drupal websites.
 
-*Druml* is a set of bash scripts. Despite the *Druml* sounds similar to *Drush*, it is not a replacement to *Drush*, instead it is an addition to *Drush* and it uses *Drush* a lot. It also fits nice to the *Acquia Cloud Platform* and there are some specific *Acquia Cloud* commands.
+*Druml* is a set of bash scripts. Despite the *Druml* sounds similar to *Drush*, it is not a replacement to *Drush*, instead it is an addition to *Drush* and it uses *Drush* a lot. It also works nice with *Acquia Cloud Platform* and there are some specific *Acquia Cloud* commands.
 
 Interesting thing about *Druml* is that it does not require you to have *Drush* installed on your local machine, though it should be installed on the remote server.
 
+FEATURES
+-----
+* Provides over 15 useful command wrappers for Drush, Bash, Memcache, SAML, Acquia Cloud.
+* Allows to run any existing Drush commands chained in a batch.
+* Runs commands either for multiple sites or individually.
+* Allows to manage list of different sites and control execution priority.
+* Allows to run commands in parallel threads.
+* Could be extended with custom commands.
+* Reads configuration from Yaml file.
+* Installed easily.
 
 ALTERNATIVES
 -----
 
-There are several alternatives to *Druml*. In this section I will describe what can stop you from using them.
+There are several alternatives to *Druml*, but they are not powerful as it is.
 
-* `drush @sites` - it is a pretty nice workaround, however it does not allow to control an order of command execution, which could be required if you have some important sites to go first. Also there is no way to have subgroups of sites. You are also limited to use only `Drush` commands.
-* [Automatic Drush Aliases](http://dropbucket.org/node/749) - though it is an interesting idea, however it forces you to use `Drush`, which means you still need to use `Druml` for certain tasks.
-
+* `drush @sites` - nice and dirty workaround, though very limited.
+* [Automatic Drush Aliases](http://dropbucket.org/node/749) - interesting approach but limited to Drush commands only, does not allow to run multiple commands in a chain or run them in parallel.
 
 INSTALLATION
 =====
