@@ -31,7 +31,7 @@ INSTALLATION
 
 Perform following code in the terminal:
 
-  ```
+  ```bash
   cd ~
   wget -qO- https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master druml
   ln -s ~/druml/druml.sh /usr/local/bin/druml
@@ -43,22 +43,22 @@ EXAMPLES
 Here are some example of how you can use *Druml* in your deployment and development workflows.
 
 * Performs multiple Drush commands for all sites running in 3 parallel jobs on production server.
-  ```
+  ```bash
   druml remote-drush prod --list=all --jobs=3 "rr" "updb -y" "fra -y" "cc all"
   ```
 
 * Calculates amount of nodes for each site on prod, output result as a CSV file.
-  ```
+  ```bash
   druml remote-php prod --list=all --source=php/node-count.php --output=res/node-count.csv
   ```
 
 * Copies DB and files of edited sites from stage environment to production in *Acuia Cloud*. This command also makes DB backup prior and flushes Memcache and Drupal cache after then execution.
-  ```
+  ```bash
   druml remote-ac-sitesync --list=edited stg prod
   ```
   
 * Copies DB and files from a remote server to a local environment. This command also enabled development modules specified in the configuration.
-  ```
+  ```bash
   druml local-sitesync --site=mysite prod
   ```
 
@@ -84,7 +84,7 @@ AVAILABLE COMMANDS
   remote-memcacheflush     Syncs subsite fies from one env to another
   remote-php               Performs a php code for a specific subsite
 ```
-Check druml --help or druml <command> --help for more info.
+Check `druml --help` or `druml <command> --help` for more information.
 
 
 LISTS
@@ -93,17 +93,17 @@ LISTS
 Lists is a powerfull instrument in *Druml* that allows to run commands for multiple sites. Here is what you can do.
 
 * To run a command for a list of sites use `--list` parameter.
-  ```
+  ```bash
   druml <command> --list=<listname> <arguments>
   ```
 
 * To decrease a load on a server while commands are being executed you can set delays between iterations. This can be done with a help of `--delay` parameter.
-  ```
+  ```bash
   druml <command> --delay=<seconds> --list=<listname> <arguments>
   ```
 
 * To run commands for multiple sites in parallel threads use `--jobs` parameter.
-  ```
+  ```bash
   druml <command> --jobs=<number> --list=<listname> <arguments>
   ```
   
@@ -115,12 +115,12 @@ clone_z
 ```
 
 To generate a list of all sites based on your *Drupal* installation run `local-listupdate` command.
-```
+```bash
 druml local-listupdate --docroot=<path to drupal> --list=<listname>
 ```
 
 You also need to define list files in the Druml configuration file, e.g.:
-```
+```yml
 list:
   all: list/all.txt
   vip: list/vip.txt
@@ -134,7 +134,7 @@ CONFIGURATION
 Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
 
 By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. When running *Druml* you can also specify path to the configuration file using `--config` parameter.
-```
+```bash
 druml --config=~/supersite.yml <command> <arguments>
 ```
 
@@ -143,7 +143,7 @@ CUSTOM COMMANDS
 *Druml* allows you to define custom commands and utilize it's internal power. To define a custom command create command file in the same directory as configuration file. File should be in the following format `druml-custom-<commandname>.sh`. Make sure it is executable: `chmod a+x druml-custom-<commandname>.sh`
 
 Here is an example of custom command that we use in *Georgetown* to create a new site.
-```
+```bash
 #!/bin/bash
 
 # Exit upon first error
@@ -187,6 +187,6 @@ run_script remote-ac-sitesync --site=$SITE prod dev
 run_script remote-drush --site=$CONF_CUSTOM_DEFAULTSITE prod "ac-domain-purge gudrupal.prod.acquia-sites.com"
 ```
 
-CONTRIBUTE!
+CONTRIBUTE
 -----
 This project is in active development, if you have any ideas or want to submit a bug, plese, check [issues](https://github.com/georgetown-university/druml/issues).
