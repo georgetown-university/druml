@@ -90,7 +90,26 @@ Check druml --help or druml <command> --help for more info.
 LISTS
 -----
 
-* To perform a command for multiple sites you need to have sites grouped in a list. To run a command for a list of sites use `--list` parameter.
+To perform a command for multiple sites you need to have sub-sites grouped in a list file. Sub-site are typically folder names in `sites/all` directory of a Drupal site. List file is a simple text file, which contains sub-sites separated by the new line character. E.g.:
+```
+default
+clone_a
+clone_z
+```
+
+You also need to define list file in the Druml configuration file. E.g.:
+```
+list:
+  all: list/all.txt
+  vip: list/vip.txt
+  test: list/test.txt
+```
+
+See [Configuration](#CONFIGURATION) section for more information.
+
+Here is what you can do with lists:
+
+* To run a command for a list of sites use `--list` parameter.
   ```
   druml <command> --list=<listname> <arguments>
   ```
@@ -104,13 +123,11 @@ LISTS
   ```
   druml <command> --jobs=<number> --list=<listname> <arguments>
   ```
-
+  
 * To generate a list of all sites based on your *Drupal* installation run `local-listupdate` command. Prior to running this command youn eed to define `<listname>` in the configuration file.
   ```
-  druml local-listupdate --docroot=<path to docroot> --list=<listname>
+  druml local-listupdate --docroot=<path to drupal> --list=<listname>
   ```
-  
-* You can also build your list manually and define in in the configuration file. See [Configuration](#CONFIGURATION) section for more info.
 
 CONFIGURATION
 -----
