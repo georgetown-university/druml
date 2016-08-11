@@ -26,26 +26,6 @@ There are several alternatives to *Druml*, but they are not powerful as it is.
 * `drush @sites` - nice and dirty workaround, though very limited.
 * [Automatic Drush Aliases](http://dropbucket.org/node/749) - interesting approach but limited to Drush commands only, does not allow to run multiple commands in a chain or run them in parallel.
 
-INSTALLATION
------
-
-Perform following code in the terminal:
-
-  ```bash
-  cd ~
-  wget -qO- https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master druml
-  ln -s ~/druml/druml.sh /usr/local/bin/druml
-  ```
-
-CONFIGURATION
------
-Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
-
-By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. When running *Druml* you can also specify path to the configuration file using `--config` parameter.
-```bash
-druml --config=~/supersite.yml <command> <arguments>
-```
-
 EXAMPLES
 -----
 
@@ -94,6 +74,27 @@ AVAILABLE COMMANDS
   remote-php               Performs a php code for a specific subsite
 ```
 Check `druml --help` or `druml <command> --help` for more information.
+
+
+INSTALLATION
+-----
+
+Perform following code in the terminal:
+
+  ```bash
+  cd ~
+  wget -qO- https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master druml
+  ln -s ~/druml/druml.sh /usr/local/bin/druml
+  ```
+
+CONFIGURATION
+-----
+Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
+
+By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. When running *Druml* you can also specify path to the configuration file using `--config` parameter.
+```bash
+druml --config=~/supersite.yml <command> <arguments>
+```
 
 LISTS
 -----
