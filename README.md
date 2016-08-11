@@ -90,24 +90,7 @@ Check druml --help or druml <command> --help for more info.
 LISTS
 -----
 
-To perform a command for multiple sites you need to have sub-sites grouped in a list file. Sub-site are typically folder names in `sites/all` directory of a Drupal site. List file is a simple text file, which contains sub-sites separated by the new line character. E.g.:
-```
-default
-clone_a
-clone_z
-```
-
-You also need to define list file in the Druml configuration file. E.g.:
-```
-list:
-  all: list/all.txt
-  vip: list/vip.txt
-  test: list/test.txt
-```
-
-See [Configuration](#CONFIGURATION) section for more information.
-
-Here is what you can do with lists:
+Lists is a powerfull instrument in *Druml* that allows to run commands for multiple sites. Here is what you can do.
 
 * To run a command for a list of sites use `--list` parameter.
   ```
@@ -119,15 +102,32 @@ Here is what you can do with lists:
   druml <command> --delay=<seconds> --list=<listname> <arguments>
   ```
 
-* To run commands for multiple sites in parallel user `--jobs` parameter.
+* To run commands for multiple sites in parallel threads use `--jobs` parameter.
   ```
   druml <command> --jobs=<number> --list=<listname> <arguments>
   ```
   
-* To generate a list of all sites based on your *Drupal* installation run `local-listupdate` command. Prior to running this command youn eed to define `<listname>` in the configuration file.
-  ```
-  druml local-listupdate --docroot=<path to drupal> --list=<listname>
-  ```
+To perform a command for multiple sites you need to have subsites grouped in a list file. Subsites are typically folder names in `sites/all` directory of a Drupal site. List file is a simple text file, which contains subsites separated by the new line character, e.g.:
+```
+default
+clone_a
+clone_z
+```
+
+To generate a list of all sites based on your *Drupal* installation run `local-listupdate` command.
+```
+druml local-listupdate --docroot=<path to drupal> --list=<listname>
+```
+
+You also need to define list files in the Druml configuration file, e.g.:
+```
+list:
+  all: list/all.txt
+  vip: list/vip.txt
+  test: list/test.txt
+```
+
+See [Configuration](#CONFIGURATION) section for more information.
 
 CONFIGURATION
 -----
