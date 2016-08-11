@@ -37,34 +37,55 @@ Perform following code in the terminal:
   ln -s ~/druml/druml.sh /usr/local/bin/druml
   ```
 
-USAGE
+EXAMPLES
 =====
 
 With *Druml* you will be able to perform following commands:
 
-* `local-sitesync` - synchronise a DB and files from a remote environment to a local one. Forget about editing hosts file, creating settings files, directories, resaving theme settings, or even logging in to a website - these routines are fully automated. Using this command you can also sync multiple sites at once.
+* Performs multiple Drush commands for all sites running in 3 jobs on production server:
+  ```
+  druml remote-drush prod --list=all --jobs=3 "rr" "updb -y" "fra -y" "cc all"
+  ```
+
+* Calculates amount of nodes for each site on prod, output result as a CSV file:
+  ```
+  druml remote-php prod --list=all --source=php/node-count.php --output=res/node-count.csv
+  ```
+
+* Copies DB and files of edited sites from stage environment to production in *Acuia Cloud*. This command also makes DB backup prior and flushes Memcache and Drupal cache after then execution.
+  ```
+  druml remote-ac-sitesync --list=edited stg prod
+  ```
+  
+* Copies DB and files from a remote server to a local environment. This command also enabled development modules specified in the configuration.
   ```
   druml local-sitesync --site=mysite prod
   ```
 
-* `remote-ac-sitesync` - synchronise a DB and files from one environment to another for a specific site or list of sites. It is an *Acquia Cloud* command.
-  ```
-  druml remote-ac-sitesync --list=newsites stg prod
-  ```
+AVAILABLE COMMANDS
+-----
+```
+  local-listupdate         Updates a list file that contains subsites
+  local-dbsync             Syncs a subsite DB from a remote env to a local one
+  local-samlsign           Signes SAML metadata file
+  local-sitesync           Syncs a subsite (DB and files) from a remote env to a
+                           local one
+  remote-ac-codedeploy     Deploys code from one environment to another
+  remote-ac-codepathdeploy Deployes a tag/branch to the specific enviornment
+  remote-ac-command        Executes any drush ac command
+  remote-ac-dbbackup       Backup a DB
+  remote-ac-dbsync         Syncs a subsite DB from one env to another
+  remote-ac-sitesync       Syncs a subsite (DB and fies) from one env to another
+  remote-ac-status         Waits until the task is completed
+  remote-ac-tagget         Returns tag or branch associated with environment
+  remote-bash              Performs arbitrary bash commands for a specific env
+  remote-drush             Performs arbitrary drush commands for a specific subsite
+  remote-filesync          Syncs subsite fies from one env to another
+  remote-memcacheflush     Syncs subsite fies from one env to another
+  remote-php               Performs a php code for a specific subsite
+```
+Check druml --help or druml <command> --help for more info.
 
-* `remote-drush` -  run arbitrary *Drush* commands for a specific site or a list of sites running on a specific environment.
-  ```
-  druml remote-drush --list=all prod "rr" "updb -y" "fra -y" "cc all"
-  ```
-
-* `remote-php` - run a PHP script for a specific subsite without need to escape PHP code.
-  ```
-  druml remote-php --list=all --source=php/node-count.php --output=res/node-count.csv prod
-  ```
-
-* `remote-bash` - perform arbitrary bash commands on multiple servers.
-
-Check `druml --help` or `druml <command> --help` for more info.
 
 LISTS
 -----
@@ -84,7 +105,7 @@ To create a list of sites you need to update a configuration file and create a l
 
 
 CONFIGURATION
-----
+-----
 Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
 
 
