@@ -37,6 +37,15 @@ Perform following code in the terminal:
   ln -s ~/druml/druml.sh /usr/local/bin/druml
   ```
 
+CONFIGURATION
+-----
+Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
+
+By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. When running *Druml* you can also specify path to the configuration file using `--config` parameter.
+```bash
+druml --config=~/supersite.yml <command> <arguments>
+```
+
 EXAMPLES
 -----
 
@@ -86,7 +95,6 @@ AVAILABLE COMMANDS
 ```
 Check `druml --help` or `druml <command> --help` for more information.
 
-
 LISTS
 -----
 
@@ -127,16 +135,7 @@ list:
   test: list/test.txt
 ```
 
-See [Configuration](#CONFIGURATION) section for more information.
-
-CONFIGURATION
------
-Before using Druml you need to have a configuration file, see [example.druml.yml](https://github.com/georgetown-university/druml/blob/master/example.druml.yml) as an example of it.
-
-By default *Druml* loads configuration which is sotred in the `druml.yml` localted in the current directory. When running *Druml* you can also specify path to the configuration file using `--config` parameter.
-```bash
-druml --config=~/supersite.yml <command> <arguments>
-```
+See [Configuration](#configuration) section for more information.
 
 CUSTOM COMMANDS
 -----
