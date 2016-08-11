@@ -40,14 +40,14 @@ Perform following code in the terminal:
 EXAMPLES
 =====
 
-With *Druml* you will be able to perform following commands:
+Here are some example of how you can use *Druml* in your deployment and development workflows.
 
-* Performs multiple Drush commands for all sites running in 3 jobs on production server:
+* Performs multiple Drush commands for all sites running in 3 parallel jobs on production server.
   ```
   druml remote-drush prod --list=all --jobs=3 "rr" "updb -y" "fra -y" "cc all"
   ```
 
-* Calculates amount of nodes for each site on prod, output result as a CSV file:
+* Calculates amount of nodes for each site on prod, output result as a CSV file.
   ```
   druml remote-php prod --list=all --source=php/node-count.php --output=res/node-count.csv
   ```
@@ -90,19 +90,27 @@ Check druml --help or druml <command> --help for more info.
 LISTS
 -----
 
-To perform a command for multiple sites you need to have sites grouped in a list. To run a command for a list of sites use `--list` parameter.
+* To perform a command for multiple sites you need to have sites grouped in a list. To run a command for a list of sites use `--list` parameter.
+  ```
+  druml <command> --list=<listname> <arguments>
+  ```
 
-```
-druml <command> --list=<listname> <arguments>
-```
+* To decrease a load on a server while commands are being executed you can set delays between iterations. This can be done with a help of `--delay` parameter.
+  ```
+  druml <command> --delay=<seconds> --list=<listname> <arguments>
+  ```
 
-To decrease a load on a server while commands are beeing executed you can set delays between iterations. This can be done with a help of `--delay` parameter.
+* To run commands for multiple sites in parallel user `--jobs` parameter.
+  ```
+  druml <command> --jobs=<number> --list=<listname> <arguments>
+  ```
 
-```
-druml <command> --delay=<seconds> --list=<listname> <arguments>
-```
-To create a list of sites you need to update a configuration file and create a list file. You can also generate a list file automatically using `local-list` command. See [Configuration](#CONFIGURATION) section for more info.
-
+* To generate a list of all sites based on your *Drupal* installation run `local-listupdate` command. Prior to running this command youn eed to define `<listname>` in the configuration file.
+  ```
+  druml local-listupdate --docroot=<path to docroot> --list=<listname>
+  ```
+  
+* You can also build your list manually and define in in the configuration file. See [Configuration](#CONFIGURATION) section for more info.
 
 CONFIGURATION
 -----
