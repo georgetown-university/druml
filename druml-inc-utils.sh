@@ -73,6 +73,12 @@ iterate_script() {
         wait;
 
         echo "=== $_I / $_COUNT sites are done, iteration ended at $(date)"
+        if [[ -f $_FAIL_FILE ]]
+        then
+          echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
+          echo ""
+          return 1
+        fi
 
         # Delay.
         if [[ $_DELAY > 0 ]]
@@ -84,13 +90,6 @@ iterate_script() {
       fi;
     done < $_LISTFILE
     wait;
-
-    if [[ -f $_FAIL_FILE ]]
-    then
-      echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
-      echo ""
-      return 1
-    fi
   else
     echo "$_LISTFILE file not found";
     echo ""
