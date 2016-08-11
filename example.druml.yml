@@ -44,7 +44,7 @@ environment:
 
 # Drush settings.
 drush:
-  # Specify drush aliase for each environment.
+  # Specify drush alias for each environment.
   alias:
     prod: @example.prod
     test: @example.test
