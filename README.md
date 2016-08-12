@@ -81,7 +81,7 @@ INSTALLATION
 
 Perform following commands in the terminal:
 ```bash
-curl -sL https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master ~/druml
+curl -sL https://github.com/georgetown-university/druml/archive/master.zip | tar xvz -C ~ && mv ~/druml-master ~/druml
 ln -s ~/druml/druml.sh /usr/local/bin/druml
 ```
 
