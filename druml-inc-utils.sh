@@ -90,6 +90,12 @@ iterate_script() {
       fi;
     done < $_LISTFILE
     wait;
+
+    # Return error if any of the sites failed
+    if [[ -f $_FAIL_FILE ]]
+    then
+      return 1
+    fi
   else
     echo "$_LISTFILE file not found";
     echo ""
