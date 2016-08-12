@@ -79,13 +79,17 @@ Check `druml --help` or `druml <command> --help` for more information.
 INSTALLATION
 -----
 
-Perform following code in the terminal:
+Perform following commands in the terminal:
+```bash
+curl https://github.com/georgetown-university/druml/archive/master.zip -sL | tar xvz && mv druml-master ~/druml
+ln -s ~/druml/druml.sh /usr/local/bin/druml
+```
 
-  ```bash
-  cd ~
-  wget -qO- https://github.com/georgetown-university/druml/archive/master.zip | tar xvz && mv druml-master druml
-  ln -s ~/druml/druml.sh /usr/local/bin/druml
-  ```
+Alternatively you can checkout recent *Druml* version from Git repository:
+```bash
+git clone git@github.com:georgetown-university/druml.git ~/druml
+ln -s ~/druml/druml.sh /usr/local/bin/druml
+```
 
 CONFIGURATION
 -----
