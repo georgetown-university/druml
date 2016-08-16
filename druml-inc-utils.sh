@@ -77,7 +77,6 @@ iterate_script() {
         then
           echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
           echo ""
-          return 1
         fi
 
         # Delay.
