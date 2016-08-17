@@ -306,3 +306,14 @@ fix_file_tput() {
     mv -f $1.tail $1
   fi
 }
+
+# Get param that could be proxied to another script.
+get_param_proxy() {
+  PARAM_VAR="PARAM_$(echo $1 | tr '[:lower:]' '[:upper:]')"
+  if [[ -n ${!PARAM_VAR} ]]
+  then
+    echo "--$1=${!PARAM_VAR}"
+  else
+    echo ""
+  fi
+}

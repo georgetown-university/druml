@@ -13,6 +13,7 @@ then
   echo "usage: druml local-sitesync [--config=<path>] [--docroot=<path>]"
   echo "                            [--jobs=<number>] [--delay=<seconds>]"
   echo "                            --site=<subsite> | --list=<list>"
+  echo "                            [--server=<number>]"
   echo "                            <environment>"
   exit 1
 fi
@@ -24,6 +25,7 @@ ENV=$(get_environment ${ARG[1]})
 # Set variables.
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 SUBSITE_FILES="$(get_docroot)/sites/$SUBSITE/files"
+PROXY_PARAM_SERVER=$(get_param_proxy "server")
 
 # Say hello.
 echo "=== Sync '$SUBSITE' subsite from the '$ENV' environment to the localhost"
@@ -43,7 +45,7 @@ echo "Done!"
 echo ""
 
 # Sync db.
-echo "$(run_script "local-dbsync" --site=$SUBSITE $ENV)"
+echo "$(run_script "local-dbsync" --site=$SUBSITE $PROXY_PARAM_SERVER $ENV)"
 
 echo "=== Prepare website for local development"
 # Enable dev modules.

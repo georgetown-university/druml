@@ -13,6 +13,7 @@ then
   echo "usage: druml remote-ac-dbsync [--config=<path>] [--docroot=<path>]"
   echo "                              [--jobs=<number>] [--delay=<seconds>]"
   echo "                              --site=<subsite> | --list=<list>"
+  echo "                              [--server=<number>]"
   echo "                              <environment from> <environment to>"
   exit 1
 fi
@@ -26,8 +27,9 @@ ENV_TO=$(get_environment ${ARG[2]})
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
-SSH_ARGS=$(get_ssh_args $ENV_FROM)
+SSH_ARGS=$(get_ssh_args $ENV_FROM $PARAM_SERVER)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
+PROXY_PARAM_SERVER=$(get_param_proxy "server")
 
 # Say Hello.
 echo "=== Sync '$SUBSITE' DB from $ENV_FROM to $ENV_TO"
@@ -46,7 +48,7 @@ echo "$OUTPUT"
 echo "Database sync scheduled."
 
 # Check task status.
-OUTPUT=$(run_script remote-ac-status $ENV_FROM $TASK 2>&1)
+OUTPUT=$(run_script remote-ac-status $PROXY_PARAM_SERVER $ENV_FROM $TASK 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then

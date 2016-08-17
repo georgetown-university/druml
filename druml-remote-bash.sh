@@ -11,6 +11,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-bash [--config=<path>] [--docroot=<path>]"
+  echo "                         [--server=<number>]"
   echo "                         <environment> <commands>"
   echo ""
   echo "You can use following variables in a command:"
@@ -23,8 +24,8 @@ fi
 ENV=$(get_environment ${ARG[1]})
 
 # Set variables.
-SSH_ARGS=$(get_ssh_args $ENV)
-DRUSH_ALIAS=$(get_drush_alias $ENV)
+SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
+DRUSH_ALIAS=$(get_drush_alias $ENV $PARAM_SERVER)
 
 # Read variables and form commands to execute.
 echo "=== Execute bash commands on the $ENV environment"
@@ -49,8 +50,8 @@ done
 COMMANDS="$COMMANDS;"
 
 # Replace variables.
-COMMANDS=${COMMANDS/@DOCROOT/$(get_remote_docroot $ENV)}
-COMMANDS=${COMMANDS/@LOG/$(get_remote_log $ENV)}
+COMMANDS=${COMMANDS/@DOCROOT/$(get_remote_docroot $ENV $PARAM_SERVER)}
+COMMANDS=${COMMANDS/@LOG/$(get_remote_log $ENV $PARAM_SERVER)}
 
 # Output commands.
 echo ""

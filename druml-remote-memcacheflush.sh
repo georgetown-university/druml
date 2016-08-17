@@ -11,6 +11,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 1 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-memcacheflush [--config=<path>] [--docroot=<path>]"
+  echo "                                  [--server=<number>]"
   echo "                                  <environment>"
   exit 1
 fi
@@ -19,14 +20,14 @@ fi
 ENV=$(get_environment ${ARG[1]})
 
 # Set variables.
-SSH_ARGS=$(get_ssh_args $ENV)
+SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 
 # Read variables and form commands to execute.
 echo "=== Flush memcache on the $ENV environment"
 echo ""
 
-DOCROOT=$(get_remote_docroot $ENV)
+DOCROOT=$(get_remote_docroot $ENV $PARAM_SERVER)
 
 OUTPUT=$(ssh -Tn $SSH_ARGS "cd $DOCROOT && drush vget memcache_servers" 2>&1)
 RESULT="$?"

@@ -13,6 +13,7 @@ then
   echo "usage: druml remote-ac-sitesync [--config=<path>] [--docroot=<path>]"
   echo "                                [--jobs=<number>] [--delay=<seconds>]"
   echo "                                --site=<subsite> | --list=<list>"
+  echo "                                [--server=<number>]"
   echo "                                <environment from> <environment to>"
   exit 1
 fi
@@ -20,9 +21,10 @@ fi
 # Read parameters.
 SUBSITE=$PARAM_SITE
 ENV_TO=$(get_environment ${ARG[2]})
+PROXY_PARAM_SERVER=$(get_param_proxy "server")
 
 # Backup target db.
-OUTPUT=$(run_script remote-ac-dbbackup --site=$SUBSITE $ENV_TO 2>&1)
+OUTPUT=$(run_script remote-ac-dbbackup --site=$SUBSITE $PROXY_PARAM_SERVER $ENV_TO 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
@@ -48,7 +50,7 @@ fi
 echo ""
 
 # Flush Memcache.
-OUTPUT=$(run_script remote-memcacheflush $ENV_TO 2>&1)
+OUTPUT=$(run_script remote-memcacheflush $PROXY_PARAM_SERVER $ENV_TO 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then
@@ -57,7 +59,7 @@ fi
 echo ""
 
 # Flush Drupal cache.
-OUTPUT=$(run_script remote-drush --site=$SUBSITE $ENV_TO "cc all" 2>&1)
+OUTPUT=$(run_script remote-drush --site=$SUBSITE $PROXY_PARAM_SERVER $ENV_TO "cc all" 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then

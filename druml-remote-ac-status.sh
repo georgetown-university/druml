@@ -12,6 +12,7 @@ if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml local-remote-ac-status [--config=<path>] [--docroot=<path>]"
   echo "                                    [--jobs=<number>] [--delay=<seconds>]"
+  echo "                                    [--server=<number>]"
   echo "                                    <environment> <task_id>"
   exit 1
 fi
@@ -23,7 +24,7 @@ TASK=$(get_environment ${ARG[2]})
 # Set variables.
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
-SSH_ARGS=$(get_ssh_args $ENV)
+SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 
 # Check task status every 20 seconds during 10 minutes.
 I=0;

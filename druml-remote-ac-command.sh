@@ -11,6 +11,7 @@ source $SCRIPT_DIR/druml-inc-init.sh
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-ac-command [--config=<path>] [--docroot=<path>]"
+  echo "                               [--server=<number>]"
   echo "                               <environment> <command>"
   exit 1
 fi
@@ -23,7 +24,8 @@ COMMAND=${ARG[2]}
 # Set variables.
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
-SSH_ARGS=$(get_ssh_args $ENV)
+SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
+PROXY_PARAM_SERVER=$(get_param_proxy "server")
 
 # Say Hello.
 echo "=== Executing AC commands on $ENV"
@@ -46,7 +48,7 @@ echo "$OUTPUT"
 echo "Command execution scheduled."
 
 # Check task status.
-OUTPUT=$(run_script remote-ac-status $ENV $TASK 2>&1)
+OUTPUT=$(run_script remote-ac-status $PROXY_PARAM_SERVER $ENV $TASK 2>&1)
 RESULT="$?"
 echo "$OUTPUT"
 if [[ $RESULT > 0 ]]; then

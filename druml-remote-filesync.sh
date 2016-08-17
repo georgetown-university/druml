@@ -10,9 +10,10 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml remote-filesync [--config=<path>]  [--docroot=<path>]"
+  echo "usage: druml remote-filesync [--config=<path>] [--docroot=<path>]"
   echo "                             [--jobs=<number>] [--delay=<seconds>]"
   echo "                             --site=<subsite> | --list=<list>"
+  echo "                             [--server=<number>]"
   echo "                             <environment from> <environment to>"
   exit 1
 fi
@@ -23,15 +24,14 @@ ENV_FROM=$(get_environment ${ARG[1]})
 ENV_TO=$(get_environment ${ARG[2]})
 
 # Set variables.
-SSH_ARGS_FROM=$(get_ssh_args $ENV_FROM)
+SSH_ARGS_FROM=$(get_ssh_args $ENV_FROM $PARAM_SERVER)
 SSH_ARGS_TO=$(get_ssh_args $ENV_TO)
-DOCROOT_FROM=$(get_remote_docroot $ENV_FROM)
+DOCROOT_FROM=$(get_remote_docroot $ENV_FROM $PARAM_SERVER)
 DOCROOT_TO=$(get_remote_docroot $ENV_TO)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
 DRUSH_ALIAS_TO=$(get_drush_alias $ENV_TO)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 FILES_DIR="$CONF_MISC_TEMPORARY/druml-files-${ENV_FROM}-${SUBSITE}-$(date +%F-%H-%M-%S)"
-SSH_ARGS=$(get_ssh_args $ENV_FROM)
 
 # Say Hello.
 echo "=== Sync '$SUBSITE' files from $ENV_FROM to $ENV_TO"

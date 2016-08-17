@@ -13,6 +13,7 @@ then
   echo "usage: druml remote-php [--config=<path>] [--docroot=<path>]"
   echo "                        [--jobs=<number>] [--delay=<seconds>]"
   echo "                        --site=<subsite> | --list=<list>"
+  echo "                        [--server=<number>]"
   echo "                        --source=<path> [--output=<path>]"
   echo "                        <environment>"
   exit 1
@@ -23,7 +24,7 @@ SUBSITE=$PARAM_SITE
 ENV=$(get_environment ${ARG[1]})
 
 # Set variables.
-SSH_ARGS=$(get_ssh_args $ENV)
+SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SOURCE=$(get_config_dir)/$PARAM_SOURCE
