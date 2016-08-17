@@ -57,7 +57,6 @@ COMMANDS=${COMMANDS/@LOG/$(get_remote_log $ENV $PARAM_SERVER)}
 echo ""
 
 # Execute bash commands.
-# TODO: allow to choose witch server to execute commands.
 OUTPUT=$(ssh -Tn $SSH_ARGS "$COMMANDS" 2>&1)
 RESULT="$?"
 

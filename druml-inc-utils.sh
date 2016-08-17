@@ -51,12 +51,13 @@ iterate_script() {
   then
     _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$_DATETIME"
     _I=0
+    echo $_SERVER_COUNT;
     _COUNT=$(cat $_LISTFILE | wc -l | xargs)
     for _SUBSITE in `cat $_LISTFILE`
     do
-      let _I+=1;
+      _PROXY_PARAM_SERVER="--server=$_I" # in get_ssh_args and other functions we will get division reminder by the server count
       sleep 0.02 && {
-        _OUTPUT="$(run_script $_COMMAND --site=$_SUBSITE "${@}")"
+        _OUTPUT="$(run_script $_COMMAND --site=$_SUBSITE "${@}" $_PROXY_PARAM_SERVER)"
         _RESULT="$?"
 
         echo "$_OUTPUT"
@@ -68,6 +69,7 @@ iterate_script() {
         fi
       } &
 
+      let _I+=1
       if ! (($_I % $_JOBS))
       then
         wait;
@@ -198,16 +200,24 @@ get_environment() {
   echo $_ENV
 }
 
+# Get servers count.
+get_server_count() {
+  _COUNT="CONF_SERVER_COUNT_${1}"
+  echo "${!_COUNT}"
+}
+
+
 # Get SSH arguments.
 get_ssh_args() {
   if [ -z $2 ]
   then
-    I=0
+    _I=0
   else
-    I=$2
+    _SERVER_COUNT=$(get_server_count $1)
+    _I=$(($2 % $_SERVER_COUNT))
   fi
-  _V_HOST="CONF_SERVER_DATA_${1}_${I}_HOST"
-  _V_USER="CONF_SERVER_DATA_${1}_${I}_USER"
+  _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
+  _V_USER="CONF_SERVER_DATA_${1}_${_I}_USER"
   echo "${!_V_USER}@${!_V_HOST}"
 }
 
@@ -215,9 +225,10 @@ get_ssh_args() {
 get_remote_docroot() {
   if [ -z $2 ]
   then
-    I=0
+    _I=0
   else
-    I=$2
+    _SERVER_COUNT=$(get_server_count $1)
+    _I=$(($2 % $_SERVER_COUNT))
   fi
   _V_ROOT="CONF_SERVER_DATA_${1}_${I}_DOCROOT"
   echo "${!_V_ROOT}"
@@ -227,9 +238,10 @@ get_remote_docroot() {
 get_remote_log() {
   if [ -z $2 ]
   then
-    I=0
+    _I=0
   else
-    I=$2
+    _SERVER_COUNT=$(get_server_count $1)
+    _I=$(($2 % $_SERVER_COUNT))
   fi
   _V_LOG="CONF_SERVER_DATA_${1}_${I}_LOG"
   echo "${!_V_LOG}"
