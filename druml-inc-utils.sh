@@ -230,7 +230,7 @@ get_remote_docroot() {
     _SERVER_COUNT=$(get_server_count $1)
     _I=$(($2 % $_SERVER_COUNT))
   fi
-  _V_ROOT="CONF_SERVER_DATA_${1}_${I}_DOCROOT"
+  _V_ROOT="CONF_SERVER_DATA_${1}_${_I}_DOCROOT"
   echo "${!_V_ROOT}"
 }
 
@@ -243,7 +243,7 @@ get_remote_log() {
     _SERVER_COUNT=$(get_server_count $1)
     _I=$(($2 % $_SERVER_COUNT))
   fi
-  _V_LOG="CONF_SERVER_DATA_${1}_${I}_LOG"
+  _V_LOG="CONF_SERVER_DATA_${1}_${_I}_LOG"
   echo "${!_V_LOG}"
 }
 
