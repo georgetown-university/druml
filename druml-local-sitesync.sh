@@ -45,7 +45,7 @@ echo "Done!"
 echo ""
 
 # Sync db.
-echo "$(run_script "local-dbsync" --site=$SUBSITE $PROXY_PARAM_SERVER $ENV)"
+run_script "local-dbsync" --site=$SUBSITE $PROXY_PARAM_SERVER $ENV
 
 echo "=== Prepare website for local development"
 # Enable dev modules.

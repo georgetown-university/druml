@@ -48,10 +48,8 @@ echo "$OUTPUT"
 echo "Command execution scheduled."
 
 # Check task status.
-OUTPUT=$(run_script remote-ac-status $PROXY_PARAM_SERVER $ENV $TASK 2>&1)
-RESULT="$?"
-echo "$OUTPUT"
-if [[ $RESULT > 0 ]]; then
+run_script remote-ac-status $PROXY_PARAM_SERVER $ENV $TASK
+if [[ $? > 0 ]]; then
   echo "Command execution failed!"
   exit 1
 fi

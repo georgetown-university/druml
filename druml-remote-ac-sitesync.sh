@@ -24,45 +24,36 @@ ENV_TO=$(get_environment ${ARG[2]})
 PROXY_PARAM_SERVER=$(get_param_proxy "server")
 
 # Backup target db.
-OUTPUT=$(run_script remote-ac-dbbackup --site=$SUBSITE $PROXY_PARAM_SERVER $ENV_TO 2>&1)
-RESULT="$?"
-echo "$OUTPUT"
-if [[ $RESULT > 0 ]]; then
+run_script remote-ac-dbbackup --site=$SUBSITE $PROXY_PARAM_SERVER $ENV_TO
+if [[ $? > 0 ]]; then
   exit 1
 fi
+echo ""
 
 # Copy files.
-OUTPUT=$(run_script remote-filesync "${PROXY_PARAMS_ARGS[@]}" 2>&1)
-RESULT="$?"
-echo "$OUTPUT"
-if [[ $RESULT > 0 ]]; then
+run_script remote-filesync "${PROXY_PARAMS_ARGS[@]}"
+if [[ $? > 0 ]]; then
   exit 1
 fi
 echo ""
 
 # Copy DB.
-OUTPUT=$(run_script remote-ac-dbsync "${PROXY_PARAMS_ARGS[@]}" 2>&1)
-RESULT="$?"
-echo "$OUTPUT"
-if [[ $RESULT > 0 ]]; then
+run_script remote-ac-dbsync "${PROXY_PARAMS_ARGS[@]}"
+if [[ $? > 0 ]]; then
   exit 1
 fi
 echo ""
 
 # Flush Memcache.
-OUTPUT=$(run_script remote-memcacheflush $PROXY_PARAM_SERVER $ENV_TO 2>&1)
-RESULT="$?"
-echo "$OUTPUT"
-if [[ $RESULT > 0 ]]; then
+run_script remote-memcacheflush $PROXY_PARAM_SERVER $ENV_TO
+if [[ $? > 0 ]]; then
   exit 1
 fi
 echo ""
 
 # Flush Drupal cache.
-OUTPUT=$(run_script remote-drush --site=$SUBSITE $PROXY_PARAM_SERVER $ENV_TO "cc all" 2>&1)
-RESULT="$?"
-echo "$OUTPUT"
-if [[ $RESULT > 0 ]]; then
+run_script remote-drush --site=$SUBSITE $PROXY_PARAM_SERVER $ENV_TO "cc all"
+if [[ $? > 0 ]]; then
   exit 1
 fi
 

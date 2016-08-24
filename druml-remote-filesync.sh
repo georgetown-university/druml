@@ -51,7 +51,6 @@ if [[ $? > 0 ]]; then
 fi
 
 # ssh -Tn $SSH_ARGS_TO "mkdir ${DOCROOT_TO}/sites/$SUBSITE/"
-
 rsync -a $FILES_DIR/* $SSH_ARGS_TO:$DOCROOT_TO/sites/$SUBSITE/files/ 2>&1
 if [[ $? > 0 ]]; then
   echo "Can not sync files to $ENV_TO."
@@ -61,4 +60,3 @@ fi
 rm -rf $FILES_DIR
 
 echo "Files are synced!"
-echo ""

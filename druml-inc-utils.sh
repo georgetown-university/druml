@@ -12,6 +12,33 @@ run_script(){
   # Check for custom command.
   if [ -f "$CONFIG_DIR/druml-${_SCRIPT}.sh" ];
   then
+    $CONFIG_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) "${@}"
+    RESULT="$?"
+  # Check for default command.
+  elif [ -f "$SCRIPT_DIR/druml-${_SCRIPT}.sh" ];
+  then
+    $SCRIPT_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) "${@}"
+    RESULT="$?"
+  fi
+
+  # Eixt upon an error.
+  if [[ $RESULT > 0 ]]; then
+    return 1
+  fi
+}
+
+# Run script and do not output immidiately.
+run_script_stashed(){
+  # Get script name.
+  _SCRIPT=${1}
+  shift
+
+  # Get script dir
+  CONFIG_DIR=$(get_config_dir)
+
+  # Check for custom command.
+  if [ -f "$CONFIG_DIR/druml-${_SCRIPT}.sh" ];
+  then
     OUTPUT=$($CONFIG_DIR/druml-${_SCRIPT}.sh $SCRIPT_DIR --config=$(get_config_path) "${@}")
     RESULT="$?"
   # Check for default command.
@@ -57,7 +84,7 @@ iterate_script() {
     do
       _PROXY_PARAM_SERVER="--server=$_I" # in get_ssh_args and other functions we will get division reminder by the server count
       sleep 0.02 && {
-        _OUTPUT="$(run_script $_COMMAND --site=$_SUBSITE "${@}" $_PROXY_PARAM_SERVER)"
+        _OUTPUT="$(run_script_stashed $_COMMAND --site=$_SUBSITE "${@}" $_PROXY_PARAM_SERVER)"
         _RESULT="$?"
 
         echo "$_OUTPUT"
