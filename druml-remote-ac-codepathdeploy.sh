@@ -44,7 +44,7 @@ echo "$OUTPUT"
 echo "Code deployment scheduled."
 
 # Check task status.
-remote-ac-status $PROXY_PARAM_SERVER $ENV $TASK
+run_script remote-ac-status $PROXY_PARAM_SERVER $ENV $TASK
 if [[ $? > 0 ]]; then
   echo "Code deployment failed!"
   exit 1
