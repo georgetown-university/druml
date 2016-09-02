@@ -119,9 +119,12 @@ iterate_script() {
     done < $_LISTFILE
     wait;
 
+    echo "=== $_I / $_COUNT sites are done, iteration ended at $(date)"
     # Return error if any of the sites failed
     if [[ -f $_FAIL_FILE ]]
     then
+      echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
+      echo ""
       return 1
     fi
   else
