@@ -79,6 +79,9 @@ else
   JOBS=1
 fi
 
+# Log command
+log_command $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
 echo "=== Druml script started at $(date)"
 echo ""
 

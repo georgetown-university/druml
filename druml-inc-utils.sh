@@ -327,7 +327,6 @@ get_drush_command() {
   else
     echo "drush"
   fi
-
 }
 
 # Get drush subsite.
@@ -358,5 +357,15 @@ get_param_proxy() {
     echo "--$1=${!PARAM_VAR}"
   else
     echo ""
+  fi
+}
+
+# Log Druml command.
+log_command() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+    then
+    echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" >> ${CONF_MISC_LOG_CMD_FILE}
   fi
 }
