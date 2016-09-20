@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+# Set unique task id.
+TASK_ID="$(date +%F-%H-%M-%S)-$RANDOM"
+
 # Get Druml dir.
 SCRIPT_DIR=$(cd "$(dirname "$(test -L "$0" && readlink "$0" || echo "$0")")" && pwd)
 
@@ -75,16 +79,13 @@ else
   JOBS=1
 fi
 
-# Set variables.
-DATETIME=$(date +%F-%H-%M-%S)
-
 echo "=== Druml script started at $(date)"
 echo ""
 
 # Run commands for multiple subsites in multiple threads.
 if [[ -n $LIST && "$COMMAND" != "local-listupdate" ]]
 then
-  iterate_script $LIST $JOBS $DELAY $DATETIME $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+  iterate_script $LIST $JOBS $DELAY $COMMAND "${PROXY_PARAMS_ARGS[@]}"
   RESULT="$?"
 
   if [[ $RESULT > 0 ]]

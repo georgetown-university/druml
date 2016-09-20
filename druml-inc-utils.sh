@@ -67,16 +67,17 @@ iterate_script() {
   shift
   _DELAY=${1}
   shift
-  _DATETIME=${1}
-  shift
   _COMMAND=${1}
   shift
-
 
   _LISTFILE=$(get_list_file $_LIST)
   if [[ -f $_LISTFILE ]]
   then
-    _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$_DATETIME"
+    _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$TASK_ID"
+    if [[ -f $_FAIL_FILE ]]
+    then
+      rm $_FAIL_FILE
+    fi
     _I=0
     echo $_SERVER_COUNT;
     _COUNT=$(cat $_LISTFILE | wc -l | xargs)
