@@ -364,8 +364,31 @@ get_param_proxy() {
 log_command() {
   _CONFIG_DIR=$(get_config_dir)
 
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" started)
   if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
-    then
-    echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" >> ${CONF_MISC_LOG_CMD_FILE}
+  then
+    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+  fi
+}
+
+# Log Druml command.
+log_command_succeed() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" succeed)
+  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+  then
+    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+  fi
+}
+
+# Log Druml command.
+log_command_failed() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" failed)    
+  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+  then
+    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
   fi
 }

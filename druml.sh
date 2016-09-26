@@ -79,7 +79,7 @@ else
   JOBS=1
 fi
 
-# Log command
+# Log command.
 log_command $COMMAND "${PROXY_PARAMS_ARGS[@]}"
 
 echo "=== Druml script started at $(date)"
@@ -95,11 +95,19 @@ then
   then
     echo "=== Druml script failed at $(date)"
     echo ""
+
+    # Log command.
+    log_command_failed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
     exit 1
   fi
 
   echo "=== Druml script ended successfully at $(date)"
   echo ""
+
+  # Log command.
+  log_command_succeed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
   exit
 fi
 
@@ -111,8 +119,15 @@ if [[ $RESULT > 0 ]]
 then
   echo "=== Druml script failed at $(date)"
   echo ""
+
+  # Log command.
+  log_command_failed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
   exit 1
 fi
 
 echo "=== Druml script ended successfully at $(date)"
 echo ""
+
+# Log command.
+log_command_succeed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
