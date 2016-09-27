@@ -100,6 +100,11 @@ By default *Druml* loads configuration which is sotred in the `druml.yml` localt
 druml --config=~/supersite.yml <command> <arguments>
 ```
 
+LOGGING
+-----
+
+It is higly recommended to set up logging before using Druml. Logs could be written to a file or sent via email. To set up logging, uncomment log settings in the `Misclanious Settings` section in the `druml.yml`. Also make sure log file is writable.
+
 LISTS
 -----
 
