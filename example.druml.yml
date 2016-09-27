@@ -9,6 +9,7 @@ local:
     user: root
     pass: root
     # prefix:
+
     # Set db name for default site.
     default: sitedb
 
@@ -54,6 +55,7 @@ drush:
     prod: @example.prod
     test: @example.test
     dev: @example.dev
+
   # Specify drush command
   # command: drush6
 
