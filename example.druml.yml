@@ -33,6 +33,11 @@ misc:
   # Hosts file.
   hosts: /etc/hosts
 
+  # Logging settings.
+  # log:
+  #   cmd:
+  #     file: /var/log/druml.cmd.log
+  #     email: group@example.com
 
 # Environmental settings.
 environment:
