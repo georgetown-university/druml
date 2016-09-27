@@ -369,6 +369,10 @@ log_command() {
   then
     echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
   fi
+  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+  then
+    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+  fi
 }
 
 # Log Druml command.
@@ -380,15 +384,23 @@ log_command_succeed() {
   then
     echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
   fi
+  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+    then
+    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+  fi
 }
 
 # Log Druml command.
 log_command_failed() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" failed)    
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" failed)
   if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
   then
     echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+  fi
+  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+    then
+    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
   fi
 }
