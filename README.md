@@ -11,10 +11,10 @@ FEATURES
 -----
 * Provides over 15 useful command wrappers for Drush, Bash, Memcache, SAML, Acquia Cloud.
 * Allows to run any existing Drush commands chained in a batch.
-* Cam run commands in separate threads on a single or separate servers in parallel.
 * Runs commands either for multiple sites or individually.
 * Allows to manage list of different sites and control execution priority.
-* Allows to run commands in parallel threads.
+* Can run commands in parallel threads on a single server.
+* Can run commands on different servers in parallel.
 * Could be extended with custom commands.
 * Reads configuration from Yaml file.
 * Installed easily.
