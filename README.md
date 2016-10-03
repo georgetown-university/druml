@@ -54,8 +54,9 @@ Here are some example of how you can use *Druml* in your deployment and developm
 AVAILABLE COMMANDS
 -----
 ```
-  local-listupdate         Updates a list file that contains subsites
   local-dbsync             Syncs a subsite DB from a remote env to a local one
+  local-listupdate         Updates a list file that contains subsites
+  local-keysupdate         Updates known hosts file with SSH keys from remote servers
   local-samlsign           Signes SAML metadata file
   local-sitesync           Syncs a subsite (DB and files) from a remote env to a
                            local one
