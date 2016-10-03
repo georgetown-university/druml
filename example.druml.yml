@@ -34,6 +34,9 @@ misc:
   # Hosts file.
   hosts: /etc/hosts
 
+  # Known hosts file.
+  known_hosts: $HOME/.ssh/known_hosts
+
   # Logging settings.
   # log:
   #   cmd:

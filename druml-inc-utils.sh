@@ -237,7 +237,6 @@ get_server_count() {
   echo "${!_COUNT}"
 }
 
-
 # Get SSH arguments.
 get_ssh_args() {
   if [ -z $2 ]
@@ -250,6 +249,19 @@ get_ssh_args() {
   _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
   _V_USER="CONF_SERVER_DATA_${1}_${_I}_USER"
   echo "${!_V_USER}@${!_V_HOST}"
+}
+
+# Get remote host.
+get_remote_host() {
+  if [ -z $2 ]
+    then
+    _I=0
+  else
+    _SERVER_COUNT=$(get_server_count $1)
+    _I=$(($2 % $_SERVER_COUNT))
+  fi
+  _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
+  echo "${!_V_HOST}"
 }
 
 # Get remote docroot.
