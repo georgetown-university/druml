@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+# Set unique task id.
+TASK_ID="$(date +%F-%H-%M-%S)-$RANDOM"
+
 # Get Druml dir.
 SCRIPT_DIR=$(cd "$(dirname "$(test -L "$0" && readlink "$0" || echo "$0")")" && pwd)
 
@@ -31,8 +35,9 @@ then
   echo "usage: druml [--help] [--config=<path>] [--docroot=<path>] <command> <arguments>"
   echo ""
   echo "Available commands are:"
-  echo "  local-listupdate         Updates a list file that contains subsites"
   echo "  local-dbsync             Syncs a subsite DB from a remote env to a local one"
+  echo "  local-listupdate         Updates a list file that contains subsites"
+  echo "  local-keysupdate         Updates known hosts file with SSH keys from remote servers"
   echo "  local-samlsign           Signes SAML metadata file"
   echo "  local-sitesync           Syncs a subsite (DB and files) from a remote env to a"
   echo "                           local one"
@@ -75,8 +80,8 @@ else
   JOBS=1
 fi
 
-# Set variables.
-DATETIME=$(date +%F-%H-%M-%S)
+# Log command.
+log_command $COMMAND "${PROXY_PARAMS_ARGS[@]}"
 
 echo "=== Druml script started at $(date)"
 echo ""
@@ -84,18 +89,26 @@ echo ""
 # Run commands for multiple subsites in multiple threads.
 if [[ -n $LIST && "$COMMAND" != "local-listupdate" ]]
 then
-  iterate_script $LIST $JOBS $DELAY $DATETIME $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+  iterate_script $LIST $JOBS $DELAY $COMMAND "${PROXY_PARAMS_ARGS[@]}"
   RESULT="$?"
 
   if [[ $RESULT > 0 ]]
   then
     echo "=== Druml script failed at $(date)"
     echo ""
+
+    # Log command.
+    log_command_failed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
     exit 1
   fi
 
   echo "=== Druml script ended successfully at $(date)"
   echo ""
+
+  # Log command.
+  log_command_succeed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
   exit
 fi
 
@@ -107,8 +120,15 @@ if [[ $RESULT > 0 ]]
 then
   echo "=== Druml script failed at $(date)"
   echo ""
+
+  # Log command.
+  log_command_failed $COMMAND "${PROXY_PARAMS_ARGS[@]}"
+
   exit 1
 fi
 
 echo "=== Druml script ended successfully at $(date)"
 echo ""
+
+# Log command.
+log_command_succeed $COMMAND "${PROXY_PARAMS_ARGS[@]}"

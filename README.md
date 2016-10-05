@@ -13,7 +13,8 @@ FEATURES
 * Allows to run any existing Drush commands chained in a batch.
 * Runs commands either for multiple sites or individually.
 * Allows to manage list of different sites and control execution priority.
-* Allows to run commands in parallel threads.
+* Can run commands in parallel threads on a single server.
+* Can run commands on different servers in parallel.
 * Could be extended with custom commands.
 * Reads configuration from Yaml file.
 * Installed easily.
@@ -54,8 +55,9 @@ Here are some example of how you can use *Druml* in your deployment and developm
 AVAILABLE COMMANDS
 -----
 ```
-  local-listupdate         Updates a list file that contains subsites
   local-dbsync             Syncs a subsite DB from a remote env to a local one
+  local-listupdate         Updates a list file that contains subsites
+  local-keysupdate         Updates known hosts file with SSH keys from remote servers
   local-samlsign           Signes SAML metadata file
   local-sitesync           Syncs a subsite (DB and files) from a remote env to a
                            local one
@@ -99,6 +101,11 @@ By default *Druml* loads configuration which is sotred in the `druml.yml` localt
 ```bash
 druml --config=~/supersite.yml <command> <arguments>
 ```
+
+LOGGING
+-----
+
+It is higly recommended to set up logging before using Druml. Logs could be written to a file or sent via email. To set up logging, uncomment log settings in the `Misclanious Settings` section in the `druml.yml`. Also make sure log file is writable.
 
 LISTS
 -----

@@ -67,16 +67,17 @@ iterate_script() {
   shift
   _DELAY=${1}
   shift
-  _DATETIME=${1}
-  shift
   _COMMAND=${1}
   shift
-
 
   _LISTFILE=$(get_list_file $_LIST)
   if [[ -f $_LISTFILE ]]
   then
-    _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$_DATETIME"
+    _FAIL_FILE="$CONF_MISC_TEMPORARY/druml-list-failed-$TASK_ID"
+    if [[ -f $_FAIL_FILE ]]
+    then
+      rm $_FAIL_FILE
+    fi
     _I=0
     echo $_SERVER_COUNT;
     _COUNT=$(cat $_LISTFILE | wc -l | xargs)
@@ -236,7 +237,6 @@ get_server_count() {
   echo "${!_COUNT}"
 }
 
-
 # Get SSH arguments.
 get_ssh_args() {
   if [ -z $2 ]
@@ -249,6 +249,19 @@ get_ssh_args() {
   _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
   _V_USER="CONF_SERVER_DATA_${1}_${_I}_USER"
   echo "${!_V_USER}@${!_V_HOST}"
+}
+
+# Get remote host.
+get_remote_host() {
+  if [ -z $2 ]
+    then
+    _I=0
+  else
+    _SERVER_COUNT=$(get_server_count $1)
+    _I=$(($2 % $_SERVER_COUNT))
+  fi
+  _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
+  echo "${!_V_HOST}"
 }
 
 # Get remote docroot.
@@ -326,7 +339,6 @@ get_drush_command() {
   else
     echo "drush"
   fi
-
 }
 
 # Get drush subsite.
@@ -357,5 +369,50 @@ get_param_proxy() {
     echo "--$1=${!PARAM_VAR}"
   else
     echo ""
+  fi
+}
+
+# Log Druml command.
+log_command() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" started)
+  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+  then
+    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+  fi
+  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+  then
+    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+  fi
+}
+
+# Log Druml command.
+log_command_succeed() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" succeed)
+  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+  then
+    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+  fi
+  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+    then
+    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+  fi
+}
+
+# Log Druml command.
+log_command_failed() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" failed)
+  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+  then
+    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+  fi
+  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+    then
+    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
   fi
 }
