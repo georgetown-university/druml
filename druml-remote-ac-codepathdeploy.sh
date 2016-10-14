@@ -12,7 +12,8 @@ if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
   echo "usage: druml remote-ac-codepathdeploy [--config=<path>] [--docroot=<path>]"
   echo "                                      [--server=<number>]"
-  echo "                                      <environment> <branch/tag>"
+  echo "                                      <environment> <branch>|tags/<tag>"
+
   exit 1
 fi
 
