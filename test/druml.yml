@@ -1,0 +1,65 @@
+local:
+  # url: 
+  docroot: ../docroot
+  db:
+    # see http://dragly.org/2012/03/19/passwordless-access-to-mysql-by-using-sudo/
+    # user:
+    # pass:
+    # prefix:
+    default: drupal7druml
+  sync:
+    # enable: 
+    # disable:
+
+saml:
+  crt: ../simplesamlphp/cert/saml.crt
+  pem: ../simplesamlphp/cert/saml.pem
+  unsigned: ../simplesamlphp/metadata/metadata-unsigned.xml
+  signed: ../simplesamlphp/www/metadata.xml
+  xmlsectool: ~/xmlsectool/xmlsectool.sh
+
+misc:
+  temporary: /tmp
+  hosts: /etc/hosts
+  known_hosts: $HOME/.ssh/known_hosts
+  log:
+    cmd:
+      file: /var/log/druml.cmd.log
+      # email: 
+
+environment:
+  alias:
+    stg: test
+
+drush:
+  alias:
+    test: @drupal7druml.test
+    dev: @drupal7druml.dev
+
+list:
+  all: list/all.txt
+
+server:
+  count:
+    prod: 1
+    test: 1
+    dev: 1
+
+  data:
+    prod_0:
+      user: drupal7druml.prod
+      host: free-6255.devcloud.hosting.acquia.com
+      docroot: /var/www/html/drupal7druml.prod/docroot
+      log: /var/log/sites/drupal7druml/logs/web-3687
+
+    test_0:
+      user: drupal7druml.test
+      host: free-6255.devcloud.hosting.acquia.com
+      docroot: /var/www/html/drupal7druml.test/docroot
+      log: /var/log/sites/drupal7druml.test/logs/staging-3689
+
+    dev_0:
+      user: drupal7druml.dev
+      host: free-6255.devcloud.hosting.acquia.com
+      docroot: /var/www/html/drupal7druml.dev/docroot
+      log: /var/log/sites/drupal7druml.dev/logs/staging-3689
