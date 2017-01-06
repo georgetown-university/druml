@@ -1,0 +1,3 @@
+language: bash
+install: ./test/install.sh
+script: ./test/test.sh
