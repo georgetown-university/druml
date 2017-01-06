@@ -10,4 +10,4 @@ sudo chmod a-w $HOME/.ssh/id_rsa.pub
 sudo chmod go-r  $HOME/.ssh/id_rsa.pub
 
 eval `ssh-agent -s`
-ssh-add ~/.ssh/travis/id_rsa
+ssh-add ~/.ssh/id_rsa
