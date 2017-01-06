@@ -1,3 +1,4 @@
 #!/bin/bash
 
-bats build.sh
+cd test
+../bats/bin/bats test.bats
