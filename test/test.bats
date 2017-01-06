@@ -1,5 +1,10 @@
 #!/usr/bin/env bats
 
+@test "test buts itself" {
+  run echo "Hello World!"
+  [ "$status" -eq 0 ]
+}
+
 @test "run drush command for a single site" {
   run druml remote-drush --site=default dev "cc all"
   [ "$status" -eq 0 ]
