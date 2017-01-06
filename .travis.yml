@@ -1,3 +1,5 @@
 language: bash
 install: ./test/install.sh
 script: ./test/test.sh
+addons:
+  ssh_known_hosts: free-6255.devcloud.hosting.acquia.com
