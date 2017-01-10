@@ -1,6 +1,9 @@
 #!/bin/bash
 
+
 ls -la $HOME/.ssh
+pwd
+
 echo "!"
 ssh -Tn drupal7druml.test@free-6255.devcloud.hosting.acquia.com "echo 123"
 echo "!"

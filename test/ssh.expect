@@ -1,0 +1,5 @@
+#!/usr/bin/expect -f
+spawn ssh-add /Users/user/.ssh/id_rsa
+expect "Enter passphrase for /Users/user/.ssh/id_rsa:"
+send "\n";
+interact
