@@ -1,6 +1,7 @@
 language: bash
 before_install:
-   - sudo apt-get install -y expect
+  - sudo apt-get -qq update
+  - sudo apt-get install -y expect
 install: ./test/install.sh
 script: ./test/test.sh
 sudo: required
