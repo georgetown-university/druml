@@ -1,7 +1,4 @@
 #!/bin/bash
 
-eval `ssh-agentit`
-./test/ssh.expect
-
-cd test
-../bats/bin/bats test.bats
+# Bats needs to be installed in order to run this test: https://github.com/sstephenson/bats
+bats test.bats
