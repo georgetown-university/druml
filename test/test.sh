@@ -1,3 +1,6 @@
+echo $BASH_VERSION
+
+echo "?"
 
 printf $SSH_KEY
 printf $SSH_KEY_PUB
