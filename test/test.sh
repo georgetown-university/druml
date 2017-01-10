@@ -1,6 +1,7 @@
 
 printf "hey $SSH_KEY ?"
 printf "yo $SSH_KEY_PUB ?"
+echo $SSH_KEY_PUB
 
 echo "!"
 
