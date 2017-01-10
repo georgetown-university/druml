@@ -1,4 +1,5 @@
 #!/usr/bin/expect -f
+set timeout 100
 spawn ssh-add /home/travis/.ssh/id_rsa
 expect "Enter passphrase for /home/travis/.ssh/id_rsa:"
 send "\n";
