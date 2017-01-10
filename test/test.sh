@@ -1,6 +1,6 @@
 
-printf "$SSH_KEY"
-printf "$SSH_KEY_PUB"
+printf "hey $SSH_KEY ?"
+printf "yo $SSH_KEY_PUB ?"
 
 echo "!"
 
