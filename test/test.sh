@@ -2,6 +2,10 @@ echo $BASH_VERSION
 
 echo "?"
 
+echo $TEST_VAR
+
+echo "??"
+
 printf $SSH_KEY
 printf $SSH_KEY_PUB
 
