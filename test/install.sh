@@ -2,8 +2,8 @@
 
 git clone https://github.com/sstephenson/bats.git
 
-printf "$SSH_KEY" > $HOME/.ssh/id_rsa
-printf "$SSH_KEY_PUB" > $HOME/.ssh/id_rsa.pub
+printf $SSH_KEY > $HOME/.ssh/id_rsa
+printf $SSH_KEY_PUB > $HOME/.ssh/id_rsa.pub
 
 sudo chmod a-w $HOME/.ssh/id_rsa
 sudo chmod go-r $HOME/.ssh/id_rsa

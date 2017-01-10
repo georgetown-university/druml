@@ -1,14 +1,18 @@
 
-printf "hey $SSH_KEY ?"
-printf "yo $SSH_KEY_PUB ?"
-echo $SSH_KEY_PUB
+printf $SSH_KEY
+printf $SSH_KEY_PUB
 
 echo "!"
+
+echo $SSH_KEY
+echo $SSH_KEY_PUB
+
+echo "!!"
 
 cat $HOME/.ssh/id_rsa
 cat $HOME/.ssh/id_rsa.pub
 
-echo "!!"
+echo "!!!"
 
 ssh -Tn drupal7druml.test@free-6255.devcloud.hosting.acquia.com "echo 123"
 
