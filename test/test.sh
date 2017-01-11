@@ -1,5 +1,4 @@
-cd test
+#!/bin/bash
 
-../druml.sh remote-drush --site=default dev "cc all"
-
-../bats/bin/bats test.bats 
+# Requires bats to be installed
+bats test.bats 
