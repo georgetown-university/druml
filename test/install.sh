@@ -1,5 +1,10 @@
 #!/bin/bash
 
+pwd
+ls -la
+
+ln -s druml/druml.sh /usr/local/bin/druml
+
 git clone https://github.com/sstephenson/bats.git
 
 echo "-----BEGIN RSA PRIVATE KEY-----" > $HOME/.ssh/id_rsa
