@@ -14,7 +14,8 @@ FEATURES
 * Provides over 15 useful command wrappers for Drush, Bash, Memcache, SAML, Acquia Cloud.
 * Allows to run any existing Drush commands chained in a batch.
 * Runs commands either for multiple sites or individually.
-* Allows to manage list of different sites and control execution priority.
+* Allows to manage list of different sites and control execution 
+ity.
 * Can run commands in parallel threads on a single server.
 * Can run commands on different servers in parallel.
 * Could be extended with custom commands.
@@ -44,7 +45,7 @@ Here are some example of how you can use *Druml* in your deployment and developm
   druml remote-php prod --list=all --source=php/node-count.php --output=res/node-count.csv
   ```
 
-* Copies DB and files of edited sites from stage environment to production in *Acuia Cloud*. This command also makes DB backup prior and flushes Memcache and Drupal cache after then execution.
+* Copies DB and files of edited sites from stage environment to production in *Acuia Cloud*. This command also makes DB backup before execution and flushes Memcache and Drupal after.
   ```bash
   druml remote-ac-sitesync --list=edited stg prod
   ```
