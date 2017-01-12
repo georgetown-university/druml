@@ -28,13 +28,14 @@ SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 
 # Check task status every 20 seconds during 10 minutes.
 I=0;
-while [ $I -lt 600 ]; do
+while [ $I -lt 1200 ]; do
   OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-task-info $TASK" 2>&1)
   RESULT="$?"
 
   while read -r LINE; do
     KEY=$(echo $LINE | awk '{print $1}')
-    VAL=$( echo $LINE | awk '{print $3}')
+    VAL=$(echo $LINE | awk '{print $3}')
+    STATE=""
 
     if [[ "$KEY" = "state" ]]; then
         STATE=$VAL
