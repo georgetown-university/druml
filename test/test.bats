@@ -95,9 +95,9 @@
   [ "${lines[5]}" = "'all' cache was cleared.                                               [success]" ]
 }
 
-@test "run drush command without specifing site" {
-  run ../druml.sh remote-drush dev "cc all"
+@test "run drush command that does not exists" {
+  run ../druml.sh remote-drush --site=default dev "bla bla"
   [ "$status" -eq 1 ]
-  [ $(expr "${lines[1]}" : "usage: druml remote-drush") -ne 0 ]
+  [ $(expr "${lines[5]}" : "The drush command 'bla bla' could not be found.") -ne 0 ]
 }
 
