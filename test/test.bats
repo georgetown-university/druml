@@ -16,3 +16,22 @@
   [ "$status" -eq 1 ]
   [ $(expr "${lines[1]}" : "usage: druml remote-drush") -ne 0 ]
 }
+
+@test "check logging for successful command" {
+  run rm druml.cmd.log
+  run ../druml.sh remote-drush --site=default dev "cc all"
+  run grep '"remote-drush --site=default dev cc all" started' druml.cmd.log
+  [ "$status" -eq 0 ]
+  run grep '"remote-drush --site=default dev cc all" succeed' druml.cmd.log
+  [ "$status" -eq 0 ]
+ }
+
+@test "check logging for failed command" {
+  run rm druml.cmd.log
+  run ../druml.sh remote-drush dev "cc all"
+  run grep '"remote-drush dev cc all" started' druml.cmd.log
+  [ "$status" -eq 0 ]
+  run grep '"remote-drush dev cc all" failed' druml.cmd.log
+  [ "$status" -eq 0 ]
+ }
+

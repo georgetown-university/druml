@@ -24,7 +24,7 @@ misc:
   known_hosts: $HOME/.ssh/known_hosts
   log:
     cmd:
-      # file: /var/log/druml.cmd.log
+      file: druml.cmd.log
       # email: 
 
 environment:
