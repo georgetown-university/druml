@@ -95,9 +95,9 @@
   [ "${lines[5]}" = "'all' cache was cleared.                                               [success]" ]
 }
 
-@test "run drush command that does not exists" {
-  run ../druml.sh remote-drush --site=default dev "bla bla"
-  [ "$status" -eq 1 ]
-  [ $(expr "${lines[5]}" : "The drush command 'bla bla' could not be found.") -ne 0 ]
+@test "run bash command" {
+  run ../druml.sh remote-bash dev "echo bla bla bla"
+  [ "$status" -eq 0 ]
+  [ "${lines[5]}" = "bla bla bla" ]
 }
 
