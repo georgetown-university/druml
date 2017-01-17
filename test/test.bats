@@ -28,13 +28,18 @@
 @test "run custom command" {
   run ../druml.sh custom-echo 'Hello World!'
   [ "$status" -eq -0 ]
+  [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
   [ "${lines[1]}" = "Hello World!" ]
+  [ $(expr "${lines[2]}" : "=== Druml script ended successfully at") -ne 0 ]
+
 }
 
 @test "run custom command without parameters" {
   run ../druml.sh custom-echo
   [ "$status" -eq 1 ]
+  [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
   [ "${lines[1]}" = "usage: druml custom-echo [--config=<path>] <string>" ]
+  [ $(expr "${lines[2]}" : "=== Druml script failed at") -ne 0 ]
 }
 
 @test "check logging for successful command" {
