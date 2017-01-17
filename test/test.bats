@@ -5,6 +5,18 @@
   [ "$status" -eq 0 ]
 }
 
+@test "run druml without parameters" {
+  run ../druml.sh
+  [ "$status" -eq 1 ]
+  [ "${lines[0]}" = "usage: druml [--help] [--config=<path>] [--docroot=<path>] <command> <arguments>" ]
+}
+
+@test "run command that does not exist" {
+  run ../druml.sh does-not-exist
+  [ "$status" -eq 1 ]
+  [ "${lines[0]}" = "Command 'does-not-exist' does not exist!" ]
+}
+
 @test "run drush command for a single site" {
   run ../druml.sh remote-drush --site=default dev "cc all"
   [ "$status" -eq 0 ]
