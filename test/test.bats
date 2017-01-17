@@ -26,7 +26,7 @@
 }
 
 @test "run custom command" {
-  run ../druml.sh custom-echo 'Hello World!'
+  run ../druml.sh custom-greeting --name=World Hello
   [ "$status" -eq -0 ]
   [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
   [ "${lines[1]}" = "Hello World!" ]
@@ -34,41 +34,57 @@
 
 }
 
-@test "run custom command without parameters" {
-  run ../druml.sh custom-echo
+@test "run custom command without parameters - 1" {
+  run ../druml.sh custom-greeting --name=World
   [ "$status" -eq 1 ]
   [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
-  [ "${lines[1]}" = "usage: druml custom-echo [--config=<path>] <string>" ]
+  [ "${lines[1]}" = "usage: druml custom-greeting [--config=<path>] --name=name <greeting>" ]
+  [ $(expr "${lines[2]}" : "=== Druml script failed at") -ne 0 ]
+}
+
+@test "run custom command without parameters - 2" {
+  run ../druml.sh custom-greeting Hello
+  [ "$status" -eq 1 ]
+  [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
+  [ "${lines[1]}" = "usage: druml custom-greeting [--config=<path>] --name=name <greeting>" ]
+  [ $(expr "${lines[2]}" : "=== Druml script failed at") -ne 0 ]
+}
+
+@test "run custom command without parameters - 3" {
+  run ../druml.sh custom-greeting
+  [ "$status" -eq 1 ]
+  [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
+  [ "${lines[1]}" = "usage: druml custom-greeting [--config=<path>] --name=name <greeting>" ]
   [ $(expr "${lines[2]}" : "=== Druml script failed at") -ne 0 ]
 }
 
 @test "check logging for successful command" {
   run rm druml.cmd.log
-  run ../druml.sh custom-echo 'Hello World!'
-  run grep '"custom-echo Hello World!" started' druml.cmd.log
+  run ../druml.sh custom-greeting --name=World Hello
+  run grep '"custom-greeting --name=World Hello" started' druml.cmd.log
   [ "$status" -eq 0 ]
-  run grep '"custom-echo Hello World!" succeed' druml.cmd.log
+  run grep '"custom-greeting --name=World Hello" succeed' druml.cmd.log
   [ "$status" -eq 0 ]
 }
 
 @test "check logging for failed command" {
   run rm druml.cmd.log
-  run ../druml.sh custom-echo
-  run grep '"custom-echo" started' druml.cmd.log
+  run ../druml.sh custom-greeting
+  run grep '"custom-greeting" started' druml.cmd.log
   [ "$status" -eq 0 ]
-  run grep '"custom-echo" failed' druml.cmd.log
+  run grep '"custom-greeting" failed' druml.cmd.log
   [ "$status" -eq 0 ]
 }
 
-# TODO: running following does not work: run --config=druml-ln.yml  ../druml.sh custom-echo 'Hello World!'
+# TODO: running following does not work: run --config=druml-ln.yml  ../druml.sh custom-greeting --name=World Hello
 @test "override config path" {
-  run ../druml.sh custom-echo --config=druml-ln.yml 'Hello World!'
+  run ../druml.sh custom-greeting --config=druml-ln.yml --name=World Hello
   [ "$status" -eq 0 ]
   [ "${lines[1]}" = "Hello World!" ]
 }
 
 @test "override config path with wrong path" {
-  run ../druml.sh custom-echo --config=druml-ln-2.yml 'Hello World!'
+  run ../druml.sh custom-greeting --config=druml-ln-2.yml --name=World Hello
   [ "$status" -eq 1 ]
   [ "${lines[0]}" = "Config file 'druml-ln-2.yml' does not exist." ]
 }
