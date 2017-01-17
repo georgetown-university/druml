@@ -12,6 +12,7 @@
   [ "${lines[0]}" = "usage: druml [--help] [--config=<path>] [--docroot=<path>] <command> <arguments>" ]
 }
 
+#TODO: running help with no command does not work.
 #@test "run druml with --help parameter" {
 #  run ../druml.sh --help
 #  [ "$status" -eq 1 ]
@@ -43,7 +44,7 @@
   [ "$status" -eq 0 ]
   run grep '"custom-echo Hello World!" succeed' druml.cmd.log
   [ "$status" -eq 0 ]
- }
+}
 
 @test "check logging for failed command" {
   run rm druml.cmd.log
@@ -52,7 +53,20 @@
   [ "$status" -eq 0 ]
   run grep '"custom-echo" failed' druml.cmd.log
   [ "$status" -eq 0 ]
- }
+}
+
+# TODO: running following does not work: run --config=druml-ln.yml  ../druml.sh custom-echo 'Hello World!'
+@test "override config path" {
+  run ../druml.sh custom-echo --config=druml-ln.yml 'Hello World!'
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "Hello World!" ]
+}
+
+@test "override config path with wrong path" {
+  run ../druml.sh custom-echo --config=druml-ln-2.yml 'Hello World!'
+  [ "$status" -eq 1 ]
+  [ "${lines[0]}" = "Config file 'druml-ln-2.yml' does not exist." ]
+}
 
 @test "run drush command for a single site" {
   run ../druml.sh remote-drush --site=default dev "cc all"
