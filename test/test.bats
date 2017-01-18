@@ -131,3 +131,9 @@
   run cat output.txt
   [ "${lines[0]}" = "Test page 1" ]
 }
+
+@test "check tag/branch on DEV environment" {
+  run ../druml.sh remote-ac-tagget stg
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "master" ]
+}
