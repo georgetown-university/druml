@@ -70,7 +70,7 @@
   [ $(expr "${lines[7]}" : "=== Druml script ended successfully at") -ne 0 ]
 }
 
-@test "run custom command for multiple sites in multiple jobs" {
+@test "run custom command for multiple sites in multiple threads" {
   run ../druml.sh custom-greeting --list=all --jobs=3 --name=World Hello
   [ "$status" -eq -0 ]
   [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
