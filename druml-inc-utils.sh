@@ -101,7 +101,11 @@ iterate_script() {
       then
         wait;
 
-        echo "=== $_I / $_COUNT sites are done, iteration ended at $(date)"
+        if [ $_I -ne $_COUNT ]
+        then
+          echo "=== $_I / $_COUNT sites are done, iteration ended at $(date)"
+        fi
+
         if [[ -f $_FAIL_FILE ]]
         then
           echo "Failed sites: $(cat $_FAIL_FILE | xargs | sed -e 's/ /, /g')."
