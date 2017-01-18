@@ -31,7 +31,6 @@
   [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
   [ "${lines[1]}" = "Hello World!" ]
   [ $(expr "${lines[2]}" : "=== Druml script ended successfully at") -ne 0 ]
-
 }
 
 @test "run custom command without parameters - 1" {
@@ -56,6 +55,19 @@
   [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
   [ "${lines[1]}" = "usage: druml custom-greeting [--config=<path>] --name=name <greeting>" ]
   [ $(expr "${lines[2]}" : "=== Druml script failed at") -ne 0 ]
+}
+
+@test "run custom command for multiple sites" {
+  run ../druml.sh custom-greeting --list=all --name=World Hello
+  [ "$status" -eq -0 ]
+  [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
+  [ "${lines[1]}" = "Hello World!" ]
+  [ $(expr "${lines[2]}" : "=== 1 / 3 sites are done, iteration ended at") -ne 0 ]
+  [ "${lines[3]}" = "Hello World!" ]
+  [ $(expr "${lines[4]}" : "=== 2 / 3 sites are done, iteration ended at") -ne 0 ]
+  [ "${lines[5]}" = "Hello World!" ]
+  [ $(expr "${lines[6]}" : "=== 3 / 3 sites are done, iteration ended at") -ne 0 ]
+  [ $(expr "${lines[7]}" : "=== Druml script ended successfully at") -ne 0 ]
 }
 
 @test "check logging for successful command" {
