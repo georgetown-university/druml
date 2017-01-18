@@ -137,3 +137,10 @@
   [ "$status" -eq 0 ]
   [ "${lines[1]}" = "master" ]
 }
+
+
+@test "check status of task on DEV environment" {
+  run ../druml.sh remote-ac-status dev 16997156
+  [ "$status" -eq 0 ]
+  [ "${lines[1]}" = "Task completed." ]
+}
