@@ -125,7 +125,9 @@
 }
 
 @test "run php script" {
-  run ../druml.sh remote-php --site=default dev --source=php/node-title.php
+  run ../druml.sh remote-php --site=default dev --source=php/node-title.php --output=output.txt
   [ "$status" -eq 0 ]
   [ "${lines[6]}" = "Test page 1" ]
+  run cat output.txt
+  [ "${lines[0]}" = "Test page 1" ]
 }
