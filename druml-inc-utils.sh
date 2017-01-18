@@ -79,8 +79,7 @@ iterate_script() {
       rm $_FAIL_FILE
     fi
     _I=0
-    echo $_SERVER_COUNT;
-    _COUNT=$(cat $_LISTFILE | wc -l | xargs)
+    _COUNT=$(cat $_LISTFILE | grep . | wc -l | xargs)
     for _SUBSITE in `cat $_LISTFILE`
     do
       _PROXY_PARAM_SERVER="--server=$_I" # in get_ssh_args and other functions we will get division reminder by the server count
