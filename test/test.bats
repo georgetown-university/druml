@@ -70,6 +70,17 @@
   [ $(expr "${lines[7]}" : "=== Druml script ended successfully at") -ne 0 ]
 }
 
+@test "run custom command for multiple sites in multiple jobs" {
+  run ../druml.sh custom-greeting --list=all --jobs=3 --name=World Hello
+  [ "$status" -eq -0 ]
+  [ $(expr "${lines[0]}" : "=== Druml script started at") -ne 0 ]
+  [ "${lines[1]}" = "Hello World!" ]
+  [ "${lines[2]}" = "Hello World!" ]
+  [ "${lines[3]}" = "Hello World!" ]
+  [ $(expr "${lines[4]}" : "=== 3 / 3 sites are done, iteration ended at") -ne 0 ]
+  [ $(expr "${lines[5]}" : "=== Druml script ended successfully at") -ne 0 ]
+}
+
 @test "check logging for successful command" {
   run rm druml.cmd.log
   run ../druml.sh custom-greeting --name=World Hello
