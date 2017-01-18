@@ -124,3 +124,8 @@
   [ "${lines[5]}" = "bla bla bla" ]
 }
 
+@test "run php script" {
+  run ../druml.sh remote-php --site=default dev --source=php/node-title.php
+  [ "$status" -eq 0 ]
+  [ "${lines[6]}" = "Test page 1" ]
+}
