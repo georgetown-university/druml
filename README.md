@@ -66,7 +66,7 @@ AVAILABLE COMMANDS
                            local one
   remote-ac-codedeploy     Deploys code from one environment to another
   remote-ac-codepathdeploy Deployes a tag/branch to the specific enviornment
-  remote-ac-command        Executes any drush ac command
+  remote-ac-command        Executes Acquia command and checks status of it
   remote-ac-dbbackup       Backup a DB
   remote-ac-dbsync         Syncs a subsite DB from one env to another
   remote-ac-sitesync       Syncs a subsite (DB and fies) from one env to another

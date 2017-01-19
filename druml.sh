@@ -43,7 +43,7 @@ then
   echo "                           local one"
   echo "  remote-ac-codedeploy     Deploys code from one environment to another"
   echo "  remote-ac-codepathdeploy Deployes a tag/branch to the specific enviornment"
-  echo "  remote-ac-command        Executes any drush ac command"
+  echo "  remote-ac-command        Executes Acquia command and checks status of it"
   echo "  remote-ac-dbbackup       Backup a DB"
   echo "  remote-ac-dbsync         Syncs a subsite DB from one env to another"
   echo "  remote-ac-sitesync       Syncs a subsite (DB and fies) from one env to another"
