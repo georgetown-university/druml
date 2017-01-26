@@ -44,7 +44,6 @@ if [[ $RESULT > 0 ]]; then
   echo "Error executing command."
   exit 1
 fi
-echo "$OUTPUT"
 echo "Command execution scheduled."
 
 # Check task status.
