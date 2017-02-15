@@ -83,6 +83,10 @@ fi
 # Log command.
 log_command $COMMAND "${PROXY_PARAMS_ARGS[@]}"
 
+# Log output (this should be prior log_command).
+log_output
+
+
 echo "=== Druml script started at $(date)"
 echo ""
 

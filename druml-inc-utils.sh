@@ -375,6 +375,7 @@ get_param_proxy() {
   fi
 }
 
+# Get log file.
 log_get_file() {
   LOG_FILE=""
   if [ -n ${CONF_MISC_LOG_DIR} ] && [ -n ${CONF_MISC_LOG_FILE} ]
@@ -388,18 +389,32 @@ log_get_file() {
   echo $LOG_FILE
 }
 
+# Get individual log file for a task.
+log_get_task_file() {
+  LOG_FILE=""
+  if [ -n ${CONF_MISC_LOG_DIR} ]
+  then
+    if [ ! -d "${CONF_MISC_LOG_DIR}" ]
+    then
+      mkdir ${CONF_MISC_LOG_DIR}
+    fi
+    LOG_FILE="${CONF_MISC_LOG_DIR}/${TASK_ID}.log"
+  fi
+  echo $LOG_FILE
+}
 
 # Log Druml command.
 log_command() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" started)
+  LINE=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" started)
 
   LOG_FILE=$(log_get_file)
   if [[ -n ${LOG_FILE} ]]
   then
     echo $LINE >> ${LOG_FILE}
   fi
+
   if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
   then
     mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
@@ -410,13 +425,14 @@ log_command() {
 log_command_succeed() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" succeed)
+  LINE=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" succeed)
 
   LOG_FILE=$(log_get_file)
   if [[ -n ${LOG_FILE} ]]
   then
     echo $LINE >> ${LOG_FILE}
   fi
+
   if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
     then
     mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
@@ -427,15 +443,26 @@ log_command_succeed() {
 log_command_failed() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" failed)
+  LINE=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" failed)
 
   LOG_FILE=$(log_get_file)
   if [[ -n ${LOG_FILE} ]]
   then
     echo $LINE >> ${LOG_FILE}
   fi
+
   if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
     then
     mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
+  fi
+}
+
+# Log Durml output.
+log_output() {
+  LOG_FILE=$(log_get_task_file)
+  if [[ -n ${LOG_FILE} ]]
+  then
+    exec > >(tee -i $LOG_FILE)
+    exec 2>&1
   fi
 }
