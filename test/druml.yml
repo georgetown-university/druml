@@ -1,5 +1,5 @@
 local:
-  # url: 
+  # url:
   docroot: ../docroot
   db:
     # see http://dragly.org/2012/03/19/passwordless-access-to-mysql-by-using-sudo/
@@ -8,7 +8,7 @@ local:
     # prefix:
     default: drupal7druml
   sync:
-    # enable: 
+    # enable:
     # disable:
 
 saml:
@@ -23,9 +23,9 @@ misc:
   hosts: /etc/hosts
   known_hosts: $HOME/.ssh/known_hosts
   log:
-    cmd:
-      file: druml.cmd.log
-      # email: 
+    dir: ./log
+    file: druml.log
+    # email:
 
 environment:
   alias:

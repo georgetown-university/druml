@@ -39,9 +39,9 @@ misc:
 
   # Logging settings.
   # log:
-  #   cmd:
-  #     file: /var/log/druml.cmd.log
-  #     email: group@example.com
+  #   dir: /var/log/druml
+  #   file: druml.log
+  #   email: group@example.com
 
 # Environmental settings.
 environment:

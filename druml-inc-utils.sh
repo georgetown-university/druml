@@ -375,18 +375,34 @@ get_param_proxy() {
   fi
 }
 
+log_get_file() {
+  LOG_FILE=""
+  if [ -n ${CONF_MISC_LOG_DIR} ] && [ -n ${CONF_MISC_LOG_FILE} ]
+  then
+    if [ ! -d "${CONF_MISC_LOG_DIR}" ]
+    then
+      mkdir ${CONF_MISC_LOG_DIR}
+    fi
+    LOG_FILE="${CONF_MISC_LOG_DIR}/${CONF_MISC_LOG_FILE}"
+  fi
+  echo $LOG_FILE
+}
+
+
 # Log Druml command.
 log_command() {
   _CONFIG_DIR=$(get_config_dir)
 
   LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" started)
-  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+
+  LOG_FILE=$(log_get_file)
+  if [[ -n ${LOG_FILE} ]]
   then
-    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+    echo $LINE >> ${LOG_FILE}
   fi
-  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+  if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
   then
-    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
   fi
 }
 
@@ -395,13 +411,15 @@ log_command_succeed() {
   _CONFIG_DIR=$(get_config_dir)
 
   LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" succeed)
-  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+
+  LOG_FILE=$(log_get_file)
+  if [[ -n ${LOG_FILE} ]]
   then
-    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+    echo $LINE >> ${LOG_FILE}
   fi
-  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+  if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
     then
-    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
   fi
 }
 
@@ -410,12 +428,14 @@ log_command_failed() {
   _CONFIG_DIR=$(get_config_dir)
 
   LINE=$(echo $(hostname) $USER [$(date)] \"$_CONFIG_DIR\" \""${@}"\" failed)
-  if [[ -n ${CONF_MISC_LOG_CMD_FILE} ]]
+
+  LOG_FILE=$(log_get_file)
+  if [[ -n ${LOG_FILE} ]]
   then
-    echo $LINE >> ${CONF_MISC_LOG_CMD_FILE}
+    echo $LINE >> ${LOG_FILE}
   fi
-  if [[ -n ${CONF_MISC_LOG_CMD_EMAIL} ]]
+  if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
     then
-    mail -s "Druml script execution" $CONF_MISC_LOG_CMD_EMAIL <<< $LINE
+    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
   fi
 }

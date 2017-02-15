@@ -82,20 +82,20 @@
 }
 
 @test "check logging for successful command" {
-  run rm druml.cmd.log
+  run rm log/druml.log
   run ../druml.sh custom-greeting --name=World Hello
-  run grep '"custom-greeting --name=World Hello" started' druml.cmd.log
+  run grep '"custom-greeting --name=World Hello" started' log/druml.log
   [ "$status" -eq 0 ]
-  run grep '"custom-greeting --name=World Hello" succeed' druml.cmd.log
+  run grep '"custom-greeting --name=World Hello" succeed' log/druml.log
   [ "$status" -eq 0 ]
 }
 
 @test "check logging for failed command" {
-  run rm druml.cmd.log
+  run rm log/druml.log
   run ../druml.sh custom-greeting
-  run grep '"custom-greeting" started' druml.cmd.log
+  run grep '"custom-greeting" started' log/druml.log
   [ "$status" -eq 0 ]
-  run grep '"custom-greeting" failed' druml.cmd.log
+  run grep '"custom-greeting" failed' log/druml.log
   [ "$status" -eq 0 ]
 }
 
