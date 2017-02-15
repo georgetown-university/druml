@@ -407,17 +407,17 @@ log_get_task_file() {
 log_command() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" started)
+  OUTPUT=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" started)
 
   LOG_FILE=$(log_get_file)
   if [[ -n ${LOG_FILE} ]]
   then
-    echo $LINE >> ${LOG_FILE}
+    echo $OUTPUT >> ${LOG_FILE}
   fi
 
   if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
   then
-    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
+    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $OUTPUT
   fi
 }
 
@@ -425,17 +425,26 @@ log_command() {
 log_command_succeed() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" succeed)
+  OUTPUT=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" succeed)
 
   LOG_FILE=$(log_get_file)
   if [[ -n ${LOG_FILE} ]]
   then
-    echo $LINE >> ${LOG_FILE}
+    echo $OUTPUT >> ${LOG_FILE}
   fi
 
   if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
-    then
-    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
+  then
+    # Include Druml log output.
+    LOG_TASK_FILE=$(log_get_task_file)
+    OUTPUT="$OUTPUT\n"
+    while read -r LINE
+    do
+      OUTPUT="$OUTPUT\n$LINE"
+    done < "$LOG_TASK_FILE"
+    OUTPUT=$(echo -e "$OUTPUT")
+
+    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< "$OUTPUT"
   fi
 }
 
@@ -443,26 +452,36 @@ log_command_succeed() {
 log_command_failed() {
   _CONFIG_DIR=$(get_config_dir)
 
-  LINE=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" failed)
+  OUTPUT=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" failed)
 
   LOG_FILE=$(log_get_file)
   if [[ -n ${LOG_FILE} ]]
   then
-    echo $LINE >> ${LOG_FILE}
+    echo $OUTPUT >> ${LOG_FILE}
   fi
 
   if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
-    then
-    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $LINE
+  then
+    # Include Druml log output.
+    LOG_TASK_FILE=$(log_get_task_file)
+    OUTPUT="$OUTPUT\n"
+    while read -r LINE
+    do
+      OUTPUT="$OUTPUT\n$LINE"
+    done < "$LOG_TASK_FILE"
+    OUTPUT=$(echo -e "$OUTPUT")
+    echo "$OUTPUT" > /tmp/yo.txt
+
+    mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< "$OUTPUT"
   fi
 }
 
 # Log Durml output.
 log_output() {
-  LOG_FILE=$(log_get_task_file)
+  LOG_TASK_FILE=$(log_get_task_file)
   if [[ -n ${LOG_FILE} ]]
   then
-    exec > >(tee -i $LOG_FILE)
+    exec > >(tee -i $LOG_TASK_FILE)
     exec 2>&1
   fi
 }
