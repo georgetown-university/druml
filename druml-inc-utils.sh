@@ -378,7 +378,7 @@ get_param_proxy() {
 # Get log file.
 log_get_file() {
   LOG_FILE=""
-  if [ -n ${CONF_MISC_LOG_DIR} ] && [ -n ${CONF_MISC_LOG_FILE} ]
+  if [ ${CONF_MISC_LOG_DIR} ] && [ ${CONF_MISC_LOG_FILE} ]
   then
     if [ ! -d "${CONF_MISC_LOG_DIR}" ]
     then
@@ -392,7 +392,7 @@ log_get_file() {
 # Get individual log file for a task.
 log_get_task_file() {
   LOG_FILE=""
-  if [ -n ${CONF_MISC_LOG_DIR} ]
+  if [ ${CONF_MISC_LOG_DIR} ]
   then
     if [ ! -d "${CONF_MISC_LOG_DIR}" ]
     then
@@ -410,12 +410,12 @@ log_command() {
   OUTPUT=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" started)
 
   LOG_FILE=$(log_get_file)
-  if [[ -n ${LOG_FILE} ]]
+  if [[ ${LOG_FILE} ]]
   then
     echo $OUTPUT >> ${LOG_FILE}
   fi
 
-  if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
+  if [[ ${CONF_MISC_LOG_EMAIL} ]]
   then
     mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< $OUTPUT
   fi
@@ -428,12 +428,12 @@ log_command_succeed() {
   OUTPUT=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" succeed)
 
   LOG_FILE=$(log_get_file)
-  if [[ -n ${LOG_FILE} ]]
+  if [[ ${LOG_FILE} ]]
   then
     echo $OUTPUT >> ${LOG_FILE}
   fi
 
-  if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
+  if [[ ${CONF_MISC_LOG_EMAIL} ]]
   then
     # Include Druml log output.
     LOG_TASK_FILE=$(log_get_task_file)
@@ -455,12 +455,12 @@ log_command_failed() {
   OUTPUT=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" \""${@}"\" failed)
 
   LOG_FILE=$(log_get_file)
-  if [[ -n ${LOG_FILE} ]]
+  if [[ ${LOG_FILE} ]]
   then
     echo $OUTPUT >> ${LOG_FILE}
   fi
 
-  if [[ -n ${CONF_MISC_LOG_EMAIL} ]]
+  if [[ ${CONF_MISC_LOG_EMAIL} ]]
   then
     # Include Druml log output.
     LOG_TASK_FILE=$(log_get_task_file)
@@ -479,7 +479,7 @@ log_command_failed() {
 # Log Durml output.
 log_output() {
   LOG_TASK_FILE=$(log_get_task_file)
-  if [[ -n ${LOG_FILE} ]]
+  if [[ ${LOG_FILE} ]]
   then
     exec > >(tee -i $LOG_TASK_FILE)
     exec 2>&1
