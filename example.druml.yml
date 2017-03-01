@@ -68,6 +68,9 @@ list:
   all: default-sites.txt
   new: new-sites.txt
 
+# Specify site aliases.
+alias:
+  nickname: default
 
 # Server settings.
 server:

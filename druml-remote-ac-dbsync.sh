@@ -19,7 +19,7 @@ then
 fi
 
 # Read parameters.
-SUBSITE=$PARAM_SITE
+SUBSITE=$(get_site_alias $PARAM_SITE)
 ENV_FROM=$(get_environment ${ARG[1]})
 ENV_TO=$(get_environment ${ARG[2]})
 

@@ -64,7 +64,7 @@ source $SCRIPT_DIR/druml-inc-config.sh
 
 # Read parameters.
 LIST=$PARAM_LIST
-SITE=$PARAM_SITE
+SITE=$(get_site_alias $PARAM_SITE)
 
 if [[ -n $PARAM_DELAY ]]
 then

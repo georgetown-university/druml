@@ -19,7 +19,7 @@ then
 fi
 
 # Read parameters.
-SUBSITE=$PARAM_SITE
+SUBSITE=$(get_site_alias $PARAM_SITE)
 ENV_TO=$(get_environment ${ARG[2]})
 PROXY_PARAM_SERVER=$(get_param_proxy "server")
 

@@ -19,7 +19,7 @@ if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 fi
 
 # Read parameters.
-SUBSITE=$PARAM_SITE
+SUBSITE=$(get_site_alias $PARAM_SITE)
 ENV=$(get_environment ${ARG[1]})
 
 # Set variables.

@@ -375,6 +375,17 @@ get_param_proxy() {
   fi
 }
 
+# Get site alias.
+get_site_alias() {
+  CONF_VAR="CONF_ALIAS_$(echo $1 | tr '[:lower:]' '[:upper:]')"
+  if [[ -n ${!CONF_VAR} ]]
+  then
+    echo "${!CONF_VAR}"
+  else
+    echo "$1"
+  fi
+}
+
 # Get log file.
 log_get_file() {
   LOG_FILE=""
