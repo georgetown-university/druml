@@ -105,11 +105,6 @@ By default *Druml* loads configuration which is sotred in the `druml.yml` localt
 druml --config=~/supersite.yml <command> <arguments>
 ```
 
-If you are planning to log druml output, make sure to create druml log directory and grant access to edit it.
-```sudo mkdir /var/log/druml/
-sudo chmod a+rw /var/log/druml
-```
-
 LOGGING
 -----
 
