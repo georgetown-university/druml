@@ -69,6 +69,7 @@ AVAILABLE COMMANDS
   remote-ac-command        Executes Acquia command and checks status of it
   remote-ac-dbbackup       Backup a DB
   remote-ac-dbsync         Syncs a subsite DB from one env to another
+  remote-ac-olddbbackupsrm Removes old DB backups
   remote-ac-sitesync       Syncs a subsite (DB and fies) from one env to another
   remote-ac-status         Waits until the task is completed
   remote-ac-tagget         Returns tag or branch associated with environment

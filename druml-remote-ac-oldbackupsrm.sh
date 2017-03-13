@@ -10,12 +10,12 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-olddbbackupsrm [--config=<path>] [--docroot=<path>]"
-  echo "                                  [--jobs=<number>] [--delay=<seconds>]"
-  echo "                                  --site=<subsite> | --list=<list>"
-  echo "                                  [--days-old=<number>]"
-  echo "                                  [--server=<number>]"
-  echo "                                  <environment>"
+  echo "usage: druml remote-ac-olddbbackupsrm [--config=<path>] [--docroot=<path>]"
+  echo "                                      [--jobs=<number>] [--delay=<seconds>]"
+  echo "                                       --site=<subsite> | --list=<list>"
+  echo "                                      [--days-old=<number>]"
+  echo "                                      [--server=<number>]"
+  echo "                                      <environment>"
   exit 1
 fi
 
@@ -32,7 +32,7 @@ PROXY_PARAM_SERVER=$(get_param_proxy "server")
 DAYS_OLD=$PARAM_DAYS_OLD
 
 if [[ $DAYS_OLD < 1 ]];  then
-  DAYS_OLD=30
+  DAYS_OLD=180
 fi
 
 # Say Hello.
@@ -71,8 +71,14 @@ while read -r LINE; do
         ((DIFF = ($NOW - $STARTED) / 86400 ))
         if (( DIFF > $DAYS_OLD )); then
           echo "Removing on demand DB backup, ID=$ID."
-          run_script remote-ac-command $ENV "ac-database-instance-backup-delete $SUBSITE $ID"
-
+          RM_OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-database-instance-backup-delete $SUBSITE $ID" 2>&1)
+          RM_RESULT="$?"
+          if [[ $? > 0 ]]; then
+            echo "Error removing backup."
+          fi
+          if [[ $PARAM_DELAY > 0 ]];  then
+            sleep $PARAM_DELAY
+          fi
         fi
       fi
   fi
