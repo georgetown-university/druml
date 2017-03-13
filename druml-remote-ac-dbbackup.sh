@@ -10,11 +10,11 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 1 || -z $PARAM_SITE || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-dbbackup [--config=<path>] [--docroot=<path>]"
-  echo "                            [--jobs=<number>] [--delay=<seconds>]"
-  echo "                            --site=<subsite> | --list=<list>"
-  echo "                            [--server=<number>]"
-  echo "                            <environment>"
+  echo "usage: druml remote-ac-dbbackup [--config=<path>] [--docroot=<path>]"
+  echo "                                [--jobs=<number>] [--delay=<seconds>]"
+  echo "                                --site=<subsite> | --list=<list>"
+  echo "                                [--server=<number>]"
+  echo "                                <environment>"
   exit 1
 fi
 

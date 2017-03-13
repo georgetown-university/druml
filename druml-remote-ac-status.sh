@@ -10,10 +10,10 @@ source $SCRIPT_DIR/druml-inc-init.sh
 # Display help.
 if [[ ${#ARG[@]} -lt 2 || -n $PARAM_HELP ]]
 then
-  echo "usage: druml local-remote-ac-status [--config=<path>] [--docroot=<path>]"
-  echo "                                    [--jobs=<number>] [--delay=<seconds>]"
-  echo "                                    [--server=<number>]"
-  echo "                                    <environment> <task_id>"
+  echo "usage: druml remote-ac-status [--config=<path>] [--docroot=<path>]"
+  echo "                              [--jobs=<number>] [--delay=<seconds>]"
+  echo "                              [--server=<number>]"
+  echo "                              <environment> <task_id>"
   exit 1
 fi
 
