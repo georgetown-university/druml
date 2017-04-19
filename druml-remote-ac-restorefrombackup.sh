@@ -90,7 +90,7 @@ echo "Restroting from $LATEST_TYPE DB backup, ID=$LATEST_ID, STARTED=$LATEST_STA
 
 R_OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-database-instance-backup-restore $SUBSITE $LATEST_ID" 2>&1)
 R_RESULT="$?"
-TASK=$(echo $OUTPUT | awk '{print $2}')
+TASK=$(echo $R_OUTPUT | awk '{print $2}')
 
 # Eixt upon an error.
 if [[ $? > 0 ]]; then
