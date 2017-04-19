@@ -19,7 +19,7 @@ fi
 
 # Read parameters.
 ENV=$(get_environment ${ARG[1]})
-TASK=$(get_environment ${ARG[2]})
+TASK=${ARG[2]}
 
 # Set variables.
 DRUSH=$(get_drush_command)
