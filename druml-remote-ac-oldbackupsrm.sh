@@ -28,7 +28,6 @@ DRUSH=$(get_drush_command)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
 SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
-PROXY_PARAM_SERVER=$(get_param_proxy "server")
 DAYS_OLD=$PARAM_DAYS_OLD
 
 if [[ $DAYS_OLD < 1 ]];  then
@@ -70,7 +69,7 @@ while read -r LINE; do
       if [[ "$TYPE" = "ondemand" ]]; then
         ((DIFF = ($NOW - $STARTED) / 86400 ))
         if (( DIFF > $DAYS_OLD )); then
-          echo "Removing on demand DB backup, ID=$ID."
+          echo "Removing on demand DB backup, ID=$ID, STARTED=$STARTED."
           RM_OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-database-instance-backup-delete $SUBSITE $ID" 2>&1)
           RM_RESULT="$?"
           if [[ $? > 0 ]]; then
