@@ -139,8 +139,8 @@
 }
 
 
-@test "check status of task on DEV environment" {
-  run ../druml.sh remote-ac-status dev 16997156
+@test "perform test1 DB backup on Acquia Cloud on DEV environment" {
+  run ../druml.sh remote-ac-dbbackup --site=test1 dev
   [ "$status" -eq 0 ]
-  [ "${lines[1]}" = "Task completed." ]
+  [ "${lines[4]}" = "Task completed." ]
 }
