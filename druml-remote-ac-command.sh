@@ -37,6 +37,9 @@ echo "$COMMAND"
 OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS $COMMAND" 2>&1)
 RESULT="$?"
 TASK=$(echo $OUTPUT | awk '{print $2}')
+if [[ $TASK == ":" ]]; then
+  TASK=$(echo $OUTPUT | awk '{print $3}')
+fi
 
 # Eixt upon an error.
 if [[ $RESULT > 0 ]]; then
