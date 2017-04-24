@@ -37,14 +37,13 @@ echo "$COMMAND"
 OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS $COMMAND" 2>&1)
 RESULT="$?"
 TASK=$(echo $OUTPUT | awk '{print $2}')
-echo "$OUTPUT"
 
 # Eixt upon an error.
 if [[ $RESULT > 0 ]]; then
   echo "Error executing command."
   exit 1
 fi
-echo "Command execution scheduled."
+echo "Command execution scheduled, task id is $TASK."
 
 # Check task status.
 run_script remote-ac-status $PROXY_PARAM_SERVER $ENV $TASK
