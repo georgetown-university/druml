@@ -58,26 +58,27 @@ Here are some example of how you can use *Druml* in your deployment and developm
 AVAILABLE COMMANDS
 -----
 ```
-  local-dbsync             Syncs a subsite DB from a remote env to a local one
-  local-listupdate         Updates a list file that contains subsites
-  local-keysupdate         Updates known hosts file with SSH keys from remote servers
-  local-samlsign           Signes SAML metadata file
-  local-sitesync           Syncs a subsite (DB and files) from a remote env to a
-                           local one
-  remote-ac-codedeploy     Deploys code from one environment to another
-  remote-ac-codepathdeploy Deployes a tag/branch to the specific enviornment
-  remote-ac-command        Executes Acquia command and checks status of it
-  remote-ac-dbbackup       Backup a DB
-  remote-ac-dbsync         Syncs a subsite DB from one env to another
-  remote-ac-olddbbackupsrm Removes old DB backups
-  remote-ac-sitesync       Syncs a subsite (DB and fies) from one env to another
-  remote-ac-status         Waits until the task is completed
-  remote-ac-tagget         Returns tag or branch associated with environment
-  remote-bash              Performs arbitrary bash commands for a specific env
-  remote-drush             Performs arbitrary drush commands for a specific subsite
-  remote-filesync          Syncs subsite fies from one env to another
-  remote-memcacheflush     Syncs subsite fies from one env to another
-  remote-php               Performs a php code for a specific subsite
+  local-dbsync                Syncs a subsite DB from a remote env to a local one
+  local-listupdate            Updates a list file that contains subsites
+  local-keysupdate            Updates known hosts file with SSH keys from remote servers
+  local-samlsign              Signes SAML metadata file
+  local-sitesync              Syncs a subsite (DB and files) from a remote env to a
+                              local one
+  remote-ac-codedeploy        Deploys code from one environment to another
+  remote-ac-codepathdeploy    Deployes a tag/branch to the specific enviornment
+  remote-ac-command           Executes Acquia command and checks status of it
+  remote-ac-dbbackup          Backup a DB
+  remote-ac-dbsync            Syncs a subsite DB from one env to another
+  remote-ac-olddbbackupsrm    Removes old DB backups
+  remote-ac-restorefrombackup Restores DB from recent backup
+  remote-ac-sitesync          Syncs a subsite (DB and fies) from one env to another
+  remote-ac-status            Waits until the task is completed
+  remote-ac-tagget            Returns tag or branch associated with environment
+  remote-bash                 Performs arbitrary bash commands for a specific env
+  remote-drush                Performs arbitrary drush commands for a specific subsite
+  remote-filesync             Syncs subsite fies from one env to another
+  remote-memcacheflush        Syncs subsite fies from one env to another
+  remote-php                  Performs a php code for a specific subsite
 ```
 Check `druml --help` or `druml <command> --help` for more information.
 
