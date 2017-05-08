@@ -13,7 +13,7 @@ then
   echo "usage: druml remote-ac-restorefrombackup [--config=<path>] [--docroot=<path>]"
   echo "                                         [--jobs=<number>] [--delay=<seconds>]"
   echo "                                         --site=<subsite> | --list=<list>"
-  echo "                                         [--type=<ondemand|daily>]"
+  echo "                                         [--type=ondemand|daily]"
   echo "                                         [--server=<number>]"
   echo "                                         <environment>"
   exit 1
