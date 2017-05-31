@@ -62,7 +62,6 @@ drush:
   # Specify drush command
   # command: drush6
 
-
 # Lists of sites. Each site name should go in the new line in the lists file.
 list:
   all: default-sites.txt

@@ -22,6 +22,7 @@ ENV=$(get_environment ${ARG[1]})
 # Set variables.
 SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
+DEFAULT_SITE=$(get_site_alias)
 
 # Read variables and form commands to execute.
 echo "=== Flush memcache on the $ENV environment"
@@ -29,7 +30,7 @@ echo ""
 
 DOCROOT=$(get_remote_docroot $ENV $PARAM_SERVER)
 
-OUTPUT=$(ssh -Tn $SSH_ARGS "cd $DOCROOT && drush vget memcache_servers" 2>&1)
+OUTPUT=$(ssh -Tn $SSH_ARGS "cd $DOCROOT && drush -l $DEFAULT_SITE vget memcache_servers" 2>&1)
 RESULT="$?"
 
 # Eixt upon an error.
