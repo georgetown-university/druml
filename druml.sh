@@ -1,9 +1,5 @@
 #!/bin/bash
 
-
-# Set unique task id.
-TASK_ID="$(date +%F-%H-%M-%S)-$RANDOM"
-
 # Get Druml dir.
 SCRIPT_DIR=$(cd "$(dirname "$(test -L "$0" && readlink "$0" || echo "$0")")" && pwd)
 
