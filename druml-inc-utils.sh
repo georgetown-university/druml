@@ -386,6 +386,17 @@ get_site_alias() {
   fi
 }
 
+# Get default site.
+get_default_site() {
+  CONF_VAR="CONF_DRUSH_DEFAULT"
+  if [[ -n ${!CONF_VAR} ]]
+  then
+    echo "${!CONF_VAR}"
+  else
+    echo "default"
+  fi
+}
+
 # Get log file.
 log_get_file() {
   LOG_FILE=""
