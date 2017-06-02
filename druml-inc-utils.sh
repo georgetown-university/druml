@@ -387,7 +387,7 @@ get_site_alias() {
 }
 
 # Get default site.
-get_site_alias() {
+get_default_site() {
   CONF_VAR="CONF_DRUSH_DEFAULT"
   if [[ -n ${!CONF_VAR} ]]
   then

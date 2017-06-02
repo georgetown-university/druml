@@ -22,7 +22,7 @@ ENV=$(get_environment ${ARG[1]})
 # Set variables.
 SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 DRUSH_ALIAS=$(get_drush_alias $ENV)
-DEFAULT_SITE=$(get_site_alias)
+DEFAULT_SITE=$(get_default_site)
 
 # Read variables and form commands to execute.
 echo "=== Flush memcache on the $ENV environment"
