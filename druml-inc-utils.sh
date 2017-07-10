@@ -492,7 +492,6 @@ log_command_failed() {
       OUTPUT="$OUTPUT\n$LINE"
     done < "$LOG_TASK_FILE"
     OUTPUT=$(echo -e "$OUTPUT")
-    echo "$OUTPUT" > /tmp/yo.txt
 
     mail -s "Druml script execution" $CONF_MISC_LOG_EMAIL <<< "$OUTPUT"
   fi
