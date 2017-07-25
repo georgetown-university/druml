@@ -251,7 +251,7 @@ get_ssh_args() {
   fi
   _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
   _V_USER="CONF_SERVER_DATA_${1}_${_I}_USER"
-  echo "-v -o ConnectTimeout=10 ${!_V_USER}@${!_V_HOST}"
+  echo "-o ConnectTimeout=10 ${!_V_USER}@${!_V_HOST}"
 }
 
 # Get remote host.
