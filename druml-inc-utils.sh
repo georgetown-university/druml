@@ -251,7 +251,7 @@ get_ssh_args() {
   fi
   _V_HOST="CONF_SERVER_DATA_${1}_${_I}_HOST"
   _V_USER="CONF_SERVER_DATA_${1}_${_I}_USER"
-  echo "${!_V_USER}@${!_V_HOST}"
+  echo "-v -o ConnectTimeout=10 ${!_V_USER}@${!_V_HOST}"
 }
 
 # Get remote host.
@@ -497,12 +497,39 @@ log_command_failed() {
   fi
 }
 
-# Log Durml output.
+# Log Druml output.
 log_output() {
   LOG_TASK_FILE=$(log_get_task_file)
   if [[ ${LOG_FILE} ]]
   then
     exec > >(tee -i $LOG_TASK_FILE)
     exec 2>&1
+  fi
+}
+
+# Get log file.
+log_get_file_debug() {
+  LOG_FILE=""
+  if [ ${CONF_MISC_LOG_DIR} ] && [ ${CONF_MISC_LOG_FILE} ]
+  then
+    if [ ! -d "${CONF_MISC_LOG_DIR}" ]
+    then
+      mkdir ${CONF_MISC_LOG_DIR}
+    fi
+    LOG_FILE="${CONF_MISC_LOG_DIR}/${CONF_MISC_LOG_FILE_DEBUG}"
+  fi
+  echo $LOG_FILE
+}
+
+# Log Druml command.
+log_debug() {
+  _CONFIG_DIR=$(get_config_dir)
+
+  OP=$(echo $(hostname) $USER [${TASK_ID}] \"$_CONFIG_DIR\" "${@}")
+
+  LOG_FILE=$(log_get_file_debug)
+  if [[ ${LOG_FILE} ]]
+  then
+    echo $OP >> ${LOG_FILE}
   fi
 }

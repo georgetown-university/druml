@@ -42,7 +42,7 @@ then
   echo "  remote-ac-command           Executes Acquia command and checks status of it"
   echo "  remote-ac-dbbackup          Backup a DB"
   echo "  remote-ac-dbsync            Syncs a subsite DB from one env to another"
-  echo "  remote-ac-olddbbackupsrm    Removes old DB backups"
+  echo "  remote-ac-oldbackupsrm      Removes old DB backups"
   echo "  remote-ac-restorefrombackup Restores DB from recent backup"
   echo "  remote-ac-sitesync          Syncs a subsite (DB and fies) from one env to another"
   echo "  remote-ac-status            Waits until the task is completed"
