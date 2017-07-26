@@ -29,6 +29,11 @@ SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 # Check task status every 20 seconds during 10 minutes.
 I=0;
 while [ $I -lt 1200 ]; do
+
+  # Sleep random amount of time from 18 to 22 seconds
+  sleep 18;
+  _MULTIPLIER=4; _RND=$RANDOM*$_MULTIPLIER/32767; _RND=$(echo "scale=5; $_RND" | bc); sleep $_RND
+
   OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-task-info $TASK" 2>&1)
   RESULT="$?"
 
@@ -50,7 +55,6 @@ while [ $I -lt 1200 ]; do
     fi
   done <<< "$OUTPUT"
   let I=$I+20;
-  sleep 20;
 done
 
 echo "Task failed beause of timeout, last state: $STATE."

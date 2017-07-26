@@ -83,7 +83,9 @@ iterate_script() {
     for _SUBSITE in `cat $_LISTFILE`
     do
       _PROXY_PARAM_SERVER="--server=$_I" # in get_ssh_args and other functions we will get division reminder by the server count
-      sleep 0.02 && {
+      # Generate rnadom number from 0 to 0.5 and sleep that amount of time.
+      _MULTIPLIER=0.5; _RND=$RANDOM*$_MULTIPLIER/32767; _RND=$(echo "scale=5; $_RND" | bc);
+      sleep $_RND && {
         _OUTPUT="$(run_script_stashed $_COMMAND --site=$_SUBSITE "${@}" $_PROXY_PARAM_SERVER)"
         _RESULT="$?"
 
