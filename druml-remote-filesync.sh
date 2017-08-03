@@ -26,6 +26,8 @@ ENV_TO=$(get_environment ${ARG[2]})
 # Set variables.
 SSH_ARGS_FROM=$(get_ssh_args $ENV_FROM $PARAM_SERVER)
 SSH_ARGS_TO=$(get_ssh_args $ENV_TO)
+RSYNC_ARGS_FROM=$(get_rsync_args $ENV_FROM $PARAM_SERVER)
+RSYNC_ARGS_TO=$(get_rsync_args $ENV_TO)
 DOCROOT_FROM=$(get_remote_docroot $ENV_FROM $PARAM_SERVER)
 DOCROOT_TO=$(get_remote_docroot $ENV_TO)
 DRUSH_ALIAS_FROM=$(get_drush_alias $ENV_FROM)
@@ -44,14 +46,14 @@ if [[ $? > 0 ]]; then
   exit 1
 fi
 
-rsync -a $SSH_ARGS_FROM:$DOCROOT_FROM/sites/$SUBSITE/files/ $FILES_DIR 2>&1
+rsync -a $RSYNC_ARGS_FROM:$DOCROOT_FROM/sites/$SUBSITE/files/ $FILES_DIR 2>&1
 if [[ $? > 0 ]]; then
   echo "Can not sync files from $ENV_FROM."
   exit 1
 fi
 
 # ssh -Tn $SSH_ARGS_TO "mkdir ${DOCROOT_TO}/sites/$SUBSITE/"
-rsync -a $FILES_DIR/* $SSH_ARGS_TO:$DOCROOT_TO/sites/$SUBSITE/files/ 2>&1
+rsync -a $FILES_DIR/* $RSYNC_ARGS_TO:$DOCROOT_TO/sites/$SUBSITE/files/ 2>&1
 if [[ $? > 0 ]]; then
   echo "Can not sync files to $ENV_TO."
   exit 1
