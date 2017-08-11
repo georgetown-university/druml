@@ -5,6 +5,14 @@
   [ "$status" -eq 0 ]
 }
 
+@test "update SSH keys" {
+  run ../druml.sh local-keysupdate prod
+  [ "$status" -eq 0 ]
+  run ../druml.sh local-keysupdate stg
+  [ "$status" -eq 0 ]
+  run ../druml.sh local-keysupdate dev
+  [ "$status" -eq 0 ]
+}
 
 @test "run druml without parameters" {
   run ../druml.sh
@@ -137,7 +145,6 @@
   [ "$status" -eq 0 ]
   [ "${lines[1]}" = "master" ]
 }
-
 
 @test "perform test1 DB backup on Acquia Cloud on DEV environment" {
   run ../druml.sh remote-ac-dbbackup --site=test1 dev
