@@ -1,2 +1,2 @@
-$node = node_load(1);
-echo $node->title;
+$node =  \Drupal\node\Entity\Node::load(1);
+echo $node->getTitle();

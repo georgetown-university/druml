@@ -113,9 +113,9 @@
 }
 
 @test "run drush command for a single site" {
-  run ../druml.sh remote-drush --site=default dev "cc all"
+  run ../druml.sh remote-drush --site=default dev "cr"
   [ "$status" -eq 0 ]
-  [ $(expr "${lines[5]}" : "'all' cache was cleared.") -ne 0 ]
+  [ $(expr "${lines[5]}" : "Cache rebuild complete.") -ne 0 ]
 }
 
 @test "run bash command" {
