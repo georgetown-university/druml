@@ -33,8 +33,9 @@ environment:
 
 drush:
   alias:
-    test: @drupal7druml.test
-    dev: @drupal7druml.dev
+    prod: @gtowndc.prod
+    test: @gtowndc.test
+    dev: @gtowndc.dev
 
 list:
   all: list/all.txt
@@ -47,19 +48,19 @@ server:
 
   data:
     prod_0:
-      user: drupal7druml.prod
-      host: free-6255.devcloud.hosting.acquia.com
-      docroot: /var/www/html/drupal7druml.prod/docroot
-      log: /var/log/sites/drupal7druml/logs/web-3687
+      user: gtowndc.prod
+      host: gtowndc.ssh.prod.acquia-sites.com
+      docroot: /var/www/html/gtowndc.prod/docroot
+      log: /var/log/sites/gtowndc/logs/ded-5779
 
     test_0:
-      user: drupal7druml.test
-      host: free-6255.devcloud.hosting.acquia.com
-      docroot: /var/www/html/drupal7druml.test/docroot
-      log: /var/log/sites/drupal7druml.test/logs/staging-3689
+      user: gtowndc.test
+      host: gtowndcstg.ssh.prod.acquia-sites.com
+      docroot: /var/www/html/gtowndc.test/docroot
+      log: /var/log/sites/gtowndc.test/logs/staging-7892/
 
     dev_0:
-      user: drupal7druml.dev
-      host: free-6255.devcloud.hosting.acquia.com
-      docroot: /var/www/html/drupal7druml.dev/docroot
-      log: /var/log/sites/drupal7druml.dev/logs/staging-3689
+      user: gtowndc.dev
+      host: gtowndcdev.ssh.prod.acquia-sites.com
+      docroot: /var/www/html/gtowndc.dev/docroot
+      log: /var/log/sites/gtowndc.dev/logs/staging-7892
