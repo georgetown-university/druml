@@ -30,7 +30,7 @@ SSH_ARGS=$(get_ssh_args $ENV $PARAM_SERVER)
 DRUSH_SUBSITE_ARGS=$(get_drush_subsite_args $SUBSITE)
 DAYS_OLD=$PARAM_DAYS_OLD
 
-if [[ $DAYS_OLD < 1 ]];  then
+if [[ -z "$DAYS_OLD" ]];  then
   DAYS_OLD=180
 fi
 
@@ -68,7 +68,7 @@ while read -r LINE; do
       STARTED=$VAL
       if [[ "$TYPE" = "ondemand" ]]; then
         ((DIFF = ($NOW - $STARTED) / 86400 ))
-        if (( DIFF > $DAYS_OLD )); then
+        if (( DIFF >= $DAYS_OLD )); then
           echo "Removing on demand DB backup, ID=$ID, STARTED=$STARTED."
           RM_OUTPUT=$(ssh -Tn $SSH_ARGS "$DRUSH $DRUSH_ALIAS ac-database-instance-backup-delete $SUBSITE $ID" 2>&1)
           RM_RESULT="$?"
