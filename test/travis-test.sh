@@ -1,5 +1,8 @@
 #!/bin/bash
 cd test
-../druml.sh local-keysupdate dev
-../druml.sh remote-drush --site=default dev "cr"
+
+# Test connection to the servers.
+./test-connection.sh
+
+# Run tests.
 ../bats/bin/bats test.bats 
